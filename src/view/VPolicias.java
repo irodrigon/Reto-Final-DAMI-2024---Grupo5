@@ -62,7 +62,9 @@ public class VPolicias extends JFrame {
 		
 		JLabel lblDni = new JLabel("DNI: " + p.getDni());
 		lblDni.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
+
 		lblDni.setBounds(82, 499, 285, 32);
+
 		contentPane.add(lblDni);
 		
 		JLabel lblNombre = new JLabel("Nombre: " + p.getNombre());
@@ -72,12 +74,16 @@ public class VPolicias extends JFrame {
 		
 		JLabel lblApellido = new JLabel("Apellido: " + p.getApellido());
 		lblApellido.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
+
 		lblApellido.setBounds(82, 583, 285, 32);
+
 		contentPane.add(lblApellido);
 		
 		JLabel lblRango = new JLabel("Rango: " + p.getRango());
 		lblRango.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
+
 		lblRango.setBounds(82, 625, 285, 32);
+
 		contentPane.add(lblRango);
 	}
 
