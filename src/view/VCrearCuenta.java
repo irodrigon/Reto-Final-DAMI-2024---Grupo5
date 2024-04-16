@@ -1,0 +1,141 @@
+package view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import controller.Controller;
+
+import javax.swing.Box;
+import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
+public class VCrearCuenta extends JFrame implements ActionListener {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textFieldNombre;
+	private JTextField textFieldApellido;
+	private JPasswordField passwordField;
+	private JTextField textFieldUsuario;
+	private JButton btnSubirFoto;
+	private JFileChooser fileChooser;
+	private JButton btnCancelar;
+	private JLabel lblNewLabel_4;
+	private JPasswordField passwordField_1;
+	private Controller c;
+
+	/**
+	 * Launch the application.
+	 */
+
+	/**
+	 * Create the frame.
+	 */
+	public VCrearCuenta(Controller c) {
+		this.c = c;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(530, 250, 884, 505);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		Box verticalBox = Box.createVerticalBox();
+		verticalBox.setBounds(218, 10, 0, 0);
+		contentPane.add(verticalBox);
+
+		textFieldNombre = new JTextField();
+		textFieldNombre.setBounds(334, 114, 130, 19);
+		contentPane.add(textFieldNombre);
+		textFieldNombre.setColumns(10);
+
+		textFieldApellido = new JTextField();
+		textFieldApellido.setBounds(334, 156, 130, 19);
+		contentPane.add(textFieldApellido);
+		textFieldApellido.setColumns(10);
+
+		passwordField = new JPasswordField();
+		passwordField.setBounds(334, 242, 130, 19);
+		contentPane.add(passwordField);
+
+		JLabel lblContrasena = new JLabel("Introduce la contraseña:");
+		lblContrasena.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblContrasena.setBounds(60, 225, 184, 47);
+		contentPane.add(lblContrasena);
+
+		JLabel lblNewLabel_1 = new JLabel("Introduce tu primer apellido:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_1.setBounds(60, 153, 218, 19);
+		contentPane.add(lblNewLabel_1);
+
+		JLabel lblNewLabel_2 = new JLabel("Introduce tu nombre:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_2.setBounds(60, 103, 199, 35);
+		contentPane.add(lblNewLabel_2);
+
+		JLabel lblNewLabel = new JLabel("REGISTRO DE USUARIO");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel.setBounds(299, 30, 276, 35);
+		contentPane.add(lblNewLabel);
+
+		JLabel lblNewLabel_3 = new JLabel("Introduce tu usuario:");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_3.setBounds(60, 196, 171, 19);
+		contentPane.add(lblNewLabel_3);
+
+		textFieldUsuario = new JTextField();
+		textFieldUsuario.setBounds(334, 199, 130, 19);
+		contentPane.add(textFieldUsuario);
+		textFieldUsuario.setColumns(10);
+
+		btnSubirFoto = new JButton("Subir foto");
+		btnSubirFoto.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnSubirFoto.setBounds(616, 329, 143, 21);
+		contentPane.add(btnSubirFoto);
+
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnCancelar.setBounds(33, 429, 157, 29);
+		contentPane.add(btnCancelar);
+		btnCancelar.addActionListener(this);
+
+		lblNewLabel_4 = new JLabel("Vuelve a introducir la contraseña:");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_4.setBounds(60, 282, 258, 19);
+		contentPane.add(lblNewLabel_4);
+
+		passwordField_1 = new JPasswordField();
+		passwordField_1.setBounds(334, 285, 130, 19);
+		contentPane.add(passwordField_1);
+		btnSubirFoto.addActionListener(this);
+		
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if ((e.getSource() == btnSubirFoto)) {
+
+			fileChooser = new JFileChooser();
+			fileChooser.showOpenDialog(this);
+		} else if ((e.getSource() == btnCancelar)) {
+			VEntrada vE = new VEntrada(c);
+			vE.setVisible(true);
+			this.dispose();
+		
+
+		}
+	}
+}
