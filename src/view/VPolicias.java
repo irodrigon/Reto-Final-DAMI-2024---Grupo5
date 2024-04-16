@@ -45,7 +45,7 @@ public class VPolicias extends JFrame {
 		aBlob = p.getFotografia();
 		
 		JLabel lblFoto = new JLabel("");
-		lblFoto.setBounds(239, 33, 321, 411);
+		lblFoto.setBounds(22, 10, 110, 160);
 		try {
 			InputStream is;
 			is = aBlob.getBinaryStream(1, aBlob.length());
@@ -62,22 +62,22 @@ public class VPolicias extends JFrame {
 		
 		JLabel lblDni = new JLabel("DNI: " + p.getDni());
 		lblDni.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblDni.setBounds(82, 499, 285, 32);
+		lblDni.setBounds(142, 10, 285, 32);
 		contentPane.add(lblDni);
 		
 		JLabel lblNombre = new JLabel("Nombre: " + p.getNombre());
 		lblNombre.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblNombre.setBounds(82, 541, 285, 32);
+		lblNombre.setBounds(142, 52, 285, 32);
 		contentPane.add(lblNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido: " + p.getApellido());
 		lblApellido.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblApellido.setBounds(82, 583, 285, 32);
+		lblApellido.setBounds(142, 94, 285, 32);
 		contentPane.add(lblApellido);
 		
 		JLabel lblRango = new JLabel("Rango: " + p.getRango());
 		lblRango.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblRango.setBounds(82, 625, 285, 32);
+		lblRango.setBounds(142, 136, 285, 32);
 		contentPane.add(lblRango);
 	}
 
