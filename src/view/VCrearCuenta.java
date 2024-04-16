@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 public class VCrearCuenta extends JFrame implements ActionListener {
 
@@ -45,6 +46,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public VCrearCuenta(Controller c) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 884, 505);

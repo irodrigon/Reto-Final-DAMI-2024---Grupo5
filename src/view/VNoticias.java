@@ -24,6 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 public class VNoticias extends JFrame implements ActionListener {
 
@@ -42,6 +43,7 @@ public class VNoticias extends JFrame implements ActionListener {
 	private JLabel lblDescripcion;
 	private JLabel lblBienvenida;
 	public VNoticias(Controller c) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
 
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

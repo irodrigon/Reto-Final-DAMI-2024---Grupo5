@@ -36,6 +36,7 @@ public class VEntrada extends JFrame implements ActionListener {
 	private String pass;
 
 	public VEntrada(Controller c) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
 
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
