@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import java.awt.Color;
 
 public class VEntrada extends JFrame implements ActionListener{
 
@@ -37,45 +38,52 @@ public class VEntrada extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 884, 505);
 		contentPane = new JPanel();
+		//contentPane.setBackground(("C:/Users/1dami/retofinalg5/fotos/fondoPolicia.jpg"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblUsuario.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		lblUsuario.setBounds(130, 69, 187, 28);
 		contentPane.add(lblUsuario);
 		
 		textFieldUser = new JTextField();
+		textFieldUser.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		textFieldUser.setBounds(347, 69, 473, 27);
 		contentPane.add(textFieldUser);
 		textFieldUser.setColumns(10);
 		
 		passField = new JPasswordField();
+		passField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		passField.setBounds(347, 141, 473, 28);
 		contentPane.add(passField);
 		
 		JLabel lblPassword = new JLabel("Contraseña:");
-		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblPassword.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		lblPassword.setBounds(130, 138, 187, 28);
 		contentPane.add(lblPassword);
 		
 		
 		JLabel lblBienvenida = new JLabel("BIENVENIDO, AGENTE.");
-		lblBienvenida.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblBienvenida.setBounds(380, 0, 187, 25);
+		lblBienvenida.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
+		lblBienvenida.setBounds(347, 10, 255, 25);
 		contentPane.add(lblBienvenida);
 		
-		btnEntrar = new JButton("Entrar");
-		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnEntrar = new JButton("ENTRAR");
+		btnEntrar.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		btnEntrar.setBounds(347, 247, 220, 42);
 		contentPane.add(btnEntrar);
+		btnEntrar.setOpaque(true);
+		btnEntrar.setBorderPainted(false);
 		
-		btnNews = new JButton("Noticias");
-		btnNews.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnNews = new JButton("NOTICIAS");
+		btnNews.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		btnNews.setBounds(130, 314, 690, 74);
 		contentPane.add(btnNews);
+		btnNews.setBorderPainted(false);
+		btnNews.setBackground(Color.GRAY);
 		
 		lblIncorrecto = new JLabel("",SwingConstants.CENTER);
 		lblIncorrecto.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));

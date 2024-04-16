@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class VCrearCuenta extends JFrame implements ActionListener {
 
@@ -46,6 +48,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 884, 505);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 128, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -56,31 +59,31 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(verticalBox);
 
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(334, 114, 130, 19);
+		textFieldNombre.setBounds(376, 114, 130, 19);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 
 		textFieldApellido = new JTextField();
-		textFieldApellido.setBounds(334, 156, 130, 19);
+		textFieldApellido.setBounds(376, 156, 130, 19);
 		contentPane.add(textFieldApellido);
 		textFieldApellido.setColumns(10);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(334, 242, 130, 19);
+		passwordField.setBounds(376, 242, 130, 19);
 		contentPane.add(passwordField);
 
 		JLabel lblContrasena = new JLabel("Introduce la contraseña:");
-		lblContrasena.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblContrasena.setBounds(60, 225, 184, 47);
+		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblContrasena.setBounds(60, 225, 215, 47);
 		contentPane.add(lblContrasena);
 
 		JLabel lblNewLabel_1 = new JLabel("Introduce tu primer apellido:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_1.setBounds(60, 153, 218, 19);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_1.setBounds(60, 153, 264, 19);
 		contentPane.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Introduce tu nombre:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel_2.setBounds(60, 103, 199, 35);
 		contentPane.add(lblNewLabel_2);
 
@@ -90,16 +93,18 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_3 = new JLabel("Introduce tu usuario:");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_3.setBounds(60, 196, 171, 19);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_3.setBounds(60, 196, 199, 19);
 		contentPane.add(lblNewLabel_3);
 
 		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(334, 199, 130, 19);
+		textFieldUsuario.setBounds(376, 199, 130, 19);
 		contentPane.add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 
 		btnSubirFoto = new JButton("Subir foto");
+		btnSubirFoto.setBackground(new Color(0, 0, 0));
+		btnSubirFoto.setForeground(new Color(0, 0, 0));
 		btnSubirFoto.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnSubirFoto.setBounds(616, 329, 143, 21);
 		contentPane.add(btnSubirFoto);
@@ -111,12 +116,12 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		btnCancelar.addActionListener(this);
 
 		lblNewLabel_4 = new JLabel("Vuelve a introducir la contraseña:");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_4.setBounds(60, 282, 258, 19);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_4.setBounds(60, 282, 306, 19);
 		contentPane.add(lblNewLabel_4);
 
 		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(334, 285, 130, 19);
+		passwordField_1.setBounds(376, 285, 130, 19);
 		contentPane.add(passwordField_1);
 		btnSubirFoto.addActionListener(this);
 		
