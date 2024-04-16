@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import controller.Controller;
 
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -73,26 +74,31 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(passwordField);
 
 		JLabel lblContrasena = new JLabel("Introduce la contraseña:");
+		lblContrasena.setForeground(new Color(255, 255, 255));
 		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblContrasena.setBounds(60, 225, 215, 47);
 		contentPane.add(lblContrasena);
 
 		JLabel lblNewLabel_1 = new JLabel("Introduce tu primer apellido:");
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel_1.setBounds(60, 153, 264, 19);
 		contentPane.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Introduce tu nombre:");
+		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel_2.setBounds(60, 103, 199, 35);
 		contentPane.add(lblNewLabel_2);
 
 		JLabel lblNewLabel = new JLabel("REGISTRO DE USUARIO");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblNewLabel.setBounds(299, 30, 276, 35);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_3 = new JLabel("Introduce tu usuario:");
+		lblNewLabel_3.setForeground(new Color(255, 255, 255));
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel_3.setBounds(60, 196, 199, 19);
 		contentPane.add(lblNewLabel_3);
@@ -103,19 +109,21 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		textFieldUsuario.setColumns(10);
 
 		btnSubirFoto = new JButton("Subir foto");
-		btnSubirFoto.setBackground(new Color(0, 0, 0));
+		btnSubirFoto.setBackground(new Color(0, 0, 160));
 		btnSubirFoto.setForeground(new Color(0, 0, 0));
 		btnSubirFoto.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnSubirFoto.setBounds(616, 329, 143, 21);
+		btnSubirFoto.setBounds(616, 329, 157, 35);
 		contentPane.add(btnSubirFoto);
 
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBackground(new Color(0, 0, 160));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnCancelar.setBounds(33, 429, 157, 29);
 		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(this);
 
 		lblNewLabel_4 = new JLabel("Vuelve a introducir la contraseña:");
+		lblNewLabel_4.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel_4.setBounds(60, 282, 306, 19);
 		contentPane.add(lblNewLabel_4);
@@ -123,6 +131,13 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		passwordField_1 = new JPasswordField();
 		passwordField_1.setBounds(376, 285, 130, 19);
 		contentPane.add(passwordField_1);
+		
+		JLabel lblFotoRegistro = new JLabel("");
+		lblFotoRegistro.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblFotoRegistro.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPolicia2.jpg")));
+		lblFotoRegistro.setBounds(-12, 0, 1493, 485);
+		contentPane.add(lblFotoRegistro);
+		
 		btnSubirFoto.addActionListener(this);
 		
 

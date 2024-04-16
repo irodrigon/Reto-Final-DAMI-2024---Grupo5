@@ -45,7 +45,7 @@ public class VNoticias extends JFrame implements ActionListener {
 
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(530, 50, 900, 900);
+		setBounds(530, 50, 884, 505);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -53,37 +53,37 @@ public class VNoticias extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		lblFoto = new JLabel("");
-		lblFoto.setBounds(29, 65, 805, 543);
+		lblFoto.setBounds(180, 74, 455, 275);
 		contentPane.add(lblFoto);
 		
 		lblTitulo = new JLabel("",SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblTitulo.setBounds(29, 630, 845, 27);
+		lblTitulo.setBounds(28, 359, 777, 27);
 		contentPane.add(lblTitulo);
 		
 		lblDescripcion = new JLabel("");
 		lblDescripcion.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		lblDescripcion.setBounds(29, 690, 805, 86);
+		lblDescripcion.setBounds(108, 378, 793, 43);
 		contentPane.add(lblDescripcion);
 		
 		lblBienvenida = new JLabel("NOTICIAS");
 		lblBienvenida.setFont(new Font("Dialog", Font.BOLD, 37));
-		lblBienvenida.setBounds(349, 10, 210, 54);
+		lblBienvenida.setBounds(311, 10, 210, 54);
 		contentPane.add(lblBienvenida);
 
 		btnAnterior = new JButton("Anterior");
 		btnAnterior.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnAnterior.setBounds(29, 799, 167, 37);
+		btnAnterior.setBounds(80, 431, 167, 37);
 		contentPane.add(btnAnterior);
 
 		btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnSiguiente.setBounds(667, 799, 167, 37);
+		btnSiguiente.setBounds(620, 431, 167, 37);
 		contentPane.add(btnSiguiente);
 
 		btnAtras = new JButton("Atrás");
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnAtras.setBounds(349, 799, 167, 37);
+		btnAtras.setBounds(354, 431, 167, 37);
 		contentPane.add(btnAtras);
 
 		news = c.showNews();
