@@ -146,7 +146,8 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if ((e.getSource() == btnSubirFoto)) {
+		Object o = e.getSource();
+		if ( o == btnSubirFoto) {
 
 			fileChooser = new JFileChooser();
 			fileChooser.showOpenDialog(this);
