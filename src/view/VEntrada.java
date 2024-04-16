@@ -48,6 +48,7 @@ public class VEntrada extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		JLabel lblUsuario = new JLabel("Usuario:");
+		lblUsuario.setForeground(new Color(255, 255, 255));
 		lblUsuario.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		lblUsuario.setBounds(130, 69, 187, 28);
 		contentPane.add(lblUsuario);
@@ -64,11 +65,13 @@ public class VEntrada extends JFrame implements ActionListener {
 		contentPane.add(passField);
 
 		JLabel lblPassword = new JLabel("Contraseña:");
+		lblPassword.setForeground(new Color(255, 255, 255));
 		lblPassword.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		lblPassword.setBounds(130, 138, 187, 28);
 		contentPane.add(lblPassword);
 
 		JLabel lblBienvenida = new JLabel("BIENVENIDO, AGENTE.");
+		lblBienvenida.setForeground(new Color(255, 255, 255));
 		lblBienvenida.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		lblBienvenida.setBounds(347, 10, 255, 25);
 		contentPane.add(lblBienvenida);
@@ -93,8 +96,8 @@ public class VEntrada extends JFrame implements ActionListener {
 		contentPane.add(lblIncorrecto);
 		
 		JLabel lblFoto = new JLabel("");
-		lblFoto.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPolicia.jpg")));
-		lblFoto.setBounds(0, 10, 870, 468);
+		lblFoto.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPolicia2.jpg")));
+		lblFoto.setBounds(-12, 0, 1493, 485);
 		contentPane.add(lblFoto);
 
 		btnNews.addActionListener(this);
