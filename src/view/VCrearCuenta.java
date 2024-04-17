@@ -136,8 +136,8 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		
 		JLabel lblFotoRegistro = new JLabel("");
 		lblFotoRegistro.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblFotoRegistro.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPolicia2.jpg")));
-		lblFotoRegistro.setBounds(-12, 0, 1493, 485);
+		lblFotoRegistro.setIcon(new ImageIcon(VCrearCuenta.class.getResource("/fotos/fondoPolicia3.jpg")));
+		lblFotoRegistro.setBounds(-552, 121, 1493, 485);
 		contentPane.add(lblFotoRegistro);
 		
 		btnSubirFoto.addActionListener(this);
