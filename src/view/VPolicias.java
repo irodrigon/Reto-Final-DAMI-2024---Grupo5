@@ -18,12 +18,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 import javax.swing.JButton;
 import model.Criminal;
@@ -91,7 +93,9 @@ public class VPolicias extends JFrame implements ActionListener{
 		JLabel lblDni = new JLabel("DNI: " + p.getDni());
 		lblDni.setForeground(new Color(255, 255, 255));
 		lblDni.setFont(new Font("Dialog", Font.PLAIN, 17));
+
 		lblDni.setBounds(138, 10, 285, 32);
+
 		contentPane.add(lblDni);
 		
 		JLabel lblNombre = new JLabel("Nombre: " + p.getNombre());
@@ -112,6 +116,7 @@ public class VPolicias extends JFrame implements ActionListener{
 		lblRango.setBounds(142, 98, 285, 32);
 		contentPane.add(lblRango);
 		
+
 		lblFoto2 = new JLabel("");
 		lblFoto2.setBounds(738, 10, 106, 153);
 		
@@ -256,3 +261,4 @@ public class VPolicias extends JFrame implements ActionListener{
 		
 	}
 }
+
