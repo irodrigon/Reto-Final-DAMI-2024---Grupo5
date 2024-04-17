@@ -7,6 +7,9 @@ public class Criminal extends Persona{
 	private String descripcion;
 	private String dni_policia;
 	
+	public Criminal() {
+		
+	}
 	public Criminal(String dni, String nombre, String apellido, String password, Blob fotografia,String descripcion, String dni_policia) {
 		super(dni, nombre, apellido, password, fotografia);
 		// TODO Auto-generated constructor stub
