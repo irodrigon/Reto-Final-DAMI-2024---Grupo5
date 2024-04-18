@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import controller.Controller;
 import model.Policia;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -53,6 +55,7 @@ public class VPolicias extends JFrame implements ActionListener{
 	private JButton btnElegirArsenal;
 	private JButton btnModificar;
 	private JButton btnAtras;
+	private JButton btnEliminar;
 	
 	public VPolicias(Controller c, String dni,String pass) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VPolicias.class.getResource("/fotos/pixelart2.png")));
@@ -164,20 +167,24 @@ public class VPolicias extends JFrame implements ActionListener{
 		contentPane.add(lblDesc);
 		
 		btnVerArsenal = new JButton("Ver el arsenal disponible");
-		btnVerArsenal.setBounds(94, 417, 207, 23);
+		btnVerArsenal.setBounds(45, 352, 207, 23);
 		contentPane.add(btnVerArsenal);
 		
 		btnElegirArsenal = new JButton("Elegir Arsenal");
-		btnElegirArsenal.setBounds(662, 417, 182, 23);
+		btnElegirArsenal.setBounds(562, 417, 182, 23);
 		contentPane.add(btnElegirArsenal);
 		
 		btnModificar = new JButton("Modificar mi perfil");
-		btnModificar.setBounds(227, 489, 183, 23);
+		btnModificar.setBounds(165, 417, 183, 23);
 		contentPane.add(btnModificar);
 		
 		btnAtras = new JButton("Volver");
-		btnAtras.setBounds(476, 489, 200, 23);
+		btnAtras.setBounds(354, 489, 200, 23);
 		contentPane.add(btnAtras);
+		
+		btnEliminar = new JButton("Eliminar mi perfil");
+		btnEliminar.setBounds(651, 334, 207, 23);
+		contentPane.add(btnEliminar);
 		
 		JLabel lblFondo = new JLabel("");
 		lblFondo.setIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPolicia2.jpg")));
@@ -187,6 +194,8 @@ public class VPolicias extends JFrame implements ActionListener{
 		btnAnterior.addActionListener(this);
 		btnSiguiente.addActionListener(this);
 		btnAtras.addActionListener(this);
+		btnEliminar.addActionListener(this);
+		
 		
 		it = crims.listIterator();
 	}
@@ -252,7 +261,26 @@ public class VPolicias extends JFrame implements ActionListener{
 			VEntrada vE = new VEntrada(c);
 			vE.setVisible(true);
 			this.dispose();
-		}
+		}else if (o == btnEliminar) {
+			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar su perfil?");
+			if (option == JOptionPane.YES_OPTION) {
+				dni = p.getDni();
+				c.eliminarPolicia(dni);
+				JOptionPane.showMessageDialog(this,"Usuario eliminado correctamente. No podrá volver a utilizar su perfil.","Advertencia",JOptionPane.INFORMATION_MESSAGE);
+				btnElegirArsenal.setEnabled(false);
+				btnVerArsenal.setEnabled(false);
+				btnEliminar.setEnabled(false);
+				btnModificar.setEnabled(false);
+				btnSiguiente.setEnabled(false);
+				btnAnterior.setEnabled(false);
+			} else if (option == JOptionPane.NO_OPTION) {
+
+			} else if (option == JOptionPane.CANCEL_OPTION) {
+
+			} else if (option == JOptionPane.CLOSED_OPTION) {
+
+			}
 		
 	}
+}
 }

@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.Arsenal;
 import model.Criminal;
+import model.Elige;
 import model.News;
 import model.Policia;
 
@@ -19,6 +21,8 @@ public class Controller implements InterfaceController{
 	private final String RETURN_POLICEMAN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE contrasena = ? AND dni in (SELECT dni from policia WHERE dni = ?);";
 	private final String SHOW_POLICEMEN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia";
 	private final String SHOW_CRIMINAL_BY_POLICEMAN = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni WHERE dni_policia = ?";
+	private final String SHOW_ARSENAL = "SELECT * FROM ARSENAL";
+	private final String DELETE_PEOPLE = "DELETE FROM PERSONA WHERE dni=?";
 	
 	@Override
 	public Policia policeLogIn(String password, String dni) {
@@ -168,5 +172,105 @@ public class Controller implements InterfaceController{
 			}
 		}
 		return criminals;
+	}
+
+	@Override
+	public ArrayList<Arsenal> showArsenal() {
+		
+		con = DatabaseConnectionPolice.getConnection();
+		ResultSet rs = null;
+		Arsenal a= null;
+		ArrayList<Arsenal> weapons = new ArrayList<Arsenal>();
+
+		
+		
+		try {
+			stmt = con.prepareStatement(SHOW_ARSENAL);
+
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				a = new Arsenal();
+				a.setId_arsenal(rs.getInt("id_arsenal"));
+				a.setFoto_arsenal(rs.getBlob("fotografia_arsenal"));
+				a.setNombre(rs.getString("nombre"));
+				a.setTipo(rs.getString("tipo"));
+				a.setDescripcion(rs.getString("descripcion"));
+				weapons.add(a);
+			}
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
+				}
+			}
+		}
+
+		return weapons;
+	}
+
+	@Override
+	public ArrayList<Elige> weaponsAssigned(String dni_policia) {
+		con = DatabaseConnectionPolice.getConnection();
+		ResultSet rs = null;
+		Elige e = null;
+		ArrayList<Elige> search = new ArrayList<Elige>();
+		
+		try {
+			
+			stmt = con.prepareStatement(SHOW_CRIMINAL_BY_POLICEMAN);
+			stmt.setString(1, dni_policia);
+			
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				e.setId_arsenal(rs.getInt("id_arsenal"));
+				e.setDni_policia(rs.getString("dni_policia"));
+				search.add(e);
+			}
+		} catch (SQLException e2) {
+			System.out.println("Error de SQL");
+			e2.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
+				}
+			}
+		}
+		return search;
+	}
+
+	@Override
+	public boolean eliminarPolicia(String dni) {
+		
+		boolean cambios = false;
+		
+		con = DatabaseConnectionPolice.getConnection();
+		
+
+		try {
+			stmt = con.prepareStatement(DELETE_PEOPLE);
+
+			stmt.setString(1, dni);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		} 
+
+		return cambios;
 	}
 }
