@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
 import exceptions.ExceptionDni;
+import model.Administrador;
 import model.Policia;
 
 import javax.swing.JLabel;
@@ -43,6 +44,8 @@ public class VEntrada extends JFrame implements ActionListener {
 	private String dni;
 	private JLabel lblIncorrecto;
 	private String pass;
+	private Administrador admin;
+	private String adminDni;
 
 	public VEntrada(Controller c) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
@@ -53,7 +56,7 @@ public class VEntrada extends JFrame implements ActionListener {
 		contentPane = new JPanel();
 		// contentPane.setBackground((img));
 
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new RoundedBorder(5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -102,14 +105,12 @@ public class VEntrada extends JFrame implements ActionListener {
 		btnNews.setBorderPainted(false);
 		btnNews.setBackground(Color.GRAY);
 
-		lblIncorrecto = new JLabel("", SwingConstants.CENTER);
-
 		lblIncorrecto.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
 		lblIncorrecto.setBounds(130, 403, 690, 28);
 		contentPane.add(lblIncorrecto);
 
 		JLabel lblFoto = new JLabel("");
-		lblFoto.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPolicia2.jpg")));
+		lblFoto.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
 		lblFoto.setBounds(-12, 0, 1493, 485);
 		contentPane.add(lblFoto);
 
@@ -179,15 +180,21 @@ public class VEntrada extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		Object o = e.getSource();
-
-		if (o == btnNews) {
+		if (o == btnEntrar && textFieldUser.getText().equals("")
+				&& new String(passField.getPassword()).equals("")) {
+			JOptionPane.showMessageDialog(this, "Los datos están vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
+		}else if (o == btnNews) {
 			VNoticias vn = new VNoticias(c);
 			vn.setVisible(true);
 			this.dispose();
 		} else if (o == btnEntrar) {
-
+			admin = c.adminLogIn(new String(passField.getPassword()), textFieldUser.getText());
 			p = c.policeLogIn(new String(passField.getPassword()), textFieldUser.getText());
-			if (p != null) {
+			if(admin != null) {
+				VAdmin vA = new VAdmin(c,admin.getDni());
+				vA.setVisible(true);
+				this.dispose();
+			}else if (p != null) {
 				dni = p.getDni();
 				pass = p.getPassword();
 				VPolicias vp = new VPolicias(c, dni, pass);

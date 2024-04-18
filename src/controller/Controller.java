@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.Administrador;
 import model.Arsenal;
 import model.Criminal;
 import model.Elige;
@@ -18,11 +19,13 @@ public class Controller implements InterfaceController{
 	private PreparedStatement stmt;
 	
 	private final String SHOW_NEWS = "SELECT * FROM NOTICIA";
-	private final String RETURN_POLICEMAN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE contrasena = ? AND dni in (SELECT dni from policia WHERE dni = ?);";
+	private final String RETURN_POLICEMAN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE contrasena = ? AND dni in (SELECT dni_policia from policia WHERE dni_policia = ?);";
 	private final String SHOW_POLICEMEN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia";
 	private final String SHOW_CRIMINAL_BY_POLICEMAN = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni WHERE dni_policia = ?";
 	private final String SHOW_ARSENAL = "SELECT * FROM ARSENAL";
 	private final String DELETE_PEOPLE = "DELETE FROM PERSONA WHERE dni=?";
+	private final String RETURN_ADMIN = "SELECT persona.dni,nombre,apellido,contrasena,fotografia_persona,fecha_primerLog,fecha_ultimoLog FROM persona join administrador on persona.dni = administrador.dni WHERE contrasena = ? AND persona.dni in (SELECT dni from administrador WHERE dni = ?);";
+	private final String RETURN_CHOICE = "SELECT * FROM elige WHERE dni_policia = ?";
 	
 	@Override
 	public Policia policeLogIn(String password, String dni) {
@@ -224,14 +227,15 @@ public class Controller implements InterfaceController{
 		
 		try {
 			
-			stmt = con.prepareStatement(SHOW_CRIMINAL_BY_POLICEMAN);
+			stmt = con.prepareStatement(RETURN_CHOICE);
 			stmt.setString(1, dni_policia);
 			
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				e.setId_arsenal(rs.getInt("id_arsenal"));
+				e = new Elige();
 				e.setDni_policia(rs.getString("dni_policia"));
+				e.setId_arsenal(rs.getInt("id_arsenal"));
 				search.add(e);
 			}
 		} catch (SQLException e2) {
@@ -251,7 +255,7 @@ public class Controller implements InterfaceController{
 	}
 
 	@Override
-	public boolean eliminarPolicia(String dni) {
+	public boolean deletePoliceman(String dni) {
 		
 		boolean cambios = false;
 		
@@ -272,5 +276,42 @@ public class Controller implements InterfaceController{
 		} 
 
 		return cambios;
+	}
+
+	@Override
+	public Administrador adminLogIn(String password, String dni) {
+		con = DatabaseConnectionAdmin.getConnection();
+		
+		ResultSet rs = null;
+		Administrador admin= null;
+		
+		try {
+			
+			stmt = con.prepareStatement(RETURN_ADMIN);
+			stmt.setString(1, password);
+			stmt.setString(2, dni);
+			
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				admin = new Administrador(rs.getString("dni"),rs.getString("nombre"),rs.getString("apellido"),rs.getString("contrasena"),rs.getBlob("fotografia_persona"),rs.getDate("fecha_primerLog"),rs.getDate("fecha_ultimoLog"));
+			
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Error en la BD.");
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException e) {
+					System.out.println("Error de cierre del ResultSet");
+				}
+			}
+		}
+	
+		return admin;
 	}
 }

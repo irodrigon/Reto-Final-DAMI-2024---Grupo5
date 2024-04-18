@@ -35,7 +35,7 @@ public class Arsenal {
 	}
 
 	public void setTipo(String tipo) {
-		this.tipo = Tipo.valueOf(tipo);
+		this.tipo = Tipo.valueOf(tipo.toUpperCase());
 	}
 	public String getDescripcion() {
 		return descripcion;
