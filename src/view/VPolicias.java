@@ -32,13 +32,13 @@ public class VPolicias extends JFrame {
 	private Blob aBlob;
 	
 	public VPolicias(Controller c, String dni,String pass) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VPolicias.class.getResource("/fotos/pixelart2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VPolicias.class.getResource("/fotos/pixelart.png")));
 		this.c = c;
 		this.dni = dni;
 		this.pass = pass;
 		p = c.policeLogIn(this.pass, this.dni);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(530, 50, 884, 600);
+		setBounds(530, 50, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -88,8 +88,8 @@ public class VPolicias extends JFrame {
 		contentPane.add(lblRango);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPolicia2.jpg")));
-		lblNewLabel.setBounds(0, 10, 870, 543);
+		lblNewLabel.setIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPoliciaFin.jpg")));
+		lblNewLabel.setBounds(0, 0, 1280, 728);
 		contentPane.add(lblNewLabel);
 	}
 }

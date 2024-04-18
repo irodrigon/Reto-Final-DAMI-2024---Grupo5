@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnectionNews {
+public class DatabaseConnectionNews2 {
 	 
 	    private static Connection con = null;
 	 

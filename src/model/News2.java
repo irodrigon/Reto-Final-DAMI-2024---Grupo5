@@ -2,7 +2,7 @@ package model;
 
 import java.sql.Blob;
 
-public class News {
+public class News2 {
 	
 	private int id_noticia;
 	private Blob foto_noticia;

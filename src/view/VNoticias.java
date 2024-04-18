@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
-import model.News;
+import model.News2;
 
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.Color;
 
 public class VNoticias extends JFrame implements ActionListener {
 
@@ -35,19 +36,19 @@ public class VNoticias extends JFrame implements ActionListener {
 	private JButton btnAnterior;
 	private JButton btnSiguiente;
 	private JButton btnAtras;
-	private ArrayList<News> news;
+	private ArrayList<News2> news;
 	private Blob aBlob;
-	private ListIterator<News> it;
-	private News n;
+	private ListIterator<News2> it;
+	private News2 n;
 	private JLabel lblTitulo;
 	private JLabel lblDescripcion;
 	private JLabel lblBienvenida;
 	public VNoticias(Controller c) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart.png")));
 
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(530, 50, 884, 505);
+		setBounds(530, 50, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -55,37 +56,40 @@ public class VNoticias extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		lblFoto = new JLabel("");
-		lblFoto.setBounds(180, 74, 455, 275);
+		lblFoto.setBounds(306, 89, 697, 396);
 		contentPane.add(lblFoto);
 		
 		lblTitulo = new JLabel("",SwingConstants.CENTER);
-		lblTitulo.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblTitulo.setBounds(28, 359, 777, 27);
+		lblTitulo.setForeground(new Color(0, 0, 0));
+		lblTitulo.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblTitulo.setBounds(255, 495, 755, 27);
 		contentPane.add(lblTitulo);
 		
 		lblDescripcion = new JLabel("");
-		lblDescripcion.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		lblDescripcion.setBounds(108, 378, 793, 43);
+		lblDescripcion.setForeground(new Color(0, 0, 0));
+		lblDescripcion.setFont(new Font("Dialog", Font.BOLD, 17));
+		lblDescripcion.setBounds(313, 532, 793, 43);
 		contentPane.add(lblDescripcion);
 		
 		lblBienvenida = new JLabel("NOTICIAS");
-		lblBienvenida.setFont(new Font("Dialog", Font.BOLD, 37));
-		lblBienvenida.setBounds(311, 10, 210, 54);
+		lblBienvenida.setForeground(new Color(255, 255, 255));
+		lblBienvenida.setFont(new Font("Dialog", Font.BOLD, 51));
+		lblBienvenida.setBounds(496, 10, 387, 54);
 		contentPane.add(lblBienvenida);
 
 		btnAnterior = new JButton("Anterior");
-		btnAnterior.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnAnterior.setBounds(80, 431, 167, 37);
+		btnAnterior.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnAnterior.setBounds(145, 600, 167, 37);
 		contentPane.add(btnAnterior);
 
 		btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnSiguiente.setBounds(620, 431, 167, 37);
+		btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnSiguiente.setBounds(950, 600, 167, 37);
 		contentPane.add(btnSiguiente);
 
 		btnAtras = new JButton("Atrás");
-		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnAtras.setBounds(354, 431, 167, 37);
+		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnAtras.setBounds(555, 600, 167, 37);
 		contentPane.add(btnAtras);
 
 		news = c.showNews();
@@ -107,6 +111,11 @@ public class VNoticias extends JFrame implements ActionListener {
 		lblTitulo.setText(news.get(0).getTitulo());
 		lblDescripcion.setText(news.get(0).getDescripcion());
 		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VNoticias.class.getResource("/fotos/fondoNoticiasFinal.png")));
+		lblNewLabel.setBounds(0, 0, 1266, 695);
+		contentPane.add(lblNewLabel);
+		
 		btnAnterior.addActionListener(this);
 		btnAtras.addActionListener(this);
 		btnSiguiente.addActionListener(this);
@@ -116,7 +125,7 @@ public class VNoticias extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		n = new News();
+		n = new News2();
 		Object o = e.getSource();
 		
 		if(it.nextIndex() >= news.size() && !it.hasNext()){

@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import java.awt.SystemColor;
 
 public class VEntrada extends JFrame implements ActionListener {
 
@@ -36,7 +37,7 @@ public class VEntrada extends JFrame implements ActionListener {
 	private String pass;
 
 	public VEntrada(Controller c) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart.png")));
 
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,7 +90,7 @@ public class VEntrada extends JFrame implements ActionListener {
 		btnNews.setBounds(291, 570, 690, 74);
 		contentPane.add(btnNews);
 		btnNews.setBorderPainted(false);
-		btnNews.setBackground(Color.GRAY);
+		btnNews.setBackground(new Color(236, 180, 47));
 
 		lblIncorrecto = new JLabel("", SwingConstants.CENTER);
 		lblIncorrecto.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
@@ -97,7 +98,8 @@ public class VEntrada extends JFrame implements ActionListener {
 		contentPane.add(lblIncorrecto);
 		
 		JLabel lblFoto = new JLabel("");
-		lblFoto.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
+		lblFoto.setBackground(new Color(236, 180, 47));
+		lblFoto.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPoliciaFin.jpg")));
 		lblFoto.setBounds(0, -20, 1478, 821);
 		contentPane.add(lblFoto);
 
