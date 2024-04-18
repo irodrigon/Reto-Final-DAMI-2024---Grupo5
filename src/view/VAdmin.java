@@ -42,10 +42,12 @@ public class VAdmin extends JFrame implements ActionListener {
 	private Controller c;
 	private JLabel lblWrong;
 	private JLabel lblNewLabel_1;
+	private String dni;
 
 	public VAdmin(Controller c, String dni) {
 		//setUndecorated(true);
 		this.c = c;
+		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VAdmin.class.getResource("/fotos/pixelart2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 50, 884, 884);
@@ -171,8 +173,10 @@ public class VAdmin extends JFrame implements ActionListener {
 			VEntrada vE = new VEntrada(c);
 			vE.setVisible(true);
 			this.dispose();
-		} else if (o == btnEnter) {
-			
+		} else if (o == btnEnter && username.equalsIgnoreCase("admin") && password.equalsIgnoreCase("1234")) {
+			VManagement vm = new VManagement(c,dni);
+			vm.setVisible(true);
+			this.dispose();
 		}
 		if (o == btnEnter && textField.getText().equals("")
 				&& new String(passwordField.getPassword()).equals("")) {

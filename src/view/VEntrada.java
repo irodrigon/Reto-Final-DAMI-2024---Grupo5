@@ -46,6 +46,7 @@ public class VEntrada extends JFrame implements ActionListener {
 	private String pass;
 	private Administrador admin;
 	private String adminDni;
+	private JButton btnSalir;
 
 	public VEntrada(Controller c) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
@@ -104,10 +105,13 @@ public class VEntrada extends JFrame implements ActionListener {
 		contentPane.add(btnNews);
 		btnNews.setBorderPainted(false);
 		btnNews.setBackground(Color.GRAY);
-
-		lblIncorrecto.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		lblIncorrecto.setBounds(130, 403, 690, 28);
-		contentPane.add(lblIncorrecto);
+		
+		btnSalir = new JButton("SALIR");
+		btnSalir.setOpaque(true);
+		btnSalir.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
+		btnSalir.setBorderPainted(false);
+		btnSalir.setBounds(347, 413, 220, 42);
+		contentPane.add(btnSalir);
 
 		JLabel lblFoto = new JLabel("");
 		lblFoto.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
@@ -116,6 +120,7 @@ public class VEntrada extends JFrame implements ActionListener {
 
 		btnNews.addActionListener(this);
 		btnEntrar.addActionListener(this);
+		btnSalir.addActionListener(this);
 		
 		textFieldUser.addMouseListener(new MouseListener() {
 			
@@ -209,7 +214,8 @@ public class VEntrada extends JFrame implements ActionListener {
 					this.dispose();
 				}
 			}
+		}else if (o == btnSalir) {
+			this.dispose();
 		}
 	}
-
 }

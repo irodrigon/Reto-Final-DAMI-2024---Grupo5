@@ -18,4 +18,6 @@ public interface InterfaceController {
 	public ArrayList<Arsenal> showArsenal();
 	public ArrayList<Elige> weaponsAssigned(String dni_policia);
 	public Administrador adminLogIn(String password, String dni);
+	public ArrayList<Criminal> showCriminals();
+	public boolean deleteWeapon(int id_weapon);
 }
