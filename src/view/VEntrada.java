@@ -46,23 +46,29 @@ public class VEntrada extends JFrame implements ActionListener {
 	private JButton btnEntrar;
 	private Policia p;
 	private String dni;
-	private JLabel lblIncorrecto;
 	private String pass;
 	private Administrador admin;
 	private String adminDni;
 	private JButton btnSalir;
 
 	public VEntrada(Controller c) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
 
+		//El método cambia el icono en la parte superior izquierda de la ventana.
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
+		
+		//Para usar los métodos SQL, tenemos que traer el controlador.
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 1280, 720);
 		contentPane = new JPanel();
 
+		
+		//El panel principal usa la clase "RoundedBorder" como borde para las ventanas.
+
 		contentPane.setBorder(new RoundedBorder(5));
 
 		setContentPane(contentPane);
+		//El setLayout(null) permite colocar los botones, etiquetas y el resto de elementos de la ventana dónde quieras
 		contentPane.setLayout(null);
 
 		JLabel lblUsuario = new JLabel("Usuario:");

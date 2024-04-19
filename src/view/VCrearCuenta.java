@@ -150,7 +150,14 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		textFieldUsuario.setColumns(10);
 		textFieldUsuario.setBorder(new LineBorder(Color.BLUE, 3));
 
-		
+		btnSubirFoto = new JButton("Subir foto");
+		btnSubirFoto.setBackground(new Color(192, 192, 192));
+		btnSubirFoto.setForeground(new Color(0, 0, 0));
+
+		btnSubirFoto.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnSubirFoto.setBounds(996, 300, 157, 35);
+
+		contentPane.add(btnSubirFoto);
 
 		btnCancelar = new JButton("Cancelar");
 
@@ -214,7 +221,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 				// si ha pulsado Aceptar
 				file = fileChooser.getSelectedFile();
 				lblFiles.setText("Ha elegido el archivo " + fileChooser.getSelectedFile());
-				
+
 			} else if (opcion == JFileChooser.CANCEL_OPTION) {
 				// si ha pulsado Cancelar
 				lblFiles.setText("Ha pulsado Cancelar");

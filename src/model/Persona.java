@@ -2,11 +2,13 @@ package model;
 
 import java.sql.Blob;
 
+//De esta clase heredan Administrador y Policía.
 public class Persona {
 	private String dni;
 	private String nombre;
 	private String apellido;
 	private String password;
+	//El tipo "Blob" sirve para incluir imágenes importadas previamente a SQL.
 	private Blob fotografia;
 	
 	public Persona() {
