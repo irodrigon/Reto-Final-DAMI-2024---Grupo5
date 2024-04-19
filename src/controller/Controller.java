@@ -24,8 +24,13 @@ import model.Policia;
 
 public class Controller implements InterfaceController{
 	
+	//La conexión a la base de datos.
 	private Connection con;
+	
+	//Sirve para gestionar las sentencias SQL.
 	private PreparedStatement stmt;
+	
+	//Sentencias SQL utilizadas en el programa.
 	
 	private final String SHOW_NEWS = "SELECT * FROM NOTICIA";
 	private final String RETURN_POLICEMAN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE contrasena = ? AND dni in (SELECT dni_policia from policia WHERE dni_policia = ?);";
@@ -44,22 +49,22 @@ public class Controller implements InterfaceController{
 		
 		con = DatabaseConnectionPolice.getConnection();
 		
+		//El set de resultados recoge la consulta de la base de datos.
 		ResultSet rs = null;
 		Policia p = null;
 		
 		try {
-			
+			//prepara la conexión con la base datos.
 			stmt = con.prepareStatement(RETURN_POLICEMAN);
+			//Mira el primer parámetro que le introduce el usuario en la base de datos.
 			stmt.setString(1, password);
+			//El número dos indica que se trata del segundo parámetro.
 			stmt.setString(2, dni);
 			
 			rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				
 				p = new Policia(rs.getString("dni"),rs.getString("nombre"),rs.getString("apellido"),rs.getString("contrasena"),rs.getBlob("fotografia_persona"),rs.getString("rango"));
-			
-				
 			}
 			
 		} catch (SQLException e) {
@@ -79,6 +84,7 @@ public class Controller implements InterfaceController{
 
 	@Override
 	public ArrayList<News> showNews() {
+		//Cada método lleva asociada una conexión distinta a un usuario diferente de la base de datos.
 		con = DatabaseConnectionNews.getConnection();
 		ResultSet rs = null;
 		News n= null;
@@ -92,7 +98,9 @@ public class Controller implements InterfaceController{
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
+				//Crea un objeto News para recoger el set de resultados en sus atributos.
 				n = new News();
+				//Recoge el primer atributo según el atributo correspondiente en la base de datos.
 				n.setId_noticia(rs.getInt("id_noticia"));
 				n.setFoto_noticia(rs.getBlob("fotografia_noticia"));
 				n.setTitulo(rs.getString("titulo"));
@@ -121,6 +129,7 @@ public class Controller implements InterfaceController{
 	@Override
 	public ArrayList<Policia> showPolicemen() {
 		
+		//En este caso, usa el usuario policia.
 		con = DatabaseConnectionPolice.getConnection();
 		ResultSet rs = null;
 		Policia p= null;
