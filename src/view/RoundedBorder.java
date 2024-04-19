@@ -10,6 +10,8 @@ import java.awt.RenderingHints;
 
 import javax.swing.border.Border;
 
+
+//La clase se usa para redondear el perfil de las ventanas.
 public class RoundedBorder implements Border{
 
 	private int radius;

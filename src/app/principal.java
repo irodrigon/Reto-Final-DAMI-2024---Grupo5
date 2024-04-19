@@ -3,6 +3,8 @@ package app;
 import controller.Controller;
 import view.VEntrada;
 
+//Este código lanza la ventana principal, la de entrada.
+
 public class principal {
 
 	public static void main(String[] args) {
