@@ -29,6 +29,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class VManagement extends JFrame implements ActionListener {
 
@@ -88,7 +89,7 @@ public class VManagement extends JFrame implements ActionListener {
 	private JLabel lblNewLabel4;
 	private News n;
 
-	public VManagement(Controller contr,String dni) {
+	public VManagement(Controller contr, String dni) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VManagement.class.getResource("/fotos/pixelart2.png")));
 		this.contr = contr;
 		this.dni = dni;
@@ -355,7 +356,7 @@ public class VManagement extends JFrame implements ActionListener {
 		tabbedPane.addTab("Noticias", new ImageIcon(VManagement.class.getResource("/fotos/pixelart2.png")), panel4,
 				"Pestaña de noticias");
 		panel4.setLayout(null);
-		String[] columnNames4 = { "Título:", "Descripción:"};
+		String[] columnNames4 = { "Título:", "Descripción:" };
 		model4 = new DefaultTableModel(null, columnNames4);
 		for (int i = 0; i < news.size(); i++) {
 			String titulo = news.get(i).getTitulo();
@@ -438,8 +439,26 @@ public class VManagement extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
-	}
+		Object o = e.getSource();
 
-	
+		if (o == btnEliminarWeapons) {
+			if (table2.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				Arsenal a = new Arsenal();
+				int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este artículo?");
+				if (option == JOptionPane.YES_OPTION) {
+					a = contr.returnWeaponByName((String) table2.getValueAt(table2.getSelectedRow(), 0));
+					contr.deleteWeapon(a.getId_arsenal());
+					JOptionPane.showMessageDialog(this,
+							"Artículo eliminado correctamente. No podrá volver este artículo.", "Advertencia",
+							JOptionPane.INFORMATION_MESSAGE);
+					model2.removeRow(table2.getSelectedRow());
+			}
+				
+			}
+		}
+
+	}
 }

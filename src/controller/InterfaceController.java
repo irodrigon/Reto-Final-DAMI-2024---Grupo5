@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 
 import model.Administrador;
@@ -20,4 +21,6 @@ public interface InterfaceController {
 	public Administrador adminLogIn(String password, String dni);
 	public ArrayList<Criminal> showCriminals();
 	public boolean deleteWeapon(int id_weapon);
+	public boolean insertWeapon(int id, Blob foto,String nombre, String tipo, String descripcion);
+	public Arsenal returnWeaponByName(String nombre);
 }

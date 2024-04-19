@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,6 +31,8 @@ public class Controller implements InterfaceController{
 	private final String RETURN_ADMIN = "SELECT persona.dni,nombre,apellido,contrasena,fotografia_persona,fecha_primerLog,fecha_ultimoLog FROM persona join administrador on persona.dni = administrador.dni WHERE contrasena = ? AND persona.dni in (SELECT dni from administrador WHERE dni = ?);";
 	private final String RETURN_CHOICE = "SELECT * FROM elige WHERE dni_policia = ?";
 	private final String SHOW_CRIMINAL ="SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni";
+	private final String INSERT_WEAPON = "{CALL AnadirArsenal(?,?,?,?,?};";
+	private final String RETURN_WEAPON_BY_NAME = "SELECT * FROM ARSENAL WHERE nombre = ?";
 	
 	@Override
 	public Policia policeLogIn(String password, String dni) {
@@ -376,4 +379,72 @@ public class Controller implements InterfaceController{
 
 		return cambios;
 	}
+
+	@Override
+	public boolean insertWeapon(int id, Blob foto, String nombre, String tipo, String descripcion) {
+		
+		boolean cambios = false;
+		
+		con = DatabaseConnectionAdmin.getConnection();
+		
+		try {
+			CallableStatement cs = (CallableStatement) this.con.prepareCall(INSERT_WEAPON);
+
+			cs.setInt(1, id);
+			cs.setBlob(2, foto);
+			cs.setString(3, nombre);
+			cs.setString(4, tipo);
+			cs.setString(5, descripcion);
+
+			if (cs.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+		
+		return cambios;
+	}
+	
+	@Override
+	public Arsenal returnWeaponByName(String nombre_arsenal) {
+		
+		ResultSet rs = null;
+		Arsenal a = null;
+
+		con = DatabaseConnectionAdmin.getConnection();
+		
+		try {
+			stmt = con.prepareStatement(RETURN_WEAPON_BY_NAME);
+
+			// Cargamos los parámetros
+			stmt.setString(1, nombre_arsenal);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				a = new Arsenal();
+				a.setId_arsenal(rs.getInt("id_arsenal"));
+				a.setFoto_arsenal(rs.getBlob("fotografia_arsenal"));
+				a.setNombre(rs.getString("nombre"));
+				a.setDescripcion(rs.getString("descripcion"));
+				a.setTipo(rs.getString("tipo"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
+				}
+			}
+		}
+			return a;
+
+		}
 }

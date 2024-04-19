@@ -127,7 +127,6 @@ public class VEntrada extends JFrame implements ActionListener {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				textFieldUser.setFocusable(true);
 			}
 			
 			@Override

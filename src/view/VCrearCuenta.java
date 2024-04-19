@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -155,7 +154,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		
 		JLabel lblFotoRegistro = new JLabel("");
 		lblFotoRegistro.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblFotoRegistro.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPolicia2.jpg")));
+		lblFotoRegistro.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
 		lblFotoRegistro.setBounds(-12, 0, 1493, 485);
 		contentPane.add(lblFotoRegistro);
 		
