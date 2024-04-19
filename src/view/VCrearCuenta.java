@@ -1,11 +1,14 @@
 package view;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.border.LineBorder;
+
 
 import controller.Controller;
 
@@ -15,13 +18,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.Toolkit;
 
 public class VCrearCuenta extends JFrame implements ActionListener {
@@ -34,11 +39,14 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private JTextField textFieldUsuario;
 	private JButton btnSubirFoto;
 	private JFileChooser fileChooser;
+	private FileFilter filtro;
+	private File file;
 	private JButton btnCancelar;
 	private JLabel lblNewLabel_4;
 	private JPasswordField passwordField2;
 	private Controller c;
 	private JButton btnCrear;
+	private JLabel lblFiles;
 
 	/**
 	 * Launch the application.
@@ -117,7 +125,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		textFieldUsuario.setBorder(new LineBorder(Color.BLUE, 3));
 
 		btnSubirFoto = new JButton("Subir foto");
-		btnSubirFoto.setBackground(new Color(0, 0, 160));
+		btnSubirFoto.setBackground(new Color(192, 192, 192));
 		btnSubirFoto.setForeground(new Color(0, 0, 0));
 
 		btnSubirFoto.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -126,9 +134,12 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(btnSubirFoto);
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBackground(new Color(0, 0, 160));
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnCancelar.setBounds(60, 333, 158, 35);
+
+		btnCancelar.setBackground(new Color(192, 192, 192));
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnCancelar.setBounds(33, 429, 157, 29);
+
+
 		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(this);
 
@@ -145,14 +156,22 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		
 		btnCrear = new JButton("Crear");
 		btnCrear.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnCrear.setBackground(new Color(0, 0, 160));
+		btnCrear.setBackground(new Color(192, 192, 192));
 		btnCrear.setBounds(364, 429, 157, 29);
 		contentPane.add(btnCrear);
 		
+		
+		lblFiles = new JLabel("");
+		lblFiles.setForeground(new Color(255, 255, 255));
+		lblFiles.setBounds(161, 365, 569, 33);
+		contentPane.add(lblFiles);
+		
 		JLabel lblFotoRegistro = new JLabel("");
 		lblFotoRegistro.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblFotoRegistro.setIcon(new ImageIcon(VCrearCuenta.class.getResource("/fotos/fondoPoliciaFin.jpg")));
-		lblFotoRegistro.setBounds(-11, -11, 1493, 694);
+
+		lblFotoRegistro.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
+		lblFotoRegistro.setBounds(-12, 0, 1493, 485);
+
 		contentPane.add(lblFotoRegistro);
 		
 		btnSubirFoto.addActionListener(this);
@@ -165,15 +184,29 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		Object o = e.getSource();
 		if ( o == btnSubirFoto) {
-
 			fileChooser = new JFileChooser();
-			fileChooser.showOpenDialog(this);
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			filtro = new FileNameExtensionFilter("Imágenes jpg", "jpg");
+			fileChooser.addChoosableFileFilter(filtro);
+			int opcion = fileChooser.showOpenDialog(this);
+			if (opcion == JFileChooser.APPROVE_OPTION) {
+				// si ha pulsado Aceptar
+				file = fileChooser.getSelectedFile();
+				lblFiles.setText("Ha elegido el archivo " + fileChooser.getSelectedFile());
+			} else if (opcion == JFileChooser.CANCEL_OPTION) {
+				// si ha pulsado Cancelar
+				lblFiles.setText("Ha pulsado Cancelar");
+			} else if (opcion == JFileChooser.ERROR_OPTION) {
+				// si ha producido un Error
+				lblFiles.setText("Se ha producido un Error.");
+			}
 		} else if ((e.getSource() == btnCancelar)) {
 			VEntrada vE = new VEntrada(c);
 			vE.setVisible(true);
 			this.dispose();
-		
-
+		}else if (o == btnCrear&& lblFiles.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Por favor, selecciona un fotografía.", "Error",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
