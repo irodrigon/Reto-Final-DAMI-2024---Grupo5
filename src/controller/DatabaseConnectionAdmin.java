@@ -9,6 +9,7 @@ public class DatabaseConnectionAdmin{
 	private static Connection con = null;
 
 	static {
+
 		//La conexión a la base de datos gracias a las librerías importadas por el conector mysql.
 		String url = "jdbc:mysql://localhost:3306/policiasycriminales?serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true&useSSL=false";
 		//El usuario a usar, en este caso administrador.
@@ -17,6 +18,7 @@ public class DatabaseConnectionAdmin{
 		String pass = "Francisco.*?";
 		try {
 			//Sentencias propias del método: Driver de conexión.
+
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(url, user, pass);
 		} catch (ClassNotFoundException | SQLException e) {

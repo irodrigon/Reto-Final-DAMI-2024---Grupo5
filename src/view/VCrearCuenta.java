@@ -28,6 +28,7 @@ import java.io.File;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.JComboBox;
 
 public class VCrearCuenta extends JFrame implements ActionListener {
 
@@ -56,7 +57,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public VCrearCuenta(Controller c) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 1280, 720);
@@ -97,7 +98,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		JLabel lblNewLabel_1 = new JLabel("Introduce tu primer apellido:");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_1.setBounds(60, 153, 352, 19);
+		lblNewLabel_1.setBounds(60, 141, 352, 33);
 		contentPane.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Introduce tu nombre:");
@@ -117,6 +118,31 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblNewLabel_3.setBounds(60, 196, 276, 19);
 		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblRango = new JLabel("Selecciona tu rango:");
+		lblRango.setForeground(Color.WHITE);
+		lblRango.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblRango.setBounds(60, 323, 406, 29);
+		contentPane.add(lblRango);
+		
+		JComboBox comboBoxRango = new JComboBox();
+		comboBoxRango.setBounds(495, 329, 165, 28);
+		comboBoxRango.addItem("CABO");
+		comboBoxRango.addItem("TENIENTE");
+		comboBoxRango.addItem("SARGENTO");
+		comboBoxRango.addItem("CAPITAN");
+		comboBoxRango.addItem("COMANDANTE");
+		comboBoxRango.setForeground(new Color(0, 0, 0));
+		contentPane.add(comboBoxRango);
+		
+		btnSubirFoto = new JButton("Subir foto");
+		btnSubirFoto.setBackground(new Color(192, 192, 192));
+		btnSubirFoto.setForeground(new Color(0, 0, 0));
+		btnSubirFoto.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnSubirFoto.setBounds(996, 300, 157, 35);
+
+		contentPane.add(btnSubirFoto);
+		btnSubirFoto.addActionListener(this);
 
 		textFieldUsuario = new JTextField();
 		textFieldUsuario.setBounds(495, 193, 165, 28);
@@ -174,7 +200,9 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 
 		contentPane.add(lblFotoRegistro);
 		
-		btnSubirFoto.addActionListener(this);
+		
+		
+		
 		
 
 	}
@@ -193,6 +221,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 				// si ha pulsado Aceptar
 				file = fileChooser.getSelectedFile();
 				lblFiles.setText("Ha elegido el archivo " + fileChooser.getSelectedFile());
+
 			} else if (opcion == JFileChooser.CANCEL_OPTION) {
 				// si ha pulsado Cancelar
 				lblFiles.setText("Ha pulsado Cancelar");

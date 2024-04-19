@@ -52,6 +52,7 @@ public class VEntrada extends JFrame implements ActionListener {
 	private JButton btnSalir;
 
 	public VEntrada(Controller c) {
+
 		//El método cambia el icono en la parte superior izquierda de la ventana.
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
 		
@@ -60,8 +61,10 @@ public class VEntrada extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 1280, 720);
 		contentPane = new JPanel();
+
 		
 		//El panel principal usa la clase "RoundedBorder" como borde para las ventanas.
+
 		contentPane.setBorder(new RoundedBorder(5));
 
 		setContentPane(contentPane);

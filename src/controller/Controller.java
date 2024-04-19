@@ -30,8 +30,10 @@ public class Controller implements InterfaceController{
 	//Sirve para gestionar las sentencias SQL.
 	private PreparedStatement stmt;
 	
+
 	//Sentencias SQL utilizadas en el programa.
 	
+
 	private final String SHOW_NEWS = "SELECT * FROM NOTICIA";
 	private final String RETURN_POLICEMAN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE contrasena = ? AND dni in (SELECT dni_policia from policia WHERE dni_policia = ?);";
 	private final String SHOW_POLICEMEN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia";
@@ -54,7 +56,9 @@ public class Controller implements InterfaceController{
 		Policia p = null;
 		
 		try {
+
 			//prepara la conexión con la base datos.
+
 			stmt = con.prepareStatement(RETURN_POLICEMAN);
 			//Mira el primer parámetro que le introduce el usuario en la base de datos.
 			stmt.setString(1, password);
@@ -84,7 +88,9 @@ public class Controller implements InterfaceController{
 
 	@Override
 	public ArrayList<News> showNews() {
+
 		//Cada método lleva asociada una conexión distinta a un usuario diferente de la base de datos.
+
 		con = DatabaseConnectionNews.getConnection();
 		ResultSet rs = null;
 		News n= null;
@@ -98,9 +104,13 @@ public class Controller implements InterfaceController{
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
+
+				n = new News();
+
 				//Crea un objeto News para recoger el set de resultados en sus atributos.
 				n = new News();
 				//Recoge el primer atributo según el atributo correspondiente en la base de datos.
+
 				n.setId_noticia(rs.getInt("id_noticia"));
 				n.setFoto_noticia(rs.getBlob("fotografia_noticia"));
 				n.setTitulo(rs.getString("titulo"));
@@ -129,7 +139,9 @@ public class Controller implements InterfaceController{
 	@Override
 	public ArrayList<Policia> showPolicemen() {
 		
+
 		//En este caso, usa el usuario policia.
+
 		con = DatabaseConnectionPolice.getConnection();
 		ResultSet rs = null;
 		Policia p= null;

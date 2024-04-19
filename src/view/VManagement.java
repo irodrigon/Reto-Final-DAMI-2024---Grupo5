@@ -1,10 +1,23 @@
 package view;
 
 import java.awt.Color;
+
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.Objects;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
