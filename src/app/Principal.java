@@ -5,7 +5,7 @@ import view.VEntrada;
 
 //Este código lanza la ventana principal, la de entrada.
 
-public class principal {
+public class Principal {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
