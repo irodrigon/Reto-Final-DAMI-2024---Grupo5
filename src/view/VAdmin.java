@@ -72,7 +72,7 @@ public class VAdmin extends JFrame implements ActionListener {
 		JLabel lblPassword = new JLabel("PASSWORD:");
 		lblPassword.setForeground(new Color(255, 255, 255));
 		lblPassword.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblPassword.setBounds(271, 222, 105, 37);
+		lblPassword.setBounds(187, 222, 189, 37);
 		contentPane.add(lblPassword);
 
 		textField = new JTextField();
