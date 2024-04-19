@@ -83,7 +83,8 @@ public class VEntrada extends JFrame implements ActionListener {
 
 		contentPane.add(textFieldUser);
 		textFieldUser.setColumns(10);
-
+		
+		//Usar un passwordField en vez de un textField sirve para ocultar lo que se escriba.
 		passField = new JPasswordField();
 		passField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		passField.setBounds(397, 314, 473, 28);
