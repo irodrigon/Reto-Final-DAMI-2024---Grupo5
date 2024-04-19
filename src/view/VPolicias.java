@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import controller.Controller;
 import model.Policia;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -18,10 +20,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+
+import java.util.ArrayList;
+import java.util.ListIterator;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class VPolicias extends JFrame {
+
+import javax.swing.JButton;
+import model.Criminal;
+import model.News;
+import model.Persona;
+
+public class VPolicias extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -30,17 +43,34 @@ public class VPolicias extends JFrame {
 	private String pass;
 	private Policia p;
 	private Blob aBlob;
+	private ArrayList<Criminal> crims;
+	private JButton btnAnterior;
+	private JButton btnSiguiente;
+	private JLabel lblDniC;
+	private JLabel lblNombreC;
+	private JLabel lblApellidoC;
+	private JLabel lblDesc;
+	private JLabel lblFoto2;
+	private Criminal crim;
+	private ListIterator<Criminal> it;
+	private JButton btnVerArsenal;
+	private JButton btnElegirArsenal;
+	private JButton btnModificar;
+	private JButton btnAtras;
+	private JButton btnEliminar;
 	
 	public VPolicias(Controller c, String dni,String pass) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VPolicias.class.getResource("/fotos/pixelart.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VPolicias.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		this.dni = dni;
 		this.pass = pass;
+		
+		crims = c.showCriminalByPoliceman(dni);
 		p = c.policeLogIn(this.pass, this.dni);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 50, 1280, 720);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new RoundedBorder(5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -66,7 +96,9 @@ public class VPolicias extends JFrame {
 		JLabel lblDni = new JLabel("DNI: " + p.getDni());
 		lblDni.setForeground(new Color(255, 255, 255));
 		lblDni.setFont(new Font("Dialog", Font.PLAIN, 17));
-		lblDni.setBounds(142, 10, 285, 32);
+
+		lblDni.setBounds(138, 10, 285, 32);
+
 		contentPane.add(lblDni);
 		
 		JLabel lblNombre = new JLabel("Nombre: " + p.getNombre());
@@ -86,10 +118,183 @@ public class VPolicias extends JFrame {
 		lblRango.setFont(new Font("Dialog", Font.PLAIN, 17));
 		lblRango.setBounds(142, 98, 285, 32);
 		contentPane.add(lblRango);
+
+
+		lblFoto2 = new JLabel("");
+		lblFoto2.setBounds(738, 10, 106, 153);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPoliciaFin.jpg")));
-		lblNewLabel.setBounds(0, 0, 1280, 728);
-		contentPane.add(lblNewLabel);
+		aBlob = crims.get(0).getFotografia();
+
+		try {
+			InputStream is;
+			is = aBlob.getBinaryStream(1, aBlob.length());
+			BufferedImage imag;
+			imag = ImageIO.read(is);
+			lblFoto2.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto2.getWidth(),lblFoto2.getHeight(), Image.SCALE_DEFAULT)));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		contentPane.add(lblFoto2);
+		btnAnterior = new JButton("Anterior");
+		btnAnterior.setBounds(682, 174, 89, 23);
+		contentPane.add(btnAnterior);
+		
+		btnSiguiente = new JButton("Siguiente");
+		btnSiguiente.setBounds(781, 174, 89, 23);
+		contentPane.add(btnSiguiente);
+		
+		lblDniC = new JLabel("DNI: " + crims.get(0).getDni());
+		lblDniC.setForeground(Color.WHITE);
+		lblDniC.setFont(new Font("Dialog", Font.PLAIN, 17));
+		lblDniC.setBounds(459, 10, 285, 32);
+		contentPane.add(lblDniC);
+		
+		lblNombreC = new JLabel("Nombre: " + crims.get(0).getNombre());
+		lblNombreC.setForeground(Color.WHITE);
+		lblNombreC.setFont(new Font("Dialog", Font.PLAIN, 17));
+		lblNombreC.setBounds(459, 40, 285, 32);
+		contentPane.add(lblNombreC);
+		
+		lblApellidoC = new JLabel("Apellido: " + crims.get(0).getApellido());
+		lblApellidoC.setForeground(Color.WHITE);
+		lblApellidoC.setFont(new Font("Dialog", Font.PLAIN, 17));
+		lblApellidoC.setBounds(459, 68, 285, 32);
+		contentPane.add(lblApellidoC);
+		
+		lblDesc = new JLabel("Descripción: " + crims.get(0).getDescripcion());
+		lblDesc.setForeground(Color.WHITE);
+		lblDesc.setFont(new Font("Dialog", Font.PLAIN, 17));
+		lblDesc.setBounds(459, 92, 193, 45);
+		contentPane.add(lblDesc);
+		
+		btnVerArsenal = new JButton("Ver el arsenal disponible");
+		btnVerArsenal.setBounds(45, 352, 207, 23);
+		contentPane.add(btnVerArsenal);
+		
+		btnElegirArsenal = new JButton("Elegir Arsenal");
+		btnElegirArsenal.setBounds(562, 417, 182, 23);
+		contentPane.add(btnElegirArsenal);
+		
+		btnModificar = new JButton("Modificar mi perfil");
+		btnModificar.setBounds(165, 417, 183, 23);
+		contentPane.add(btnModificar);
+		
+		btnAtras = new JButton("Volver");
+		btnAtras.setBounds(354, 489, 200, 23);
+		contentPane.add(btnAtras);
+		
+		btnEliminar = new JButton("Eliminar mi perfil");
+		btnEliminar.setBounds(651, 334, 207, 23);
+		contentPane.add(btnEliminar);
+		
+		JLabel lblFondo = new JLabel("");
+		lblFondo.setIcon(new ImageIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPoliciaFinal.jpg")).getImage().getScaledInstance(884, 600, Image.SCALE_DEFAULT)));
+		lblFondo.setBounds(0, 10, 870, 543);
+		contentPane.add(lblFondo);
+		
+		
+		
+		btnAnterior.addActionListener(this);
+		btnSiguiente.addActionListener(this);
+		btnAtras.addActionListener(this);
+		btnEliminar.addActionListener(this);
+		btnVerArsenal.addActionListener(this);
+		
+		it = crims.listIterator();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		crim = new Criminal();
+		Object o = e.getSource();
+		
+		if(it.nextIndex() == crims.size()) {
+			it.previous();
+		}
+		
+		if(it.previousIndex() == -1) {
+			it.next();
+		}
+
+		if (o == btnSiguiente) {
+			if (it.hasNext()) {
+				btnAnterior.setEnabled(true);
+				crim = it.next();
+				lblDniC.setText("DNI: "+ crim.getDni());
+				lblNombreC.setText("Nombre:" + crim.getNombre());
+				lblApellidoC.setText("Apellido: " + crim.getApellido());
+				lblDesc.setText("Descripción: "+ crim.getDescripcion());
+				aBlob = crim.getFotografia();
+				try {
+					InputStream is;
+					is = aBlob.getBinaryStream(1, aBlob.length());
+					BufferedImage imag;
+					imag = ImageIO.read(is);
+					lblFoto2.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto2.getWidth(), lblFoto2.getHeight(), Image.SCALE_DEFAULT)));
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+				
+			}
+		} else if (o == btnAnterior) {
+			if (it.hasPrevious()) {
+				crim = it.previous();
+				lblDniC.setText("DNI: " + crim.getDni());
+				lblNombreC.setText("Nombre: " + crim.getNombre());
+				lblApellidoC.setText("Apellido: " + crim.getApellido());
+				lblDesc.setText("Descripción: " + crim.getDescripcion());
+				aBlob = crim.getFotografia();
+				try {
+					InputStream is;
+					is = aBlob.getBinaryStream(1, aBlob.length());
+					BufferedImage imag;
+					imag = ImageIO.read(is);
+					lblFoto2.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto2.getWidth(),lblFoto2.getHeight(), Image.SCALE_DEFAULT)));
+				} catch (IOException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				} catch (SQLException e3) {
+					e3.printStackTrace();
+				}
+			}
+		}else if(o == btnAtras) {
+			VEntrada vE = new VEntrada(c);
+			vE.setVisible(true);
+			this.dispose();
+		}else if (o == btnEliminar) {
+			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar su perfil?");
+			if (option == JOptionPane.YES_OPTION) {
+				dni = p.getDni();
+				c.deletePoliceman(dni);
+				JOptionPane.showMessageDialog(this,"Usuario eliminado correctamente. No podrá volver a utilizar su perfil.","Advertencia",JOptionPane.INFORMATION_MESSAGE);
+				btnElegirArsenal.setEnabled(false);
+				btnVerArsenal.setEnabled(false);
+				btnEliminar.setEnabled(false);
+				btnModificar.setEnabled(false);
+				btnSiguiente.setEnabled(false);
+				btnAnterior.setEnabled(false);
+			} else if (option == JOptionPane.NO_OPTION) {
+
+			} else if (option == JOptionPane.CANCEL_OPTION) {
+
+			} else if (option == JOptionPane.CLOSED_OPTION) {
+
+			}
+		}else if(o == btnVerArsenal) {
+			dni = p.getDni();
+			VVerArsenal vva = new VVerArsenal(c,dni,pass);
+			vva.setVisible(true);
+			this.dispose();
+		}
+
 	}
 }
+
+

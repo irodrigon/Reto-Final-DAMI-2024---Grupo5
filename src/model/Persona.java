@@ -9,6 +9,10 @@ public class Persona {
 	private String password;
 	private Blob fotografia;
 	
+	public Persona() {
+		
+	}
+	
 	public Persona(String dni, String nombre, String apellido, String password, Blob fotografia) {
 		super();
 		this.dni = dni;

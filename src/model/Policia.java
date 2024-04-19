@@ -2,16 +2,16 @@ package model;
 
 import java.sql.Blob;
 
-import enums.RangoP;
+import enums.Rango;
 
 
 public class Policia extends Persona{
 	
-	private RangoP rango;
+	private Rango rango;
 	
 	public Policia(String dni, String nombre, String apellido, String password, Blob fotografia, String rango) {
 		super(dni, nombre, apellido, password, fotografia);
-		this.rango = RangoP.valueOf(rango.toUpperCase());
+		this.rango = Rango.valueOf(rango.toUpperCase());
 		
 	}
 
@@ -20,7 +20,7 @@ public class Policia extends Persona{
 	}
 
 	public void setRango(String rango) {
-		this.rango = RangoP.valueOf(rango);
+		this.rango = Rango.valueOf(rango);
 	}
 
 }
