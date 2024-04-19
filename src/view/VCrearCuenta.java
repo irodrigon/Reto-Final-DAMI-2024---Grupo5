@@ -38,6 +38,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private JLabel lblNewLabel_4;
 	private JPasswordField passwordField2;
 	private Controller c;
+	private JButton btnCrear;
 
 	/**
 	 * Launch the application.
@@ -118,8 +119,10 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		btnSubirFoto = new JButton("Subir foto");
 		btnSubirFoto.setBackground(new Color(0, 0, 160));
 		btnSubirFoto.setForeground(new Color(0, 0, 0));
+
 		btnSubirFoto.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnSubirFoto.setBounds(996, 274, 157, 35);
+
 		contentPane.add(btnSubirFoto);
 
 		btnCancelar = new JButton("Cancelar");
@@ -140,6 +143,12 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(passwordField2);
 		passwordField2.setBorder(new LineBorder(Color.BLUE, 3));
 		
+		btnCrear = new JButton("Crear");
+		btnCrear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnCrear.setBackground(new Color(0, 0, 160));
+		btnCrear.setBounds(364, 429, 157, 29);
+		contentPane.add(btnCrear);
+		
 		JLabel lblFotoRegistro = new JLabel("");
 		lblFotoRegistro.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblFotoRegistro.setIcon(new ImageIcon(VCrearCuenta.class.getResource("/fotos/fondoPoliciaFin.jpg")));
@@ -154,7 +163,8 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if ((e.getSource() == btnSubirFoto)) {
+		Object o = e.getSource();
+		if ( o == btnSubirFoto) {
 
 			fileChooser = new JFileChooser();
 			fileChooser.showOpenDialog(this);

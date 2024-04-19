@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.News2;
+
+
+import model.Criminal;
+import model.News;
+
 import model.Policia;
 
 public class Controller implements InterfaceController{
@@ -17,8 +21,9 @@ public class Controller implements InterfaceController{
 	private final String SHOW_NEWS = "SELECT * FROM NOTICIA";
 	private final String RETURN_POLICEMAN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE contrasena = ? AND dni in (SELECT dni from policia WHERE dni = ?);";
 	private final String SHOW_POLICEMEN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia";
+
 	private final String SHOW_ARSENAL ="SELECT * FROM ARSENAL ";
-	
+	private final String SHOW_CRIMINAL_BY_POLICEMAN = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni WHERE dni_policia = ?";
 	
 	@Override
 	public Policia policeLogIn(String password, String dni) {
@@ -28,7 +33,7 @@ public class Controller implements InterfaceController{
 		ResultSet rs = null;
 		Policia p = null;
 		
-try {
+		try {
 			
 			stmt = con.prepareStatement(RETURN_POLICEMAN);
 			stmt.setString(1, password);
@@ -134,5 +139,39 @@ try {
 
 		return policemen;
 		
+	}
+
+	@Override
+	public ArrayList<Criminal> showCriminalByPoliceman(String dni_policia) {
+		con = DatabaseConnectionPolice.getConnection();
+		ResultSet rs = null;
+		Criminal c = null;
+		ArrayList<Criminal> criminals = new ArrayList<Criminal>();
+		
+		try {
+			
+			stmt = con.prepareStatement(SHOW_CRIMINAL_BY_POLICEMAN);
+			stmt.setString(1, dni_policia);
+			
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				c = new Criminal(rs.getString("dni"),rs.getString("nombre"),rs.getString("apellido"),rs.getString("contrasena"),rs.getBlob("fotografia_persona"),rs.getString("descripcion"),rs.getString("dni_policia"));
+				criminals.add(c);
+			}
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
+				}
+			}
+		}
+		return criminals;
 	}
 }

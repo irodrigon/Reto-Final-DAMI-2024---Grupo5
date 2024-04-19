@@ -43,6 +43,7 @@ public class VNoticias extends JFrame implements ActionListener {
 	private JLabel lblTitulo;
 	private JLabel lblDescripcion;
 	private JLabel lblBienvenida;
+	
 	public VNoticias(Controller c) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart.png")));
 
@@ -194,6 +195,4 @@ public class VNoticias extends JFrame implements ActionListener {
 			this.dispose();
 		}
 	}
-	}
-
-
+}
