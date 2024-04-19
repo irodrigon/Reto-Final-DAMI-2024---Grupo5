@@ -20,12 +20,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 import javax.swing.JButton;
 import model.Criminal;
@@ -66,7 +68,7 @@ public class VPolicias extends JFrame implements ActionListener{
 		crims = c.showCriminalByPoliceman(dni);
 		p = c.policeLogIn(this.pass, this.dni);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(530, 50, 884, 600);
+		setBounds(530, 50, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new RoundedBorder(5));
 
@@ -94,7 +96,9 @@ public class VPolicias extends JFrame implements ActionListener{
 		JLabel lblDni = new JLabel("DNI: " + p.getDni());
 		lblDni.setForeground(new Color(255, 255, 255));
 		lblDni.setFont(new Font("Dialog", Font.PLAIN, 17));
+
 		lblDni.setBounds(138, 10, 285, 32);
+
 		contentPane.add(lblDni);
 		
 		JLabel lblNombre = new JLabel("Nombre: " + p.getNombre());
@@ -114,7 +118,8 @@ public class VPolicias extends JFrame implements ActionListener{
 		lblRango.setFont(new Font("Dialog", Font.PLAIN, 17));
 		lblRango.setBounds(142, 98, 285, 32);
 		contentPane.add(lblRango);
-		
+
+
 		lblFoto2 = new JLabel("");
 		lblFoto2.setBounds(738, 10, 106, 153);
 		
@@ -190,6 +195,8 @@ public class VPolicias extends JFrame implements ActionListener{
 		lblFondo.setIcon(new ImageIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPoliciaFinal.jpg")).getImage().getScaledInstance(884, 600, Image.SCALE_DEFAULT)));
 		lblFondo.setBounds(0, 10, 870, 543);
 		contentPane.add(lblFondo);
+		
+		
 		
 		btnAnterior.addActionListener(this);
 		btnSiguiente.addActionListener(this);
@@ -286,7 +293,7 @@ public class VPolicias extends JFrame implements ActionListener{
 			vva.setVisible(true);
 			this.dispose();
 		}
-		
+
 	}
 }
 

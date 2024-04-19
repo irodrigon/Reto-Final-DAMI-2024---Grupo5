@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import controller.Controller;
 import model.News;
 
+
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -49,7 +50,9 @@ public class VNoticias extends JFrame implements ActionListener {
 
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(530, 50, 884, 884);
+
+		setBounds(530, 50, 1280, 1000);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new RoundedBorder(5));
 
@@ -57,19 +60,21 @@ public class VNoticias extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		lblFoto = new JLabel("");
-		lblFoto.setBounds(180, 74, 455, 275);
+		lblFoto.setBounds(306, 89, 697, 396);
 		contentPane.add(lblFoto);
 		
 		lblTitulo = new JLabel("",SwingConstants.CENTER);
-		lblTitulo.setForeground(new Color(255, 255, 255));
-		lblTitulo.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblTitulo.setBounds(28, 359, 777, 27);
+
+		lblTitulo.setForeground(new Color(0, 0, 0));
+		lblTitulo.setFont(new Font("Dialog", Font.BOLD, 25));
+		lblTitulo.setBounds(255, 495, 755, 27);
 		contentPane.add(lblTitulo);
 		
 		lblDescripcion = new JLabel("");
-		lblDescripcion.setForeground(new Color(255, 255, 255));
-		lblDescripcion.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		lblDescripcion.setBounds(107, 407, 793, 43);
+		lblDescripcion.setForeground(new Color(0, 0, 0));
+		lblDescripcion.setFont(new Font("Dialog", Font.BOLD, 17));
+		lblDescripcion.setBounds(313, 532, 793, 43);
+
 		contentPane.add(lblDescripcion);
 		
 		lblBienvenida = new JLabel("NOTICIAS");
@@ -91,6 +96,8 @@ public class VNoticias extends JFrame implements ActionListener {
 		btnAtras = new JButton("Atrás");
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnAtras.setBounds(354, 730, 167, 37);
+
+		
 		contentPane.add(btnAtras);
 
 		news = c.showNews();
@@ -113,8 +120,10 @@ public class VNoticias extends JFrame implements ActionListener {
 		lblDescripcion.setText(news.get(0).getDescripcion());
 		
 		JLabel lblNewLabel = new JLabel("");
+
 		lblNewLabel.setIcon(new ImageIcon(new ImageIcon(VNoticias.class.getResource("/fotos/fondoNoticiasFinal.png")).getImage().getScaledInstance(884,884,Image.SCALE_DEFAULT)));
 		lblNewLabel.setBounds(0, 0, 868, 845);
+
 		contentPane.add(lblNewLabel);
 		
 		btnAnterior.addActionListener(this);

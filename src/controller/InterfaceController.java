@@ -2,7 +2,6 @@ package controller;
 
 import java.sql.Blob;
 import java.util.ArrayList;
-
 import model.Administrador;
 import model.Arsenal;
 import model.Criminal;

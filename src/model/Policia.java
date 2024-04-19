@@ -4,6 +4,7 @@ import java.sql.Blob;
 
 import enums.Rango;
 
+
 public class Policia extends Persona{
 	
 	private Rango rango;
