@@ -98,7 +98,7 @@ public class VManagement extends JFrame implements ActionListener {
 		suspects = this.contr.showCriminals();
 		news = this.contr.showNews();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 20, 1000, 1000);
+		setBounds(500, 20, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

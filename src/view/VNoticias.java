@@ -51,7 +51,7 @@ public class VNoticias extends JFrame implements ActionListener {
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		setBounds(530, 50, 1280, 1000);
+		setBounds(530, 50, 1280, 720);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new RoundedBorder(5));
@@ -80,22 +80,22 @@ public class VNoticias extends JFrame implements ActionListener {
 		lblBienvenida = new JLabel("NOTICIAS");
 		lblBienvenida.setForeground(new Color(255, 255, 255));
 		lblBienvenida.setFont(new Font("Dialog", Font.BOLD, 37));
-		lblBienvenida.setBounds(311, 10, 210, 54);
+		lblBienvenida.setBounds(561, 10, 210, 54);
 		contentPane.add(lblBienvenida);
 
 		btnAnterior = new JButton("Anterior");
 		btnAnterior.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnAnterior.setBounds(73, 730, 167, 37);
+		btnAnterior.setBounds(255, 585, 167, 37);
 		contentPane.add(btnAnterior);
 
 		btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnSiguiente.setBounds(615, 730, 167, 37);
+		btnSiguiente.setBounds(850, 585, 167, 37);
 		contentPane.add(btnSiguiente);
 
 		btnAtras = new JButton("Atrás");
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnAtras.setBounds(354, 730, 167, 37);
+		btnAtras.setBounds(561, 585, 167, 37);
 
 		
 		contentPane.add(btnAtras);
@@ -121,8 +121,8 @@ public class VNoticias extends JFrame implements ActionListener {
 		
 		JLabel lblNewLabel = new JLabel("");
 
-		lblNewLabel.setIcon(new ImageIcon(new ImageIcon(VNoticias.class.getResource("/fotos/fondoNoticiasFinal.png")).getImage().getScaledInstance(884,884,Image.SCALE_DEFAULT)));
-		lblNewLabel.setBounds(0, 0, 868, 845);
+		lblNewLabel.setIcon(new ImageIcon(new ImageIcon(VNoticias.class.getResource("/fotos/fondoNoticiasFinal.png")).getImage().getScaledInstance(1280,720,Image.SCALE_DEFAULT)));
+		lblNewLabel.setBounds(0, -70, 1369, 853);
 
 		contentPane.add(lblNewLabel);
 		

@@ -100,7 +100,7 @@ public class VEntrada extends JFrame implements ActionListener {
 
 		btnEntrar = new JButton("ENTRAR");
 		btnEntrar.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
-		btnEntrar.setBounds(521, 459, 220, 42);
+		btnEntrar.setBounds(650, 395, 220, 42);
 		contentPane.add(btnEntrar);
 		btnEntrar.setOpaque(true);
 		btnEntrar.setBorderPainted(false);
@@ -117,12 +117,12 @@ public class VEntrada extends JFrame implements ActionListener {
 		btnSalir.setOpaque(true);
 		btnSalir.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		btnSalir.setBorderPainted(false);
-		btnSalir.setBounds(347, 413, 220, 42);
+		btnSalir.setBounds(397, 395, 220, 42);
 		contentPane.add(btnSalir);
 
 		JLabel lblFoto = new JLabel("");
 		lblFoto.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
-		lblFoto.setBounds(-12, 0, 1493, 485);
+		lblFoto.setBounds(-12, 0, 1493, 683);
 
 		contentPane.add(lblFoto);
 
