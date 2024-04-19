@@ -129,7 +129,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		btnSubirFoto.setForeground(new Color(0, 0, 0));
 
 		btnSubirFoto.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnSubirFoto.setBounds(996, 274, 157, 35);
+		btnSubirFoto.setBounds(996, 300, 157, 35);
 
 		contentPane.add(btnSubirFoto);
 
@@ -170,7 +170,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		lblFotoRegistro.setFont(new Font("Tahoma", Font.PLAIN, 17));
 
 		lblFotoRegistro.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
-		lblFotoRegistro.setBounds(-12, 0, 1493, 485);
+		lblFotoRegistro.setBounds(-12, 0, 1493, 683);
 
 		contentPane.add(lblFotoRegistro);
 		

@@ -48,6 +48,7 @@ public class VVerArsenal extends JFrame implements ActionListener{
 	private ListIterator<Arsenal> it;
 	private Blob aBlob;
 	private String pass;
+	private JLabel lblNewLabel;
 
 	public VVerArsenal(Controller c, String dni,String pass) {
 		this.c = c;
@@ -64,7 +65,7 @@ public class VVerArsenal extends JFrame implements ActionListener{
 			}
 		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(530, 50, 884, 884);
+		setBounds(530, 50, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -122,6 +123,11 @@ public class VVerArsenal extends JFrame implements ActionListener{
 			BufferedImage imag;
 			imag = ImageIO.read(is);
 			lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),lblFoto.getHeight(), Image.SCALE_DEFAULT)));
+			
+			lblNewLabel = new JLabel("\r\n");
+			lblNewLabel.setIcon(new ImageIcon(VVerArsenal.class.getResource("/fotos/fondoArsenal.jpg")));
+			lblNewLabel.setBounds(0, -22, 1280, 720);
+			contentPane.add(lblNewLabel);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -129,10 +135,7 @@ public class VVerArsenal extends JFrame implements ActionListener{
 			e.printStackTrace();
 		}
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(new ImageIcon(VNoticias.class.getResource("/fotos/fondoNoticiasFinal.png")).getImage().getScaledInstance(884,884,Image.SCALE_DEFAULT)));
-		lblNewLabel.setBounds(0, 0, 868, 845);
-		contentPane.add(lblNewLabel);
+		
 		
 		btnAnterior.addActionListener(this);
 		btnAtras.addActionListener(this);
@@ -213,7 +216,6 @@ public class VVerArsenal extends JFrame implements ActionListener{
 				this.dispose();
 			}
 		}
-		
 	}
 
 

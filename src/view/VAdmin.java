@@ -50,7 +50,7 @@ public class VAdmin extends JFrame implements ActionListener {
 		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VAdmin.class.getResource("/fotos/pixelart2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(530, 50, 884, 884);
+		setBounds(530, 50, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new RoundedBorder(5));
 
@@ -119,8 +119,8 @@ public class VAdmin extends JFrame implements ActionListener {
 		contentPane.add(btnCancelar);
 		
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(new ImageIcon(VAdmin.class.getResource("/fotos/fondoPoliciaFinal.jpg")).getImage().getScaledInstance(884, 884, Image.SCALE_DEFAULT)));
-		lblNewLabel_1.setBounds(-17,0,884,884);
+		lblNewLabel_1.setIcon(new ImageIcon(new ImageIcon(VAdmin.class.getResource("/fotos/fondoPoliciaFinal.jpg")).getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT)));
+		lblNewLabel_1.setBounds(-18,-81,1297,884);
 		lblNewLabel_1.setBorder(new RoundedBorder(20));
 		contentPane.add(lblNewLabel_1);
 
