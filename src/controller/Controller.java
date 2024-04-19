@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+
 import model.Criminal;
 import model.News;
+
 import model.Policia;
 
 public class Controller implements InterfaceController{
@@ -18,12 +21,14 @@ public class Controller implements InterfaceController{
 	private final String SHOW_NEWS = "SELECT * FROM NOTICIA";
 	private final String RETURN_POLICEMAN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE contrasena = ? AND dni in (SELECT dni from policia WHERE dni = ?);";
 	private final String SHOW_POLICEMEN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia";
+
+	private final String SHOW_ARSENAL ="SELECT * FROM ARSENAL ";
 	private final String SHOW_CRIMINAL_BY_POLICEMAN = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni WHERE dni_policia = ?";
 	
 	@Override
 	public Policia policeLogIn(String password, String dni) {
 		
-		con = DatabaseConnectionPolice.getConnection();
+		con = DatabaseConnectionPolice2.getConnection();
 		
 		ResultSet rs = null;
 		Policia p = null;
@@ -59,11 +64,11 @@ public class Controller implements InterfaceController{
 	}
 
 	@Override
-	public ArrayList<News> showNews() {
-		con = DatabaseConnectionNews.getConnection();
+	public ArrayList<News2> showNews() {
+		con = DatabaseConnectionNews2.getConnection();
 		ResultSet rs = null;
-		News n= null;
-		ArrayList<News> news = new ArrayList<News>();
+		News2 n= null;
+		ArrayList<News2> news = new ArrayList<News2>();
 
 		
 		
@@ -73,7 +78,7 @@ public class Controller implements InterfaceController{
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				n = new News();
+				n = new News2();
 				n.setId_noticia(rs.getInt("id_noticia"));
 				n.setFoto_noticia(rs.getBlob("fotografia_noticia"));
 				n.setTitulo(rs.getString("titulo"));
@@ -102,7 +107,7 @@ public class Controller implements InterfaceController{
 	@Override
 	public ArrayList<Policia> showPolicemen() {
 		
-		con = DatabaseConnectionPolice.getConnection();
+		con = DatabaseConnectionPolice2.getConnection();
 		ResultSet rs = null;
 		Policia p= null;
 		ArrayList<Policia> policemen = new ArrayList<Policia>();

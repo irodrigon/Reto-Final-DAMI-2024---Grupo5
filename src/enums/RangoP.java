@@ -1,6 +1,6 @@
 package enums;
 
-public enum Rango {
+public enum RangoP {
 	CABO,
 	TENIENTE,
 	SARGENTO,

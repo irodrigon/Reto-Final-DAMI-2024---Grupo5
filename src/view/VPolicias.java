@@ -57,7 +57,7 @@ public class VPolicias extends JFrame implements ActionListener{
 	private JButton btnAtras;
 	
 	public VPolicias(Controller c, String dni,String pass) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VPolicias.class.getResource("/fotos/pixelart2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VPolicias.class.getResource("/fotos/pixelart.png")));
 		this.c = c;
 		this.dni = dni;
 		this.pass = pass;
@@ -65,7 +65,7 @@ public class VPolicias extends JFrame implements ActionListener{
 		crims = c.showCriminalByPoliceman(dni);
 		p = c.policeLogIn(this.pass, this.dni);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(530, 50, 884, 600);
+		setBounds(530, 50, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -116,6 +116,12 @@ public class VPolicias extends JFrame implements ActionListener{
 		lblRango.setBounds(142, 98, 285, 32);
 		contentPane.add(lblRango);
 		
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
+		lblNewLabel.setBounds(0, 0, 1280, 728);
+		contentPane.add(lblNewLabel);
+
 
 		lblFoto2 = new JLabel("");
 		lblFoto2.setBounds(738, 10, 106, 153);
@@ -258,7 +264,7 @@ public class VPolicias extends JFrame implements ActionListener{
 			vE.setVisible(true);
 			this.dispose();
 		}
-		
+
 	}
 }
 
