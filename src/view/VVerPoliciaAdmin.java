@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +27,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Color;
 
-public class VVerPoliciaAdmin extends JFrame {
+public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -36,6 +37,7 @@ public class VVerPoliciaAdmin extends JFrame {
 	private Policia p;
 	private String dni;
 	private String dni2;
+	private JButton btnAtras;
 
 	public VVerPoliciaAdmin(Controller c, String dni, String dni2) {
 		this.c = c;
@@ -48,7 +50,7 @@ public class VVerPoliciaAdmin extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		JButton btnAtras = new JButton("Atras");
+		btnAtras = new JButton("Atras");
 		btnAtras.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 26));
 		btnAtras.setBounds(570, 596, 129, 43);
 		contentPane.add(btnAtras);
@@ -111,7 +113,22 @@ public class VVerPoliciaAdmin extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(VVerPoliciaAdmin.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
 		lblNewLabel.setBounds(0, 10, 1266, 663);
 		contentPane.add(lblNewLabel);
+		
+		btnAtras.addActionListener(this);
 
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		Object o = e.getSource();
+		
+		if(o == btnAtras) {
+			VManagement vm = new VManagement(c, dni);
+			vm.setVisible(true);
+			this.dispose();
+		}
+		
 	}
 
 }
