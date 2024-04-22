@@ -105,7 +105,7 @@ public class VManagement extends JFrame implements ActionListener {
 		suspects = this.contr.showCriminals();
 		news = this.contr.showNews();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 20, 1280, 720);
+		setBounds(500, 20, 1280, 920);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -462,8 +462,19 @@ public class VManagement extends JFrame implements ActionListener {
 							"Artículo eliminado correctamente. No podrá volver este artículo.", "Advertencia",
 							JOptionPane.INFORMATION_MESSAGE);
 					model2.removeRow(table2.getSelectedRow());
+				}
+
 			}
-				
+		} else if (o == btnSeeProfile2) {
+			if (table2.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				Arsenal a = new Arsenal();
+				a = contr.returnWeaponByName((String) table2.getValueAt(table2.getSelectedRow(), 0));
+				VVerArsenalAdmin vvaa = new VVerArsenalAdmin(contr, a.getNombre(), dni);
+				vvaa.setVisible(true);
+				this.dispose();
 			}
 		}
 
