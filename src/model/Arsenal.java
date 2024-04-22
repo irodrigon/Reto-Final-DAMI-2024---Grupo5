@@ -33,6 +33,7 @@ public class Arsenal {
 	public String getTipo() {
 		return tipo.name();
 	}
+
 	//El método getter convierte el atributo del enum a String para recogerlo de SQL que también usa enum.
 
 	public void setTipo(String tipo) {
