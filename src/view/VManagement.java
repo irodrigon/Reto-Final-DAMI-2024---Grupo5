@@ -220,35 +220,35 @@ public class VManagement extends JFrame implements ActionListener {
 		btnSeeProfile2.setBackground(new Color(116, 116, 116));
 		btnSeeProfile2.setForeground(new Color(0, 0, 0));
 		btnSeeProfile2.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnSeeProfile2.setBounds(10, 756, 216, 23);
+		btnSeeProfile2.setBounds(10, 654, 216, 23);
 		panel2.add(btnSeeProfile2);
 
 		btnCreateArticle = new JButton("Crear Perfil de artículo");
 		btnCreateArticle.setForeground(Color.BLACK);
 		btnCreateArticle.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
 		btnCreateArticle.setBackground(new Color(116, 116, 116));
-		btnCreateArticle.setBounds(269, 756, 216, 23);
+		btnCreateArticle.setBounds(255, 654, 216, 23);
 		panel2.add(btnCreateArticle);
 
 		btnMdifyWeapons = new JButton("Modificar artículo");
 		btnMdifyWeapons.setBackground(new Color(116, 116, 116));
 		btnMdifyWeapons.setForeground(new Color(0, 0, 0));
 		btnMdifyWeapons.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnMdifyWeapons.setBounds(517, 756, 216, 23);
+		btnMdifyWeapons.setBounds(507, 654, 216, 23);
 		panel2.add(btnMdifyWeapons);
 
 		btnEliminarWeapons = new JButton("Eliminar artículo");
 		btnEliminarWeapons.setBackground(new Color(116, 116, 116));
 		btnEliminarWeapons.setForeground(new Color(0, 0, 0));
 		btnEliminarWeapons.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnEliminarWeapons.setBounds(769, 756, 216, 23);
+		btnEliminarWeapons.setBounds(758, 654, 216, 23);
 		panel2.add(btnEliminarWeapons);
 
 		btnBack2 = new JButton("Atrás");
 		btnBack2.setForeground(new Color(0, 0, 0));
 		btnBack2.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
 		btnBack2.setBackground(new Color(116, 116, 116));
-		btnBack2.setBounds(397, 862, 216, 23);
+		btnBack2.setBounds(397, 716, 216, 23);
 		panel2.add(btnBack2);
 
 		lblNewLabel = new JLabel("Seleccione un artículo:", SwingConstants.CENTER);
@@ -304,35 +304,35 @@ public class VManagement extends JFrame implements ActionListener {
 		btnSeeProfile3.setBackground(new Color(116, 116, 116));
 		btnSeeProfile3.setForeground(new Color(0, 0, 0));
 		btnSeeProfile3.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnSeeProfile3.setBounds(10, 756, 216, 23);
+		btnSeeProfile3.setBounds(10, 654, 216, 23);
 		panel3.add(btnSeeProfile3);
 
 		btnCreateSuspect = new JButton("Crear Perfil de criminal");
 		btnCreateSuspect.setForeground(Color.BLACK);
 		btnCreateSuspect.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
 		btnCreateSuspect.setBackground(new Color(116, 116, 116));
-		btnCreateSuspect.setBounds(269, 756, 216, 23);
+		btnCreateSuspect.setBounds(257, 654, 216, 23);
 		panel3.add(btnCreateSuspect);
 
 		btnMdifySuspects = new JButton("Modificar perfil");
 		btnMdifySuspects.setBackground(new Color(116, 116, 116));
 		btnMdifySuspects.setForeground(new Color(0, 0, 0));
 		btnMdifySuspects.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnMdifySuspects.setBounds(517, 756, 216, 23);
+		btnMdifySuspects.setBounds(507, 654, 216, 23);
 		panel3.add(btnMdifySuspects);
 
 		btnEliminarCriminal = new JButton("Eliminar perfil");
 		btnEliminarCriminal.setBackground(new Color(116, 116, 116));
 		btnEliminarCriminal.setForeground(new Color(0, 0, 0));
 		btnEliminarCriminal.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnEliminarCriminal.setBounds(769, 756, 216, 23);
+		btnEliminarCriminal.setBounds(758, 654, 216, 23);
 		panel3.add(btnEliminarCriminal);
 
 		btnBack3 = new JButton("Atrás");
 		btnBack3.setForeground(new Color(0, 0, 0));
 		btnBack3.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
 		btnBack3.setBackground(new Color(116, 116, 116));
-		btnBack3.setBounds(397, 862, 216, 23);
+		btnBack3.setBounds(397, 716, 216, 23);
 		panel3.add(btnBack3);
 
 		lblNewLabel3 = new JLabel("Seleccione un perfil:", SwingConstants.CENTER);
@@ -387,35 +387,35 @@ public class VManagement extends JFrame implements ActionListener {
 		btnSeeProfile4.setBackground(new Color(116, 116, 116));
 		btnSeeProfile4.setForeground(new Color(0, 0, 0));
 		btnSeeProfile4.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnSeeProfile4.setBounds(10, 756, 216, 23);
+		btnSeeProfile4.setBounds(10, 654, 216, 23);
 		panel4.add(btnSeeProfile4);
 
 		btnCreateNew = new JButton("Crear Noticia");
 		btnCreateNew.setForeground(Color.BLACK);
 		btnCreateNew.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
 		btnCreateNew.setBackground(new Color(116, 116, 116));
-		btnCreateNew.setBounds(269, 756, 216, 23);
+		btnCreateNew.setBounds(255, 654, 216, 23);
 		panel4.add(btnCreateNew);
 
 		btnMdifyNew = new JButton("Modificar Noticia");
 		btnMdifyNew.setBackground(new Color(116, 116, 116));
 		btnMdifyNew.setForeground(new Color(0, 0, 0));
 		btnMdifyNew.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnMdifyNew.setBounds(517, 756, 216, 23);
+		btnMdifyNew.setBounds(507, 654, 216, 23);
 		panel4.add(btnMdifyNew);
 
 		btnEliminarNew = new JButton("Eliminar Noticia");
 		btnEliminarNew.setBackground(new Color(116, 116, 116));
 		btnEliminarNew.setForeground(new Color(0, 0, 0));
 		btnEliminarNew.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnEliminarNew.setBounds(769, 756, 216, 23);
+		btnEliminarNew.setBounds(758, 654, 216, 23);
 		panel4.add(btnEliminarNew);
 
 		btnBack4 = new JButton("Atrás");
 		btnBack4.setForeground(new Color(0, 0, 0));
 		btnBack4.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
 		btnBack4.setBackground(new Color(116, 116, 116));
-		btnBack4.setBounds(397, 862, 216, 23);
+		btnBack4.setBounds(397, 716, 216, 23);
 		panel4.add(btnBack4);
 
 		lblNewLabel4 = new JLabel("Seleccione una noticia:", SwingConstants.CENTER);
@@ -445,9 +445,26 @@ public class VManagement extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 		Object o = e.getSource();
-
+		
+		if(o == btnBack) {
+			VEntrada ve = new VEntrada(contr);
+			ve.setVisible(true);
+			this.dispose();
+		}else if(o == btnBack2) {
+			VEntrada ve = new VEntrada(contr);
+			ve.setVisible(true);
+			this.dispose();
+		}else if(o == btnBack3) {
+			VEntrada ve = new VEntrada(contr);
+			ve.setVisible(true);
+			this.dispose();
+		}else if(o == btnBack4) {
+			VEntrada ve = new VEntrada(contr);
+			ve.setVisible(true);
+			this.dispose();
+		}
 		if (o == btnEliminarWeapons) {
 			if (table2.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
