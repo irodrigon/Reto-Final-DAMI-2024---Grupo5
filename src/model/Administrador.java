@@ -2,13 +2,13 @@ package model;
 
 import java.sql.Blob;
 import java.sql.Date;
-<<<<<<< HEAD
+
 import java.time.LocalDate;
 
-=======
+
 
 //Aquí está una de las clases utilizadas en el programa.
->>>>>>> 5bfdf4f4973cf4802c748cd8d84feba63a91ad10
+
 public class Administrador extends Persona{
 	
 	private Date fechaPrimerLog;
