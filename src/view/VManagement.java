@@ -63,7 +63,7 @@ public class VManagement extends JFrame implements ActionListener {
 	private JTable table2;
 	private JScrollPane scroll2;
 	private ArrayList<Arsenal> weapons;
-	private JButton btnSeeProfile2;
+	private JButton btnVerArsenal;
 	private JButton btnMdifyWeapons;
 	private JButton btnEliminarWeapons;
 	private JButton btnBack2;
@@ -216,12 +216,12 @@ public class VManagement extends JFrame implements ActionListener {
 		scroll2.setBounds(10, 40, 964, 557);
 		panel2.add(scroll2);
 
-		btnSeeProfile2 = new JButton("Ver Perfil de arsenal");
-		btnSeeProfile2.setBackground(new Color(116, 116, 116));
-		btnSeeProfile2.setForeground(new Color(0, 0, 0));
-		btnSeeProfile2.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnSeeProfile2.setBounds(10, 756, 216, 23);
-		panel2.add(btnSeeProfile2);
+		btnVerArsenal = new JButton("Ver Perfil de arsenal");
+		btnVerArsenal.setBackground(new Color(116, 116, 116));
+		btnVerArsenal.setForeground(new Color(0, 0, 0));
+		btnVerArsenal.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnVerArsenal.setBounds(10, 756, 216, 23);
+		panel2.add(btnVerArsenal);
 
 		btnCreateArticle = new JButton("Crear Perfil de artículo");
 		btnCreateArticle.setForeground(Color.BLACK);
@@ -269,7 +269,7 @@ public class VManagement extends JFrame implements ActionListener {
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		panel2.add(lblNewLabel_1_1);
 
-		btnSeeProfile2.addActionListener(this);
+		btnVerArsenal.addActionListener(this);
 		btnBack2.addActionListener(this);
 		btnMdifyWeapons.addActionListener(this);
 		btnEliminarWeapons.addActionListener(this);
@@ -448,6 +448,20 @@ public class VManagement extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		Object o = e.getSource();
 
+		if (o == btnSeeProfile) {
+			if (table.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione un policia en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				Policia p = new Policia();
+				p = contr.returnPolicemanById((String) table.getValueAt(table.getSelectedRow(), 0));
+				VVerPoliciaAdmin vvaa = new VVerPoliciaAdmin(contr, dni, p.getDni());
+				vvaa.setVisible(true);
+				this.dispose();
+			}
+
+		}
+
 		if (o == btnEliminarWeapons) {
 			if (table2.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
@@ -465,7 +479,7 @@ public class VManagement extends JFrame implements ActionListener {
 				}
 
 			}
-		} else if (o == btnSeeProfile2) {
+		} else if (o == btnVerArsenal) {
 			if (table2.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
 						JOptionPane.ERROR_MESSAGE);
