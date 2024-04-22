@@ -105,7 +105,7 @@ public class VManagement extends JFrame implements ActionListener {
 		suspects = this.contr.showCriminals();
 		news = this.contr.showNews();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 20, 1280, 920);
+		setBounds(500, 20, 1007, 820);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -128,7 +128,7 @@ public class VManagement extends JFrame implements ActionListener {
 		}
 		table = new JTable(model);
 		table.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		table.setBackground(new Color(116, 116, 116));
+		table.setBackground(new Color(255, 255, 255));
 		table.setForeground(new Color(0, 0, 0));
 		table.setBounds(10, 40, 964, 557);
 		table.getTableHeader().setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
@@ -144,28 +144,28 @@ public class VManagement extends JFrame implements ActionListener {
 		btnSeeProfile.setBackground(new Color(116, 116, 116));
 		btnSeeProfile.setForeground(new Color(0, 0, 0));
 		btnSeeProfile.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnSeeProfile.setBounds(61, 756, 216, 23);
+		btnSeeProfile.setBounds(63, 654, 216, 23);
 		panel1.add(btnSeeProfile);
 
 		btnMdifyPoliceman = new JButton("Modificar policia");
 		btnMdifyPoliceman.setBackground(new Color(116, 116, 116));
 		btnMdifyPoliceman.setForeground(new Color(0, 0, 0));
 		btnMdifyPoliceman.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnMdifyPoliceman.setBounds(397, 756, 216, 23);
+		btnMdifyPoliceman.setBounds(397, 654, 216, 23);
 		panel1.add(btnMdifyPoliceman);
 
 		btnEliminarPolicia = new JButton("Eliminar policia");
 		btnEliminarPolicia.setBackground(new Color(116, 116, 116));
 		btnEliminarPolicia.setForeground(new Color(0, 0, 0));
 		btnEliminarPolicia.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnEliminarPolicia.setBounds(734, 756, 216, 23);
+		btnEliminarPolicia.setBounds(733, 654, 216, 23);
 		panel1.add(btnEliminarPolicia);
 
 		btnBack = new JButton("Atrás");
 		btnBack.setForeground(new Color(0, 0, 0));
 		btnBack.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
 		btnBack.setBackground(new Color(116, 116, 116));
-		btnBack.setBounds(397, 862, 216, 23);
+		btnBack.setBounds(397, 716, 216, 23);
 		panel1.add(btnBack);
 
 		lblNewLabel = new JLabel("Seleccione un policía:", SwingConstants.CENTER);
@@ -182,7 +182,7 @@ public class VManagement extends JFrame implements ActionListener {
 
 		lblNewLabel_1_1 = new JLabel("");
 		lblNewLabel_1_1.setIcon(new ImageIcon(VManagement.class.getResource("/fotos/fondoNoticiasFinal.png")));
-		lblNewLabel_1_1.setBounds(-60, -73, 1066, 1135);
+		lblNewLabel_1_1.setBounds(-60, -73, 1076, 1135);
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		panel1.add(lblNewLabel_1_1);
 
@@ -206,7 +206,7 @@ public class VManagement extends JFrame implements ActionListener {
 		}
 		table2 = new JTable(model2);
 		table2.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		table2.setBackground(new Color(116, 116, 116));
+		table2.setBackground(new Color(255, 255, 255));
 		table2.setForeground(new Color(0, 0, 0));
 		table2.setBounds(10, 40, 964, 557);
 		table2.getTableHeader().setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
@@ -290,7 +290,7 @@ public class VManagement extends JFrame implements ActionListener {
 		}
 		table3 = new JTable(model3);
 		table3.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		table3.setBackground(new Color(116, 116, 116));
+		table3.setBackground(new Color(255, 255, 255));
 		table3.setForeground(new Color(0, 0, 0));
 		table3.setBounds(10, 40, 964, 557);
 		table3.getTableHeader().setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
@@ -373,7 +373,7 @@ public class VManagement extends JFrame implements ActionListener {
 		}
 		table4 = new JTable(model4);
 		table4.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		table4.setBackground(new Color(116, 116, 116));
+		table4.setBackground(new Color(255, 255, 255));
 		table4.setForeground(new Color(0, 0, 0));
 		table4.setBounds(10, 40, 964, 557);
 		table4.getTableHeader().setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
