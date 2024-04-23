@@ -204,6 +204,7 @@ public class VPolicias extends JFrame implements ActionListener{
 		btnEliminar.addActionListener(this);
 		btnVerArsenal.addActionListener(this);
 		btnModificar.addActionListener(this);
+		btnElegirArsenal.addActionListener(this);
 		
 		it = crims.listIterator();
 	}
@@ -298,6 +299,11 @@ public class VPolicias extends JFrame implements ActionListener{
 			vmpp.setVisible(true);
 			this.dispose();
 			
+		}else if(o == btnElegirArsenal) {
+			dni = p.getDni();
+			VElegirArmas vea = new VElegirArmas(c, dni,pass);
+			vea.setVisible(true);
+			this.dispose();
 		}
 
 	}
