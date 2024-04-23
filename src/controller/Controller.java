@@ -492,18 +492,13 @@ public class Controller implements InterfaceController {
 
 		} catch (SQLException e) {
 			System.out.println("Error en la BD.");
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					System.out.println("Error de cierre del ResultSet");
-				}
-			}
-		}
+		} 
+		
+		return p;
+	}
 
 	@Override
-	public boolean insertAssociation(String dni, int id) {
+	public boolean insertAssociation(String dni, String nombre_arsenal) {
 		
 		boolean cambios = false;
 
@@ -513,7 +508,7 @@ public class Controller implements InterfaceController {
 			stmt = con.prepareStatement(INSERT_ASSOCIATION);
 
 			stmt.setString(1, dni);
-			stmt.setInt(2, id);
+			stmt.setString(2, nombre_arsenal);
 
 			if (stmt.executeUpdate() == 1)
 				cambios = true;

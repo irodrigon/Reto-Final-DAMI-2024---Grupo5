@@ -95,6 +95,7 @@ public class VManagement extends JFrame implements ActionListener {
 	private JScrollPane scroll4;
 	private JLabel lblNewLabel4;
 	private News n;
+	private JButton btnSeeProfile2;
 
 	public VManagement(Controller contr, String dni) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VManagement.class.getResource("/fotos/pixelart2.png")));
@@ -269,8 +270,8 @@ public class VManagement extends JFrame implements ActionListener {
 		lblNewLabel_1_1.setBounds(-60, -73, 1066, 1135);
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		panel2.add(lblNewLabel_1_1);
-
-		btnVerArsenal.addActionListener(this);
+		
+		btnSeeProfile2.addActionListener(this);
 		btnBack2.addActionListener(this);
 		btnMdifyWeapons.addActionListener(this);
 		btnEliminarWeapons.addActionListener(this);
@@ -495,7 +496,7 @@ public class VManagement extends JFrame implements ActionListener {
 				}
 
 			}
-		} else if (o == btnVerArsenal) {
+		} else if (o == btnSeeProfile2) {
 			if (table2.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
 						JOptionPane.ERROR_MESSAGE);
