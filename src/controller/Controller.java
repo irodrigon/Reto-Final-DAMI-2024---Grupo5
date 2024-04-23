@@ -35,7 +35,7 @@ public class Controller implements InterfaceController{
 	
 
 	private final String SHOW_NEWS = "SELECT * FROM NOTICIA";
-	private final String RETURN_POLICEMAN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE contrasena = ? AND dni in (SELECT dni_policia from policia WHERE dni_policia = ?);";
+	private final String RETURN_POLICEMAN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE contrasena = ? AND dni in (SELECT dni_policia from policia WHERE dni_policia = ?)";
 	private final String SHOW_POLICEMEN = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia";
 	private final String SHOW_CRIMINAL_BY_POLICEMAN = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni WHERE dni_policia = ?";
 	private final String SHOW_ARSENAL = "SELECT * FROM ARSENAL";
@@ -45,6 +45,8 @@ public class Controller implements InterfaceController{
 	private final String SHOW_CRIMINAL ="SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni";
 	private final String INSERT_WEAPON = "{CALL AnadirArsenal(?,?,?,?,?};";
 	private final String RETURN_WEAPON_BY_NAME = "SELECT * FROM ARSENAL WHERE nombre = ?";
+	private final String RETURN_POLICEMAN_BY_ID = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE dni in (SELECT dni_policia from policia WHERE dni_policia = ?)";
+	private final String INSERT_ASSOCIATION = "INSERT INTO ELIGE VALUES(?,?)";
 	
 	@Override
 	public Policia policeLogIn(String password, String dni) {
@@ -473,4 +475,66 @@ public class Controller implements InterfaceController{
 			return a;
 
 		}
+
+	@Override
+	public Policia returnPolicemanById(String dni) {
+		
+		con = DatabaseConnectionPolice.getConnection();
+		
+		//El set de resultados recoge la consulta de la base de datos.
+		ResultSet rs = null;
+		Policia p = null;
+		
+		try {
+
+			//prepara la conexión con la base datos.
+
+			stmt = con.prepareStatement(RETURN_POLICEMAN_BY_ID);
+			//Mira el primer parámetro que le introduce el usuario en la base de datos.
+			stmt.setString(1, dni);
+			
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				p = new Policia(rs.getString("dni"),rs.getString("nombre"),rs.getString("apellido"),rs.getString("contrasena"),rs.getBlob("fotografia_persona"),rs.getString("rango"));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Error en la BD.");
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException e) {
+					System.out.println("Error de cierre del ResultSet");
+				}
+			}
+		}
+	
+		return p;
+	}
+
+	@Override
+	public boolean insertAssociation(String dni, int id) {
+		
+		boolean cambios = false;
+
+		con = DatabaseConnectionPolice.getConnection();
+
+		try {
+			stmt = con.prepareStatement(INSERT_ASSOCIATION);
+
+			stmt.setString(1, dni);
+			stmt.setInt(2, id);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+		
+		return cambios;
+	}
 }
