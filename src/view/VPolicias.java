@@ -95,27 +95,27 @@ public class VPolicias extends JFrame implements ActionListener{
 		
 		JLabel lblDni = new JLabel("DNI: " + p.getDni());
 		lblDni.setForeground(new Color(255, 255, 255));
-		lblDni.setFont(new Font("Dialog", Font.PLAIN, 17));
+		lblDni.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 
-		lblDni.setBounds(138, 10, 285, 32);
+		lblDni.setBounds(142, 10, 285, 32);
 
 		contentPane.add(lblDni);
 		
 		JLabel lblNombre = new JLabel("Nombre: " + p.getNombre());
 		lblNombre.setForeground(new Color(255, 255, 255));
-		lblNombre.setFont(new Font("Dialog", Font.PLAIN, 17));
+		lblNombre.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		lblNombre.setBounds(142, 40, 285, 32);
 		contentPane.add(lblNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido: " + p.getApellido());
 		lblApellido.setForeground(new Color(255, 255, 255));
-		lblApellido.setFont(new Font("Dialog", Font.PLAIN, 17));
+		lblApellido.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		lblApellido.setBounds(142, 68, 285, 32);
 		contentPane.add(lblApellido);
 		
 		JLabel lblRango = new JLabel("Rango: " + p.getRango());
 		lblRango.setForeground(new Color(255, 255, 255));
-		lblRango.setFont(new Font("Dialog", Font.PLAIN, 17));
+		lblRango.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		lblRango.setBounds(142, 98, 285, 32);
 		contentPane.add(lblRango);
 
@@ -149,26 +149,26 @@ public class VPolicias extends JFrame implements ActionListener{
 		
 		lblDniC = new JLabel("DNI: " + crims.get(0).getDni());
 		lblDniC.setForeground(Color.WHITE);
-		lblDniC.setFont(new Font("Dialog", Font.PLAIN, 17));
-		lblDniC.setBounds(459, 10, 285, 32);
+		lblDniC.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblDniC.setBounds(433, 10, 311, 32);
 		contentPane.add(lblDniC);
 		
 		lblNombreC = new JLabel("Nombre: " + crims.get(0).getNombre());
 		lblNombreC.setForeground(Color.WHITE);
-		lblNombreC.setFont(new Font("Dialog", Font.PLAIN, 17));
-		lblNombreC.setBounds(459, 40, 285, 32);
+		lblNombreC.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblNombreC.setBounds(433, 40, 311, 32);
 		contentPane.add(lblNombreC);
 		
 		lblApellidoC = new JLabel("Apellido: " + crims.get(0).getApellido());
 		lblApellidoC.setForeground(Color.WHITE);
-		lblApellidoC.setFont(new Font("Dialog", Font.PLAIN, 17));
-		lblApellidoC.setBounds(459, 68, 285, 32);
+		lblApellidoC.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblApellidoC.setBounds(430, 68, 314, 32);
 		contentPane.add(lblApellidoC);
 		
 		lblDesc = new JLabel("Descripción: " + crims.get(0).getDescripcion());
 		lblDesc.setForeground(Color.WHITE);
-		lblDesc.setFont(new Font("Dialog", Font.PLAIN, 17));
-		lblDesc.setBounds(459, 92, 193, 45);
+		lblDesc.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblDesc.setBounds(433, 92, 229, 45);
 		contentPane.add(lblDesc);
 		
 		btnVerArsenal = new JButton("Ver el arsenal disponible");
