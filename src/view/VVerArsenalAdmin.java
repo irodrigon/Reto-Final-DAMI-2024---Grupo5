@@ -48,7 +48,7 @@ public class VVerArsenalAdmin extends JFrame implements ActionListener{
 		this.dni = dni;
 		a = c.returnWeaponByName(nombre);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(530, 20, 1280, 920);
+		setBounds(530, 20, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -56,31 +56,31 @@ public class VVerArsenalAdmin extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 
 		lblFoto = new JLabel("");
-		lblFoto.setBounds(180, 74, 455, 275);
+		lblFoto.setBounds(458, 86, 455, 275);
 		contentPane.add(lblFoto);
 		
 		lblNombre = new JLabel("Nombre: " + a.getNombre());
 		lblNombre.setForeground(new Color(255, 255, 255));
-		lblNombre.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblNombre.setBounds(115, 440, 388, 27);
+		lblNombre.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblNombre.setBounds(458, 397, 388, 27);
 		contentPane.add(lblNombre);
 		
 		lblTipo = new JLabel("Tipo: " + a.getTipo());
 		lblTipo.setForeground(new Color(255, 255, 255));
-		lblTipo.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblTipo.setBounds(117, 468, 320, 27);
+		lblTipo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblTipo.setBounds(458, 434, 320, 27);
 		contentPane.add(lblTipo); 
 		
 		lblDescripcion = new JLabel("Descripción: " + a.getDescripcion());
 		lblDescripcion.setForeground(new Color(255, 255, 255));
-		lblDescripcion.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblDescripcion.setBounds(118, 494, 740, 43);
+		lblDescripcion.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblDescripcion.setBounds(458, 471, 740, 43);
 		contentPane.add(lblDescripcion);
 		
 		lblBienvenida = new JLabel("ARSENAL");
 		lblBienvenida.setForeground(new Color(255, 255, 255));
 		lblBienvenida.setFont(new Font("Dialog", Font.BOLD, 37));
-		lblBienvenida.setBounds(239, 9, 438, 54);
+		lblBienvenida.setBounds(590, 10, 207, 54);
 		contentPane.add(lblBienvenida);
 
 		btnAtras = new JButton("Atrás");
