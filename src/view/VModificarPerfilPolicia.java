@@ -21,7 +21,8 @@ public class VModificarPerfilPolicia extends JFrame {
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JTextField textField_1;
-
+//Ventana para modificar perfil
+	
 	public VModificarPerfilPolicia(Controller c) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 1000);
