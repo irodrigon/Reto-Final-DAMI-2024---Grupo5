@@ -24,6 +24,9 @@ public interface InterfaceController {
 	public boolean deleteWeapon(int id_weapon);//Borra un artículo del arsenal.
 	public boolean insertWeapon(int id, Blob foto,String nombre, String tipo, String descripcion);//Inserta un artículo nuevo del arsenal.
 	public Arsenal returnWeaponByName(String nombre);//Según el nombre del arma, saca todos los datos del arma de la base de datos.
-	public Policia returnPolicemanById(String dni);
+
 	public boolean insertAssociation(String dni, int id);
+	public Policia returnPolicemanById (String dni);//
+
+
 }
