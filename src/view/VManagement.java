@@ -128,11 +128,11 @@ public class VManagement extends JFrame implements ActionListener {
 			model.addRow(data);
 		}
 		table = new JTable(model);
-		table.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		table.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		table.setBackground(new Color(255, 255, 255));
 		table.setForeground(new Color(0, 0, 0));
 		table.setBounds(10, 40, 964, 557);
-		table.getTableHeader().setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		table.getTableHeader().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		table.getTableHeader().setBackground(new Color(116, 116, 116));
 		table.getTableHeader().setForeground(new Color(0, 0, 0));
 		scroll = new JScrollPane(table);
@@ -144,40 +144,40 @@ public class VManagement extends JFrame implements ActionListener {
 		btnSeeProfile = new JButton("Ver Perfil de Policia");
 		btnSeeProfile.setBackground(new Color(116, 116, 116));
 		btnSeeProfile.setForeground(new Color(0, 0, 0));
-		btnSeeProfile.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnSeeProfile.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnSeeProfile.setBounds(63, 654, 216, 23);
 		panel1.add(btnSeeProfile);
 
 		btnMdifyPoliceman = new JButton("Modificar policia");
 		btnMdifyPoliceman.setBackground(new Color(116, 116, 116));
 		btnMdifyPoliceman.setForeground(new Color(0, 0, 0));
-		btnMdifyPoliceman.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnMdifyPoliceman.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnMdifyPoliceman.setBounds(397, 654, 216, 23);
 		panel1.add(btnMdifyPoliceman);
 
 		btnEliminarPolicia = new JButton("Eliminar policia");
 		btnEliminarPolicia.setBackground(new Color(116, 116, 116));
 		btnEliminarPolicia.setForeground(new Color(0, 0, 0));
-		btnEliminarPolicia.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnEliminarPolicia.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnEliminarPolicia.setBounds(733, 654, 216, 23);
 		panel1.add(btnEliminarPolicia);
 
 		btnBack = new JButton("Atrás");
 		btnBack.setForeground(new Color(0, 0, 0));
-		btnBack.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnBack.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnBack.setBackground(new Color(116, 116, 116));
 		btnBack.setBounds(397, 716, 216, 23);
 		panel1.add(btnBack);
 
 		lblNewLabel = new JLabel("Seleccione un policía:", SwingConstants.CENTER);
 		lblNewLabel.setForeground(new Color(0, 0, 0));
-		lblNewLabel.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
+		lblNewLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
 		lblNewLabel.setBounds(155, 0, 625, 25);
 		panel1.add(lblNewLabel);
 
 		lblChanges = new JLabel("");
 		lblChanges.setForeground(new Color(0, 0, 0));
-		lblChanges.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		lblChanges.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		lblChanges.setBounds(288, 896, 464, 37);
 		panel1.add(lblChanges);
 
@@ -210,7 +210,7 @@ public class VManagement extends JFrame implements ActionListener {
 		table2.setBackground(new Color(255, 255, 255));
 		table2.setForeground(new Color(0, 0, 0));
 		table2.setBounds(10, 40, 964, 557);
-		table2.getTableHeader().setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		table2.getTableHeader().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		table2.getTableHeader().setBackground(new Color(116, 116, 116));
 		table2.getTableHeader().setForeground(new Color(0, 0, 0));
 		scroll2 = new JScrollPane(table2);
@@ -220,14 +220,15 @@ public class VManagement extends JFrame implements ActionListener {
 		btnSeeProfile2 = new JButton("Ver Perfil de arsenal");
 		btnSeeProfile2.setBackground(new Color(116, 116, 116));
 		btnSeeProfile2.setForeground(new Color(0, 0, 0));
-		btnSeeProfile2.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnSeeProfile2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnSeeProfile2.setBounds(10, 654, 216, 23);
 		panel2.add(btnSeeProfile2);
+		
 
 
 		btnCreateArticle = new JButton("Crear Perfil de artículo");
 		btnCreateArticle.setForeground(Color.BLACK);
-		btnCreateArticle.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnCreateArticle.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnCreateArticle.setBackground(new Color(116, 116, 116));
 		btnCreateArticle.setBounds(255, 654, 216, 23);
 		panel2.add(btnCreateArticle);
@@ -235,33 +236,33 @@ public class VManagement extends JFrame implements ActionListener {
 		btnMdifyWeapons = new JButton("Modificar artículo");
 		btnMdifyWeapons.setBackground(new Color(116, 116, 116));
 		btnMdifyWeapons.setForeground(new Color(0, 0, 0));
-		btnMdifyWeapons.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnMdifyWeapons.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnMdifyWeapons.setBounds(507, 654, 216, 23);
 		panel2.add(btnMdifyWeapons);
 
 		btnEliminarWeapons = new JButton("Eliminar artículo");
 		btnEliminarWeapons.setBackground(new Color(116, 116, 116));
 		btnEliminarWeapons.setForeground(new Color(0, 0, 0));
-		btnEliminarWeapons.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnEliminarWeapons.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnEliminarWeapons.setBounds(758, 654, 216, 23);
 		panel2.add(btnEliminarWeapons);
 
 		btnBack2 = new JButton("Atrás");
 		btnBack2.setForeground(new Color(0, 0, 0));
-		btnBack2.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnBack2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnBack2.setBackground(new Color(116, 116, 116));
 		btnBack2.setBounds(397, 716, 216, 23);
 		panel2.add(btnBack2);
 
 		lblNewLabel = new JLabel("Seleccione un artículo:", SwingConstants.CENTER);
 		lblNewLabel.setForeground(new Color(0, 0, 0));
-		lblNewLabel.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
+		lblNewLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
 		lblNewLabel.setBounds(155, 0, 625, 25);
 		panel2.add(lblNewLabel);
 
 		lblChanges_1 = new JLabel("");
 		lblChanges_1.setForeground(Color.BLACK);
-		lblChanges_1.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		lblChanges_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		lblChanges_1.setBounds(269, 896, 464, 37);
 		panel2.add(lblChanges_1);
 
@@ -270,12 +271,15 @@ public class VManagement extends JFrame implements ActionListener {
 		lblNewLabel_1_1.setBounds(-60, -73, 1066, 1135);
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		panel2.add(lblNewLabel_1_1);
+
 		
 		btnSeeProfile2.addActionListener(this);
+
 		btnBack2.addActionListener(this);
 		btnMdifyWeapons.addActionListener(this);
 		btnEliminarWeapons.addActionListener(this);
 		btnCreateArticle.addActionListener(this);
+		btnSeeProfile2.addActionListener(this);
 
 		panel3 = new JPanel();
 		tabbedPane.addTab("Criminales", new ImageIcon(VManagement.class.getResource("/fotos/pixelart2.png")), panel3,
@@ -291,11 +295,11 @@ public class VManagement extends JFrame implements ActionListener {
 			model3.addRow(data);
 		}
 		table3 = new JTable(model3);
-		table3.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		table3.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		table3.setBackground(new Color(255, 255, 255));
 		table3.setForeground(new Color(0, 0, 0));
 		table3.setBounds(10, 40, 964, 557);
-		table3.getTableHeader().setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		table3.getTableHeader().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		table3.getTableHeader().setBackground(new Color(116, 116, 116));
 		table3.getTableHeader().setForeground(new Color(0, 0, 0));
 		scroll3 = new JScrollPane(table3);
@@ -305,13 +309,13 @@ public class VManagement extends JFrame implements ActionListener {
 		btnSeeProfile3 = new JButton("Ver Perfil de criminal");
 		btnSeeProfile3.setBackground(new Color(116, 116, 116));
 		btnSeeProfile3.setForeground(new Color(0, 0, 0));
-		btnSeeProfile3.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnSeeProfile3.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnSeeProfile3.setBounds(10, 654, 216, 23);
 		panel3.add(btnSeeProfile3);
 
 		btnCreateSuspect = new JButton("Crear Perfil de criminal");
 		btnCreateSuspect.setForeground(Color.BLACK);
-		btnCreateSuspect.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnCreateSuspect.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnCreateSuspect.setBackground(new Color(116, 116, 116));
 		btnCreateSuspect.setBounds(257, 654, 216, 23);
 		panel3.add(btnCreateSuspect);
@@ -319,33 +323,33 @@ public class VManagement extends JFrame implements ActionListener {
 		btnMdifySuspects = new JButton("Modificar perfil");
 		btnMdifySuspects.setBackground(new Color(116, 116, 116));
 		btnMdifySuspects.setForeground(new Color(0, 0, 0));
-		btnMdifySuspects.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnMdifySuspects.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnMdifySuspects.setBounds(507, 654, 216, 23);
 		panel3.add(btnMdifySuspects);
 
 		btnEliminarCriminal = new JButton("Eliminar perfil");
 		btnEliminarCriminal.setBackground(new Color(116, 116, 116));
 		btnEliminarCriminal.setForeground(new Color(0, 0, 0));
-		btnEliminarCriminal.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnEliminarCriminal.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnEliminarCriminal.setBounds(758, 654, 216, 23);
 		panel3.add(btnEliminarCriminal);
 
 		btnBack3 = new JButton("Atrás");
 		btnBack3.setForeground(new Color(0, 0, 0));
-		btnBack3.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnBack3.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnBack3.setBackground(new Color(116, 116, 116));
 		btnBack3.setBounds(397, 716, 216, 23);
 		panel3.add(btnBack3);
 
 		lblNewLabel3 = new JLabel("Seleccione un perfil:", SwingConstants.CENTER);
 		lblNewLabel3.setForeground(new Color(0, 0, 0));
-		lblNewLabel3.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
+		lblNewLabel3.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
 		lblNewLabel3.setBounds(155, 0, 625, 25);
 		panel3.add(lblNewLabel3);
 
 		lblChanges_3 = new JLabel("");
 		lblChanges_3.setForeground(Color.BLACK);
-		lblChanges_3.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		lblChanges_3.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		lblChanges_3.setBounds(269, 896, 464, 37);
 		panel3.add(lblChanges_3);
 
@@ -378,7 +382,7 @@ public class VManagement extends JFrame implements ActionListener {
 		table4.setBackground(new Color(255, 255, 255));
 		table4.setForeground(new Color(0, 0, 0));
 		table4.setBounds(10, 40, 964, 557);
-		table4.getTableHeader().setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		table4.getTableHeader().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		table4.getTableHeader().setBackground(new Color(116, 116, 116));
 		table4.getTableHeader().setForeground(new Color(0, 0, 0));
 		scroll4 = new JScrollPane(table4);
@@ -388,13 +392,13 @@ public class VManagement extends JFrame implements ActionListener {
 		btnSeeProfile4 = new JButton("Ver Noticia");
 		btnSeeProfile4.setBackground(new Color(116, 116, 116));
 		btnSeeProfile4.setForeground(new Color(0, 0, 0));
-		btnSeeProfile4.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnSeeProfile4.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnSeeProfile4.setBounds(10, 654, 216, 23);
 		panel4.add(btnSeeProfile4);
 
 		btnCreateNew = new JButton("Crear Noticia");
 		btnCreateNew.setForeground(Color.BLACK);
-		btnCreateNew.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnCreateNew.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnCreateNew.setBackground(new Color(116, 116, 116));
 		btnCreateNew.setBounds(255, 654, 216, 23);
 		panel4.add(btnCreateNew);
@@ -402,33 +406,33 @@ public class VManagement extends JFrame implements ActionListener {
 		btnMdifyNew = new JButton("Modificar Noticia");
 		btnMdifyNew.setBackground(new Color(116, 116, 116));
 		btnMdifyNew.setForeground(new Color(0, 0, 0));
-		btnMdifyNew.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnMdifyNew.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnMdifyNew.setBounds(507, 654, 216, 23);
 		panel4.add(btnMdifyNew);
 
 		btnEliminarNew = new JButton("Eliminar Noticia");
 		btnEliminarNew.setBackground(new Color(116, 116, 116));
 		btnEliminarNew.setForeground(new Color(0, 0, 0));
-		btnEliminarNew.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnEliminarNew.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnEliminarNew.setBounds(758, 654, 216, 23);
 		panel4.add(btnEliminarNew);
 
 		btnBack4 = new JButton("Atrás");
 		btnBack4.setForeground(new Color(0, 0, 0));
-		btnBack4.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnBack4.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnBack4.setBackground(new Color(116, 116, 116));
 		btnBack4.setBounds(397, 716, 216, 23);
 		panel4.add(btnBack4);
 
 		lblNewLabel4 = new JLabel("Seleccione una noticia:", SwingConstants.CENTER);
 		lblNewLabel4.setForeground(new Color(0, 0, 0));
-		lblNewLabel4.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
+		lblNewLabel4.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
 		lblNewLabel4.setBounds(155, 0, 625, 25);
 		panel4.add(lblNewLabel4);
 
 		lblChanges_4 = new JLabel("");
 		lblChanges_4.setForeground(Color.BLACK);
-		lblChanges_4.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		lblChanges_4.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		lblChanges_4.setBounds(269, 896, 464, 37);
 		panel4.add(lblChanges_4);
 
