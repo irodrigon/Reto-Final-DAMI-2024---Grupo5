@@ -174,8 +174,9 @@ public class VVerArsenal extends JFrame implements ActionListener{
 				if (it.hasNext()) {
 					btnAnterior.setEnabled(true);
 					a = it.next();
-				
-					lblDescripcion.setText("Descripción" + a.getDescripcion());
+					lblNombre.setText("Nombre: " + a.getNombre());
+					lblTipo.setText("Tipo: " + a .getTipo());
+					lblDescripcion.setText("Descripción: " + a.getDescripcion());
 					aBlob = a.getFoto_arsenal();
 					try {
 						InputStream is;
@@ -194,7 +195,8 @@ public class VVerArsenal extends JFrame implements ActionListener{
 			} else if (o == btnAnterior) {
 				if (it.hasPrevious()) {
 					a= it.previous();
-		
+					lblNombre.setText("Nombre: " + a.getNombre());
+					lblTipo.setText("Tipo: " + a .getTipo());
 					lblDescripcion.setText("Descripción: " + a.getDescripcion());
 					aBlob = a.getFoto_arsenal();
 					try {

@@ -26,7 +26,7 @@ import model.Arsenal;
 import model.Elige;
 import model.Policia;
 
-public class VElegirArmas extends JFrame implements ActionListener{
+public class VElegirArmas extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -57,7 +57,7 @@ public class VElegirArmas extends JFrame implements ActionListener{
 		this.pass = pass;
 		pol = c.returnPolicemanById(dni);
 		weapons = c.showArsenal();
-		busquedas = c.weaponsAssigned(dni);
+		busquedas = c.weaponsAssigned(pol.getDni());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 20, 1000, 1000);
 		contentPane = new JPanel();
@@ -65,7 +65,7 @@ public class VElegirArmas extends JFrame implements ActionListener{
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		String[] columnNames = { "Nombre:", "Descripcion:", "Elegir"};
+		String[] columnNames = { "Nombre:", "Descripcion:", "Elegir" };
 		model = new DefaultTableModel(null, columnNames) {
 
 			private static final long serialVersionUID = 1L;
@@ -79,37 +79,28 @@ public class VElegirArmas extends JFrame implements ActionListener{
 				}
 			}
 		};
-		
-		weaponsAvailable = new ArrayList<Arsenal>();
-		for (Arsenal a : weapons) {
-			for (Elige el : busquedas) {
-				if (a.getId_arsenal() != el.getId_arsenal()) {
-					weaponsAvailable.add(a);
-				}
-			}
-		}
-		
-		for (int i = 0; i < weaponsAvailable.size(); i++) {
-			String nombre = weaponsAvailable.get(i).getNombre();
-			String descripcion = weaponsAvailable.get(i).getDescripcion();
-			Object[] data = { nombre, descripcion, false};
+
+		for (int i = 0; i < weapons.size(); i++) {
+			String nombre = weapons.get(i).getNombre();
+			String descripcion = weapons.get(i).getDescripcion();
+			Object[] data = { nombre, descripcion, false };
 			model.addRow(data);
 		}
 
 		table = new JTable(model);
 		table.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		table.setBackground(new Color(116,116,116));
-		table.setForeground(new Color(0,0,0));
+		table.setBackground(new Color(116, 116, 116));
+		table.setForeground(new Color(0, 0, 0));
 		table.setBounds(10, 169, 964, 557);
 		table.getTableHeader().setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		table.getTableHeader().setBackground(new Color(116,116,116));
-		table.getTableHeader().setForeground(new Color(0,0,0));
+		table.getTableHeader().setBackground(new Color(116, 116, 116));
+		table.getTableHeader().setForeground(new Color(0, 0, 0));
 		scroll = new JScrollPane(table);
 		scroll.setBounds(10, 169, 964, 557);
 		contentPane.add(scroll);
 		chb = new JCheckBox();
 		chb.addActionListener(this);
-		
+
 		DefaultCellEditor editor = new DefaultCellEditor(chb) {
 			/**
 			 * 
@@ -148,7 +139,7 @@ public class VElegirArmas extends JFrame implements ActionListener{
 		btnCancel.setBackground(new Color(116, 116, 116));
 		btnCancel.setBounds(781, 777, 89, 23);
 		contentPane.add(btnCancel);
-		
+
 		lblCambios = new JLabel("");
 		lblCambios.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
 		lblCambios.setBounds(372, 840, 226, 32);
@@ -169,32 +160,54 @@ public class VElegirArmas extends JFrame implements ActionListener{
 		Object o = e.getSource();
 		if (o == chb && chb.isSelected()) {
 			count++;
-		}else if(o == chb && !chb.isSelected()) {
+		} else if (o == chb && !chb.isSelected()) {
 			count--;
 		}
-		if(count > 3) {
-			JOptionPane.showMessageDialog(this, "El agente no puede seleccionar más de tres artículos.", "Error", JOptionPane.ERROR_MESSAGE);
-			for(int i = 0; i < table.getRowCount(); i++) {
+		if (count > 3) {
+			JOptionPane.showMessageDialog(this, "El agente no puede seleccionar más de tres artículos.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			for (int i = 0; i < table.getRowCount(); i++) {
 				chb.setSelected(false);
 				table.setValueAt(false, i, 2);
 				count = guarda;
 			}
 		}
-		if(o == btnCancel) {
-			VPolicias vP = new VPolicias(c,dni,pass);
+		if (o == btnCancel) {
+			VPolicias vP = new VPolicias(c, dni, pass);
 			vP.setVisible(true);
 			this.dispose();
-		}else if(o == btnBack) {
-			VPolicias vP = new VPolicias(c,dni,pass);
+		} else if (o == btnBack) {
+			VPolicias vP = new VPolicias(c, dni, pass);
 			vP.setVisible(true);
 			this.dispose();
-		}else if(o == btnConfirmar) {
+		} else if (o == btnConfirmar) {
+			Arsenal ar = new Arsenal();
+			boolean found = false;
 			if (!chb.isSelected()) {
 				JOptionPane.showMessageDialog(this, "Seleccione algún artículo.", "Error", JOptionPane.ERROR_MESSAGE);
 			} else {
-				for(int i = 0; i < table.getRowCount();i ++) {
-					if(table.getValueAt(i, 2).equals(true)) {
-						
+				for (int i = 0; i < table.getRowCount(); i++) {
+					if (table.getValueAt(i, 2).equals(true)) {
+						busquedas = c.showAssociations();
+						for (Arsenal a : weapons) {
+							if (table.getValueAt(i, 0).equals(a.getNombre())) {
+								for(Elige el : busquedas) {
+									if(el.getId_arsenal() == a.getId_arsenal() && dni.equals(el.getDni_policia())) {
+										JOptionPane.showMessageDialog(this, "Ya tienes alguno de estos artículos en tu arsenal.", "Error", JOptionPane.ERROR_MESSAGE);
+										found = true;
+										
+									}
+								}
+							}
+						}
+						if(!found) {
+							for (int j = 0; j < table.getRowCount(); j++) {
+								if (table.getValueAt(j, 2).equals(true)) {
+									ar = c.returnWeaponByName((String)table.getValueAt(j, 0));
+								}
+							}
+							c.insertAssociation(dni, ar.getId_arsenal());
+						}
 						lblCambios.setText("Cambios guardados correctamente.");
 						btnConfirmar.setEnabled(false);
 						btnCancel.setEnabled(false);
@@ -205,6 +218,3 @@ public class VElegirArmas extends JFrame implements ActionListener{
 		}
 	}
 }
-
-
-
