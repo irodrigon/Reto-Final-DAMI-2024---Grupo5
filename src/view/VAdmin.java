@@ -59,30 +59,30 @@ public class VAdmin extends JFrame implements ActionListener {
 
 		JLabel lblIntroduceTuUsuario = new JLabel("INTRODUCE TU USUARIO Y CONTRASEÑA DE ADMINISTRADOR:");
 		lblIntroduceTuUsuario.setForeground(new Color(255, 255, 255));
-		lblIntroduceTuUsuario.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblIntroduceTuUsuario.setBounds(209, 48, 534, 37);
+		lblIntroduceTuUsuario.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblIntroduceTuUsuario.setBounds(209, 48, 809, 37);
 		contentPane.add(lblIntroduceTuUsuario);
 
-		JLabel lblUser = new JLabel("USER:");
+		JLabel lblUser = new JLabel("USUARIO:");
 		lblUser.setForeground(new Color(255, 255, 255));
-		lblUser.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblUser.setBounds(271, 152, 80, 37);
+		lblUser.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblUser.setBounds(246, 150, 120, 37);
 		contentPane.add(lblUser);
 
-		JLabel lblPassword = new JLabel("PASSWORD:");
+		JLabel lblPassword = new JLabel("CONTRASEÑA:");
 		lblPassword.setForeground(new Color(255, 255, 255));
-		lblPassword.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblPassword.setBounds(187, 222, 189, 37);
+		lblPassword.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblPassword.setBounds(187, 222, 179, 37);
 		contentPane.add(lblPassword);
 
 		textField = new JTextField();
-		textField.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		textField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		textField.setColumns(10);
 		textField.setBounds(401, 157, 246, 30);
 		contentPane.add(textField);
 
 		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		passwordField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		passwordField.setEchoChar('*');
 		passwordField.setColumns(10);
 		passwordField.setBounds(401, 227, 246, 30);
@@ -96,7 +96,7 @@ public class VAdmin extends JFrame implements ActionListener {
 
 		tglbtnSee = new JToggleButton("Ver");
 		tglbtnSee.setForeground(new Color(0, 0, 0));
-		tglbtnSee.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		tglbtnSee.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 20));
 		tglbtnSee.setBorder(new RoundedBorder(10));
 		tglbtnSee.setBackground(new Color(116, 116, 116));
 		tglbtnSee.setBounds(657, 231, 50, 23);
@@ -104,18 +104,18 @@ public class VAdmin extends JFrame implements ActionListener {
 
 		btnEnter = new JButton("Entrar");
 		btnEnter.setForeground(new Color(0, 0, 0));
-		btnEnter.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnEnter.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 20));
 		btnEnter.setBorder(new RoundedBorder(10));
 		btnEnter.setBackground(new Color(116, 116, 116));
-		btnEnter.setBounds(221, 422, 130, 26);
+		btnEnter.setBounds(657, 442, 130, 26);
 		contentPane.add(btnEnter);
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(new Color(0, 0, 0));
-		btnCancelar.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnCancelar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 20));
 		btnCancelar.setBorder(new RoundedBorder(10));
 		btnCancelar.setBackground(new Color(116, 116, 116));
-		btnCancelar.setBounds(622, 422, 130, 26);
+		btnCancelar.setBounds(289, 442, 130, 26);
 		contentPane.add(btnCancelar);
 		
 		lblNewLabel_1 = new JLabel("");
