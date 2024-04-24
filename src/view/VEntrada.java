@@ -52,6 +52,7 @@ public class VEntrada extends JFrame implements ActionListener {
 	private JButton btnSalir;
 
 	public VEntrada(Controller c) {
+		setResizable(false);
 
 		//El método cambia el icono en la parte superior izquierda de la ventana.
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
