@@ -45,7 +45,6 @@ public class Controller implements InterfaceController {
 	private final String SHOW_ASSOCIATION = "SELECT * FROM ELIGE";
 	private final String RETURN_CRIMINAL_BY_ID = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni WHERE criminal.dni = ?";
 
-
 	public Policia policeLogIn(String password, String dni) {
 
 		con = DatabaseConnectionPolice.getConnection();
@@ -495,14 +494,13 @@ public class Controller implements InterfaceController {
 
 		} catch (SQLException e) {
 			System.out.println("Error en la BD.");
-
+		}
 		return p;
 	}
 
 	@Override
 
 	public boolean insertAssociation(String dni, int id) {
-  
 
 		boolean cambios = false;
 
@@ -513,7 +511,6 @@ public class Controller implements InterfaceController {
 
 			stmt.setString(1, dni);
 			stmt.setInt(2, id);
-
 
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
@@ -529,51 +526,48 @@ public class Controller implements InterfaceController {
 	@Override
 	public ArrayList<Elige> showAssociations() {
 
-			// Cada método lleva asociada una conexión distinta a un usuario diferente de la
-			// base de datos.
+		// Cada método lleva asociada una conexión distinta a un usuario diferente de la
+		// base de datos.
 
-			con = DatabaseConnectionPolice.getConnection();
-			ResultSet rs = null;
-			Elige el = null;
-			ArrayList<Elige> busquedas = new ArrayList<Elige>();
+		con = DatabaseConnectionPolice.getConnection();
+		ResultSet rs = null;
+		Elige el = null;
+		ArrayList<Elige> busquedas = new ArrayList<Elige>();
 
-			try {
-				stmt = con.prepareStatement(SHOW_ASSOCIATION);
+		try {
+			stmt = con.prepareStatement(SHOW_ASSOCIATION);
 
-				rs = stmt.executeQuery();
+			rs = stmt.executeQuery();
 
-				while (rs.next()) {
+			while (rs.next()) {
 
-					el = new Elige();
-					el.setDni_policia(rs.getString("dni_policia"));
-					el.setId_arsenal(rs.getInt("id_arsenal"));
-					busquedas.add(el);
-				}
-			} catch (SQLException e) {
-				System.out.println("Error de SQL");
-				e.printStackTrace();
-			} finally {
-				// Cerramos ResultSet
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException ex) {
-						System.out.println("Error en cierre del ResultSet");
-					}
+				el = new Elige();
+				el.setDni_policia(rs.getString("dni_policia"));
+				el.setId_arsenal(rs.getInt("id_arsenal"));
+				busquedas.add(el);
+			}
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
 				}
 			}
+		}
 
-			return busquedas;
+		return busquedas;
 
 	}
-
-	
 
 	public Criminal showCriminalByPolicemanAdmin(String dni_policia) {
 		con = DatabaseConnectionPolice.getConnection();
 		ResultSet rs = null;
 		Criminal cr = null;
-		
 
 		try {
 
@@ -586,7 +580,7 @@ public class Controller implements InterfaceController {
 				cr = new Criminal(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
 						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("descripcion"),
 						rs.getString("dni_policia"));
-			
+
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
@@ -603,6 +597,5 @@ public class Controller implements InterfaceController {
 		}
 		return cr;
 	}
-
 
 }
