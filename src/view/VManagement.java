@@ -462,8 +462,8 @@ public class VManagement extends JFrame implements ActionListener {
 			} else {
 				Policia p = new Policia();
 				p = contr.returnPolicemanById((String) table.getValueAt(table.getSelectedRow(), 0));
-				VVerPoliciaAdmin vvaa = new VVerPoliciaAdmin(contr, dni, p.getDni());
-				vvaa.setVisible(true);
+				VVerPoliciaAdmin vvpa = new VVerPoliciaAdmin(contr, dni, p.getDni());
+				vvpa.setVisible(true);
 				this.dispose();
 			}
 
@@ -511,7 +511,21 @@ public class VManagement extends JFrame implements ActionListener {
 				vvaa.setVisible(true);
 				this.dispose();
 			}
+		} else if(o==btnSeeProfile3){
+			if (table3.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione un criminal en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				Criminal cr = new Criminal();
+				cr = contr.showCriminalByPolicemanAdmin((String) table3.getValueAt(table3.getSelectedRow(), 0));
+				VVerCriminalAdmin vvca = new VVerCriminalAdmin(contr, dni, cr.getDni());
+				vvca.setVisible(true);
+				this.dispose();
+			
 		}
 
+	} else if(o==btnSeeProfile4) {
+		
 	}
+}
 }

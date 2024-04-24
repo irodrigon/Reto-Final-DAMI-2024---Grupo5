@@ -43,6 +43,8 @@ public class Controller implements InterfaceController {
 	private final String RETURN_POLICEMAN_BY_ID = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE dni in (SELECT dni_policia from policia WHERE dni_policia = ?)";
 	private final String INSERT_ASSOCIATION = "INSERT INTO ELIGE VALUES(?,?)";
 	private final String SHOW_ASSOCIATION = "SELECT * FROM ELIGE";
+	private final String RETURN_CRIMINAL_BY_ID = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni WHERE criminal.dni = ?";
+
 
 	public Policia policeLogIn(String password, String dni) {
 
@@ -493,14 +495,15 @@ public class Controller implements InterfaceController {
 
 		} catch (SQLException e) {
 			System.out.println("Error en la BD.");
-		} 
-		
+
 		return p;
 	}
 
 	@Override
-	public boolean insertAssociation(String dni, int id_arsenal) {
-		
+
+	public boolean insertAssociation(String dni, int id) {
+  
+
 		boolean cambios = false;
 
 		con = DatabaseConnectionPolice.getConnection();
@@ -509,7 +512,8 @@ public class Controller implements InterfaceController {
 			stmt = con.prepareStatement(INSERT_ASSOCIATION);
 
 			stmt.setString(1, dni);
-			stmt.setInt(2, id_arsenal);
+			stmt.setInt(2, id);
+
 
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
@@ -518,7 +522,7 @@ public class Controller implements InterfaceController {
 			System.out.println("Error de SQL");
 			e1.printStackTrace();
 		}
-		
+
 		return cambios;
 	}
 
@@ -564,5 +568,41 @@ public class Controller implements InterfaceController {
 	}
 
 	
+
+	public Criminal showCriminalByPolicemanAdmin(String dni_policia) {
+		con = DatabaseConnectionPolice.getConnection();
+		ResultSet rs = null;
+		Criminal cr = null;
+		
+
+		try {
+
+			stmt = con.prepareStatement(RETURN_CRIMINAL_BY_ID);
+			stmt.setString(1, dni_policia);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				cr = new Criminal(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
+						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("descripcion"),
+						rs.getString("dni_policia"));
+			
+			}
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
+				}
+			}
+		}
+		return cr;
+	}
+
 
 }
