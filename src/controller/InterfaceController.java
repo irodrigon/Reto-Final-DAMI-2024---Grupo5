@@ -34,4 +34,5 @@ public interface InterfaceController {
 	public Criminal selectRandomCriminal();
 	public boolean updatePeople(String nombre, String apellido, String contrasena, Blob fotografia_persona,String dni);
 	public boolean updatePoliceman(String rango,String dni);
+	public News returnNews(String titulo);
 }

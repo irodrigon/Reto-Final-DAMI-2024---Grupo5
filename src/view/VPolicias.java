@@ -65,9 +65,10 @@ public class VPolicias extends JFrame implements ActionListener{
 		this.c = c;
 		this.dni = dni;
 		this.pass = pass;
+		p = new Policia();
 		
 		crims = c.showCriminalByPoliceman(dni);
-		p = c.policeLogIn(this.pass, this.dni);
+		p = c.returnPolicemanById(dni);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 50, 1280, 720);
 		contentPane = new JPanel();

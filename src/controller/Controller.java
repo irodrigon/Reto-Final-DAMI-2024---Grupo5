@@ -50,7 +50,7 @@ public class Controller implements InterfaceController {
 	private final String SELECT_RANDOM_CRIMINAL = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni ORDER BY RAND() LIMIT 1";
 	private final String UPDATE_PEOPLE ="UPDATE PERSONA SET nombre = ?, apellido = ?, contrasena = ?, fotografia_persona = ? WHERE dni = ?";		
 	private final String UPDATE_POLICEMAN = "UPDATE POLICIA SET rango = ? WHERE dni = ?";		
-
+	private final String RETURN_NEWS = "SELECT * FROM NOTICIA WHERE titulo = ?"; ;
 	
 	public Policia policeLogIn(String password, String dni) {
 
@@ -747,7 +747,7 @@ public class Controller implements InterfaceController {
 		con = DatabaseConnectionPolice.getConnection();
 
 		try {
-			stmt = con.prepareStatement(UPDATE_PEOPLE);
+			stmt = con.prepareStatement(UPDATE_POLICEMAN);
 
 			stmt.setString(1, rango);
 			stmt.setString(2, dni);

@@ -11,6 +11,7 @@ import com.mysql.cj.jdbc.Blob;
 
 import controller.Controller;
 import model.Criminal;
+import model.Policia;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,6 +19,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,6 +33,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 
@@ -47,17 +51,18 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 	private JFileChooser fileChooser;
 	private FileFilter filtro;
 	private File file;
-	private JLabel lblNewLabel_4;
-	private JPasswordField passwordField2;
 	private JLabel lblFiles;
 	private JToggleButton tglbtnSee;
+	private Policia p;
+
 	//Ventana para modificar perfil
 	
 	public VModificarPerfilPolicia(Controller c,String dni,String pass) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VModificarPerfilPolicia.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		this.dni = dni;
 		this.pass = pass;
-
+		this.p = p;
 //Ventana para modificar perfil
 
 	
@@ -133,6 +138,10 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		lblFiles.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		lblFiles.setBounds(552, 588, 136, 31);
 		contentPane.add(lblFiles);
+		
+		tglbtnSee = new JToggleButton("Ver");
+		tglbtnSee.setBounds(710, 341, 121, 23);
+		contentPane.add(tglbtnSee);
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
@@ -144,6 +153,43 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		JLabel label = new JLabel("New label");
 		label.setBounds(590, 592, 46, 14);
 		contentPane.add(label);
+		
+		tglbtnSee.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (tglbtnSee.isSelected()) {
+					passwordField.setEchoChar((char) 0);
+				} else {
+					passwordField.setEchoChar('*');
+				}
+			}
+		});
 
 		
 		btnCancelar.addActionListener(this);
