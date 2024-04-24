@@ -50,7 +50,10 @@ public class Controller implements InterfaceController {
 	private final String SELECT_RANDOM_CRIMINAL = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni ORDER BY RAND() LIMIT 1";
 	private final String UPDATE_PEOPLE ="UPDATE PERSONA SET nombre = ?, apellido = ?, contrasena = ?, fotografia_persona = ? WHERE dni = ?";		
 	private final String UPDATE_POLICEMAN = "UPDATE POLICIA SET rango = ? WHERE dni = ?";		
-	private final String RETURN_NEWS = "SELECT * FROM NOTICIA WHERE titulo = ?"; ;
+	private final String RETURN_NEWS = "SELECT * FROM NOTICIA WHERE titulo = ?";
+	private final String DELETE_POLICEMAN2 = "DELETE FROM POLICIA WHERE dni_policia = ?";
+	private final String DELETE_CRIMINAL = "DELETE FROM CRIMINAL WHERE dni = ?";
+	private final String DELETE_NEW = "DELETE FROM NOTICIA WHERE id_noticia = ?";
 	
 	public Policia policeLogIn(String password, String dni) {
 
@@ -802,6 +805,72 @@ public class Controller implements InterfaceController {
 		}
 		return n;
 
+	}
+
+	@Override
+	public boolean deletePoliceman2(String dni) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(DELETE_POLICEMAN2);
+
+			stmt.setString(1, dni);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+	
+	@Override
+	public boolean deleteCriminal(String dni) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(DELETE_CRIMINAL);
+
+			stmt.setString(1, dni);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+	
+	@Override
+	public boolean deleteNew(int id) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(DELETE_NEW);
+
+			stmt.setInt(1,id);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
 	}
 
 }

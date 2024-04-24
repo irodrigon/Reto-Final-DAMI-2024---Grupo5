@@ -35,4 +35,7 @@ public interface InterfaceController {
 	public boolean updatePeople(String nombre, String apellido, String contrasena, Blob fotografia_persona,String dni);
 	public boolean updatePoliceman(String rango,String dni);
 	public News returnNews(String titulo);
+	public boolean deletePoliceman2(String dni);
+	public boolean deleteCriminal(String dni);
+	public boolean deleteNew(int id);
 }
