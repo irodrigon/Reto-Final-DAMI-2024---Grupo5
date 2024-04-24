@@ -493,21 +493,13 @@ public class Controller implements InterfaceController {
 
 		} catch (SQLException e) {
 			System.out.println("Error en la BD.");
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					System.out.println("Error de cierre del ResultSet");
-				}
-			}
-		}
+
 		return p;
 	}
 
 	@Override
 	public boolean insertAssociation(String dni, int id) {
-
+  
 		boolean cambios = false;
 
 		con = DatabaseConnectionPolice.getConnection();

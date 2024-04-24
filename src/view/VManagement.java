@@ -273,6 +273,8 @@ public class VManagement extends JFrame implements ActionListener {
 		panel2.add(lblNewLabel_1_1);
 
 		
+		btnSeeProfile2.addActionListener(this);
+
 		btnBack2.addActionListener(this);
 		btnMdifyWeapons.addActionListener(this);
 		btnEliminarWeapons.addActionListener(this);
