@@ -26,6 +26,7 @@ public interface InterfaceController {
 	public Arsenal returnWeaponByName(String nombre);//Según el nombre del arma, saca todos los datos del arma de la base de datos.
 	public boolean insertAssociation(String dni, String nombre_arsenal);
 	public Policia returnPolicemanById (String dni);//
+	public Criminal showCriminalByPolicemanAdmin(String dni_policia);
 
 
 }

@@ -18,7 +18,6 @@ import javax.swing.border.EmptyBorder;
 import controller.Controller;
 import model.News;
 
-
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -27,6 +26,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VNoticias extends JFrame implements ActionListener {
 
@@ -44,12 +45,21 @@ public class VNoticias extends JFrame implements ActionListener {
 	private JLabel lblTitulo;
 	private JLabel lblDescripcion;
 	private JLabel lblBienvenida;
-	
+
 	public VNoticias(Controller c) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				VEntrada ve = new VEntrada(c);
+				ve.setVisible(true);
+				
+			}
+		});
+		
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
 
 		this.c = c;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setBounds(530, 50, 1280, 720);
 
@@ -62,21 +72,21 @@ public class VNoticias extends JFrame implements ActionListener {
 		lblFoto = new JLabel("");
 		lblFoto.setBounds(306, 89, 697, 396);
 		contentPane.add(lblFoto);
-		
-		lblTitulo = new JLabel("",SwingConstants.CENTER);
+
+		lblTitulo = new JLabel("", SwingConstants.CENTER);
 
 		lblTitulo.setForeground(new Color(0, 0, 0));
 		lblTitulo.setFont(new Font("Dialog", Font.BOLD, 25));
 		lblTitulo.setBounds(255, 495, 755, 27);
 		contentPane.add(lblTitulo);
-		
+
 		lblDescripcion = new JLabel("");
 		lblDescripcion.setForeground(new Color(0, 0, 0));
 		lblDescripcion.setFont(new Font("Dialog", Font.BOLD, 17));
 		lblDescripcion.setBounds(313, 532, 793, 43);
 
 		contentPane.add(lblDescripcion);
-		
+
 		lblBienvenida = new JLabel("NOTICIAS");
 		lblBienvenida.setForeground(new Color(255, 255, 255));
 		lblBienvenida.setFont(new Font("Dialog", Font.BOLD, 37));
@@ -97,7 +107,6 @@ public class VNoticias extends JFrame implements ActionListener {
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnAtras.setBounds(561, 585, 167, 37);
 
-		
 		contentPane.add(btnAtras);
 
 		news = c.showNews();
@@ -109,7 +118,8 @@ public class VNoticias extends JFrame implements ActionListener {
 			is = aBlob.getBinaryStream(1, aBlob.length());
 			BufferedImage imag;
 			imag = ImageIO.read(is);
-			lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),lblFoto.getHeight(), Image.SCALE_DEFAULT)));
+			lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
+					lblFoto.getHeight(), Image.SCALE_DEFAULT)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,49 +128,55 @@ public class VNoticias extends JFrame implements ActionListener {
 		}
 		lblTitulo.setText(news.get(0).getTitulo());
 		lblDescripcion.setText(news.get(0).getDescripcion());
-		
+
 		JLabel lblNewLabel = new JLabel("");
 
-		lblNewLabel.setIcon(new ImageIcon(new ImageIcon(VNoticias.class.getResource("/fotos/fondoNoticiasFinal.png")).getImage().getScaledInstance(1280,720,Image.SCALE_DEFAULT)));
+		lblNewLabel.setIcon(new ImageIcon(new ImageIcon(VNoticias.class.getResource("/fotos/fondoNoticiasFinal.png"))
+				.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT)));
 		lblNewLabel.setBounds(0, -70, 1369, 853);
 
 		contentPane.add(lblNewLabel);
-		
+
 		btnAnterior.addActionListener(this);
 		btnAtras.addActionListener(this);
 		btnSiguiente.addActionListener(this);
-		
+
 		it = news.listIterator();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		/*
 		n = new News();
-		Object o = e.getSource();
-		
-		if(it.nextIndex() >= news.size() && !it.hasNext()){
+
+
+		it = news.listIterator();
+		if (it.nextIndex() >= news.size() && !it.hasNext()) {
 			btnSiguiente.setEnabled(false);
-		}else {
+		} else {
 			btnSiguiente.setEnabled(true);
 		}
-		
-		if(it.nextIndex() == news.size()) {
+
+		if (it.nextIndex() == news.size()) {
 			it.previous();
 		}
-		
-		if(it.previousIndex() == -1) {
+
+		if (it.previousIndex() == -1) {
 			it.next();
 		}
-		
-		if(it.previousIndex() == -1 && !it.hasPrevious()){
+
+		if (it.previousIndex() == -1 && !it.hasPrevious()) {
 			btnAnterior.setEnabled(false);
-		}else {
+		} else {
 			btnAnterior.setEnabled(true);
 		}
-
-		if (o == btnSiguiente) {
+*/
+		if (e.getSource().equals(btnSiguiente) ) {
+			System.out.println("siguiente");
+			btnAnterior.setEnabled(true);
 			if (it.hasNext()) {
-				btnAnterior.setEnabled(true);
+				System.out.println(" ejecuta siguiente");
+				it.next();
 				n = it.next();
 				lblTitulo.setText(n.getTitulo());
 				lblDescripcion.setText(n.getDescripcion());
@@ -170,38 +186,63 @@ public class VNoticias extends JFrame implements ActionListener {
 					is = aBlob.getBinaryStream(1, aBlob.length());
 					BufferedImage imag;
 					imag = ImageIO.read(is);
-					lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT)));
+					lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
+							lblFoto.getHeight(), Image.SCALE_DEFAULT)));
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				} catch (SQLException e2) {
 					e2.printStackTrace();
 				}
-				
+
+			}else {
+				btnSiguiente.setEnabled(false);
+				btnAnterior.setEnabled(true);
 			}
-		} else if (o == btnAnterior) {
-			if (it.hasPrevious()) {
-				n = it.previous();
-				lblTitulo.setText(n.getTitulo());
-				lblDescripcion.setText(n.getDescripcion());
-				aBlob = n.getFoto_noticia();
-				try {
-					InputStream is;
-					is = aBlob.getBinaryStream(1, aBlob.length());
-					BufferedImage imag;
-					imag = ImageIO.read(is);
-					lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),lblFoto.getHeight(), Image.SCALE_DEFAULT)));
-				} catch (IOException e3) {
-					// TODO Auto-generated catch block
-					e3.printStackTrace();
-				} catch (SQLException e3) {
-					e3.printStackTrace();
-				}
+		} 
+		if (e.getSource().equals(btnAnterior)) {
+			anterior();
+
+		} 
+		if (e.getSource().equals( btnAtras)) {
+			volver();
+		}
+
+	}
+
+	private void volver() {
+		VEntrada ve = new VEntrada(c);
+		ve.setVisible(true);
+		this.dispose();
+		
+	}
+
+	private void anterior() {
+		if (it.hasPrevious()) {
+			it.previous();
+			n = it.previous();
+			lblTitulo.setText(n.getTitulo());
+			lblDescripcion.setText(n.getDescripcion());
+			aBlob = n.getFoto_noticia();
+			btnSiguiente.setEnabled(true);
+			try {
+				InputStream is;
+				is = aBlob.getBinaryStream(1, aBlob.length());
+				BufferedImage imag;
+				imag = ImageIO.read(is);
+				lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
+						lblFoto.getHeight(), Image.SCALE_DEFAULT)));
+			} catch (IOException e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+			} catch (SQLException e3) {
+				e3.printStackTrace();
 			}
-		}else if(o == btnAtras){
-			VEntrada ve = new VEntrada(c);
-			ve.setVisible(true);
-			this.dispose();
+
+		}else {
+			btnSiguiente.setEnabled(true);
+			btnAnterior.setEnabled(false);
 		}
 	}
+
 }
