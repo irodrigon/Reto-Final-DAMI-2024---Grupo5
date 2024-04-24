@@ -303,10 +303,9 @@ public class VPolicias extends JFrame implements ActionListener{
 			vva.setVisible(true);
 			this.dispose();
 		}else if(o == btnModificar) {
-			VModificarPerfilPolicia vmpp = new VModificarPerfilPolicia(c);
+			VModificarPerfilPolicia vmpp = new VModificarPerfilPolicia(c,dni,pass);
 			vmpp.setVisible(true);
 			this.dispose();
-			
 		}else if(o == btnElegirArsenal) {
 			dni = p.getDni();
 			VElegirArmas vea = new VElegirArmas(c, dni,pass);

@@ -226,7 +226,8 @@ public class VEntrada extends JFrame implements ActionListener {
 				int option = JOptionPane.showConfirmDialog(this,
 						"Esto le llevará a crear un nuevo usuario. ¿Está seguro de que desea crear un nuevo usuario?");
 				if (option == JOptionPane.YES_OPTION) {
-					VCrearCuenta vcc = new VCrearCuenta(c);
+					dni = textFieldUser.getText();
+					VCrearCuenta vcc = new VCrearCuenta(c,dni);
 					vcc.setVisible(true);
 					this.dispose();
 				}

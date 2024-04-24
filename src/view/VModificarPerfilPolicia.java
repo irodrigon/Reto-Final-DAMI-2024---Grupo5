@@ -25,10 +25,24 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 	private JTextField txtDhrhdt;
 	private JPasswordField passwordField;
 	private JTextField txtjh;
+	private JButton btnNewButton;
+	private JButton btnCrear;
+	private JButton btnCancelar;
+	private Controller c;
+	private String dni;
+	private String pass;
+	//Ventana para modificar perfil
+	
+	public VModificarPerfilPolicia(Controller c,String dni,String pass) {
+		this.c = c;
+		this.dni = dni;
+		this.pass = pass;
+
 //Ventana para modificar perfil
 
-	public VModificarPerfilPolicia(Controller c) {
+	
 		setResizable(false);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -55,17 +69,18 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		lblNewLabel_1_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(lblNewLabel_1_1);
 
-		JButton btnNewButton = new JButton("Subir Foto");
+
+		btnNewButton = new JButton("Subir Foto");
 		btnNewButton.setBounds(552, 484, 161, 52);
 		btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(btnNewButton);
 
-		JButton btnCrear = new JButton("Modificar");
+		btnCrear = new JButton("Modificar");
 		btnCrear.setBounds(340, 484, 161, 52);
 		btnCrear.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(btnCrear);
 
-		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(762, 484, 161, 52);
 		btnCancelar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(btnCancelar);
@@ -100,11 +115,21 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		lblNewLabel_2.setBounds(-14, -45, 1290, 893);
 		contentPane.add(lblNewLabel_2);
 
+		
+		btnCancelar.addActionListener(this);
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+
+		if(e.getSource().equals(btnCancelar)) {
+			VPolicias vP = new VPolicias(c, dni, pass);
+			vP.setVisible(true);
+			this.dispose();
+		}
+		
 
 	}
 }
