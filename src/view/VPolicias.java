@@ -60,6 +60,7 @@ public class VPolicias extends JFrame implements ActionListener{
 	private JButton btnEliminar;
 	
 	public VPolicias(Controller c, String dni,String pass) {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VPolicias.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		this.dni = dni;

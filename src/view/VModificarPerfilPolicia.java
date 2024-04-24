@@ -28,6 +28,7 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 //Ventana para modificar perfil
 
 	public VModificarPerfilPolicia(Controller c) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();

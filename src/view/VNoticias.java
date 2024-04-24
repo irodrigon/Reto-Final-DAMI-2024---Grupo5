@@ -47,6 +47,7 @@ public class VNoticias extends JFrame implements ActionListener {
 	private JLabel lblBienvenida;
 
 	public VNoticias(Controller c) {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -105,7 +106,6 @@ public class VNoticias extends JFrame implements ActionListener {
 		btnAtras = new JButton("Atrás");
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnAtras.setBounds(561, 585, 167, 37);
-
 		contentPane.add(btnAtras);
 
 		news = c.showNews();
@@ -147,18 +147,11 @@ public class VNoticias extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-
-
-		//it = news.listIterator();
-		/*if (it.nextIndex() > news.size()-1 && !it.hasNext()) {
-			btnSiguiente.setEnabled(false);
-		} else {
-			btnSiguiente.setEnabled(true);
-=======
-		boolean siguiente = true;
-		boolean anterior = true;
+		// it = news.listIterator();
 		/*
-		 * n = new News();
+		 * if (it.nextIndex() > news.size()-1 && !it.hasNext()) {
+		 * btnSiguiente.setEnabled(false); } else { btnSiguiente.setEnabled(true);
+		 * ======= boolean siguiente = true; boolean anterior = true; /* n = new News();
 		 * 
 		 * 
 		 * it = news.listIterator(); if (it.nextIndex() >= news.size() && !it.hasNext())
@@ -171,18 +164,58 @@ public class VNoticias extends JFrame implements ActionListener {
 		 * if (it.previousIndex() == -1 && !it.hasPrevious()) {
 		 * btnAnterior.setEnabled(false); } else { btnAnterior.setEnabled(true); }
 		 */
-		if (e.getSource().equals(btnSiguiente)) {
-			System.out.println("siguiente");
-			btnAnterior.setEnabled(true);
-			if (it.hasNext()) {
-				System.out.println(" ejecuta siguiente");
 
-				if (siguiente) {
-					it.next();
-					siguiente = false;
-				}
-				anterior = true;
+		// n = new News();
+
+		// it = news.listIterator();
+		/*
+		 * if (it.nextIndex() > news.size()-2 && !it.hasNext()) {
+		 * btnSiguiente.setEnabled(false); } else { btnSiguiente.setEnabled(true); }
+		 * 
+		 * if (it.nextIndex() == news.size()) { it.previous(); }
+		 * 
+		 * if (it.previousIndex() == -1) { it.next(); }
+		 * 
+		 * if (it.previousIndex() == -1 && !it.hasPrevious()) {
+		 * btnAnterior.setEnabled(false); } else { btnAnterior.setEnabled(true); }
+		 */
+
+		if (e.getSource().equals(btnSiguiente)) {
+			// System.out.println("siguiente");
+
+			if (e.getSource().equals(btnSiguiente)) {
+				// System.out.println("siguiente");
+
+				siguiente();
+
+			}
+
+			if (e.getSource().equals(btnAnterior)) {
+				anterior();
+
+			}
+			if (e.getSource().equals(btnAtras)) {
+				volver();
+			}
+		}
+	}
+
+	private void siguiente() {
+		// TODO Auto-generated method stub
+		btnAnterior.setEnabled(true);
+
+		if (it.hasNext() && it.nextIndex() != news.size() - 1) {
+			// System.out.println(" ejecuta siguiente");
+
+			if (it.hasNext()) {
+				// System.out.println(" ejecuta siguiente");
+
+				it.next();
 				n = it.next();
+				it.previous();
+				if (it.nextIndex() == news.size() - 1) {
+					it.next();
+				}
 				lblTitulo.setText(n.getTitulo());
 				lblDescripcion.setText(n.getDescripcion());
 				aBlob = n.getFoto_noticia();
@@ -204,81 +237,47 @@ public class VNoticias extends JFrame implements ActionListener {
 				btnSiguiente.setEnabled(false);
 				btnAnterior.setEnabled(true);
 			}
-
-		}
-
-		// n = new News();
-
-		// it = news.listIterator();
-		/*
-		 * if (it.nextIndex() > news.size()-2 && !it.hasNext()) {
-		 * btnSiguiente.setEnabled(false); } else { btnSiguiente.setEnabled(true); }
-		 * 
-		 * if (it.nextIndex() == news.size()) { it.previous(); }
-		 * 
-		 * if (it.previousIndex() == -1) { it.next(); }
-		 * 
-		 * if (it.previousIndex() == -1 && !it.hasPrevious()) {
-		 * btnAnterior.setEnabled(false); } else { btnAnterior.setEnabled(true); }
-		 */
-
-		if (e.getSource().equals(btnSiguiente)) {
-			// System.out.println("siguiente");
-
-
-		if (e.getSource().equals(btnSiguiente) ) {
-			//System.out.println("siguiente");
-
-			siguiente();
-
-		}
-
-		if (e.getSource().equals(btnAnterior)) {
-			anterior();
-
-		}
-		if (e.getSource().equals(btnAtras)) {
-			volver();
 		}
 
 	}
 
-	private void siguiente() {
-		// TODO Auto-generated method stub
-		btnAnterior.setEnabled(true);
+	private void anterior() {
+		btnSiguiente.setEnabled(true);
 
-		if (it.hasNext() && it.nextIndex() 	!= news.size() -1) {
-			//System.out.println(" ejecuta siguiente");
+		if (it.hasPrevious() && it.previousIndex() != -1) {
 
-		if (it.hasNext()) {
-			// System.out.println(" ejecuta siguiente");
+			if (it.hasPrevious()) {
 
-			it.next();
-			n = it.next();
-			it.previous();
-			if(it.nextIndex() == news.size()-1) {
+				it.previous();
+				n = it.previous();
 				it.next();
-			}
-			lblTitulo.setText(n.getTitulo());
-			lblDescripcion.setText(n.getDescripcion());
-			aBlob = n.getFoto_noticia();
-			try {
-				InputStream is;
-				is = aBlob.getBinaryStream(1, aBlob.length());
-				BufferedImage imag;
-				imag = ImageIO.read(is);
-				lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
-						lblFoto.getHeight(), Image.SCALE_DEFAULT)));
-			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} catch (SQLException e2) {
-				e2.printStackTrace();
-			}
+				if (it.previousIndex() == 0) {
+					it.previous();
+					btnAnterior.setEnabled(false);
+				}
+				lblTitulo.setText(n.getTitulo());
+				lblDescripcion.setText(n.getDescripcion());
+				aBlob = n.getFoto_noticia();
+				btnSiguiente.setEnabled(true);
+				try {
+					InputStream is;
+					is = aBlob.getBinaryStream(1, aBlob.length());
+					BufferedImage imag;
+					imag = ImageIO.read(is);
+					lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
+							lblFoto.getHeight(), Image.SCALE_DEFAULT)));
+				} catch (IOException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				} catch (SQLException e3) {
+					e3.printStackTrace();
+				}
 
-		} else {
-			btnSiguiente.setEnabled(false);
-			btnAnterior.setEnabled(true);
+			} else {
+
+				btnSiguiente.setEnabled(true);
+				btnAnterior.setEnabled(false);
+			}
 		}
 
 	}
@@ -289,46 +288,4 @@ public class VNoticias extends JFrame implements ActionListener {
 		this.dispose();
 
 	}
-
-	private void anterior() {
-		btnSiguiente.setEnabled(true);
-
-		if (it.hasPrevious() && it.previousIndex() != -1) {
-
-
-		if (it.hasPrevious()) {
-
-
-			it.previous();
-			n = it.previous();
-			it.next();
-			if(it.previousIndex() == 0) {
-				it.previous();
-				btnAnterior.setEnabled(false);
-			}
-			lblTitulo.setText(n.getTitulo());
-			lblDescripcion.setText(n.getDescripcion());
-			aBlob = n.getFoto_noticia();
-			btnSiguiente.setEnabled(true);
-			try {
-				InputStream is;
-				is = aBlob.getBinaryStream(1, aBlob.length());
-				BufferedImage imag;
-				imag = ImageIO.read(is);
-				lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
-						lblFoto.getHeight(), Image.SCALE_DEFAULT)));
-			} catch (IOException e3) {
-				// TODO Auto-generated catch block
-				e3.printStackTrace();
-			} catch (SQLException e3) {
-				e3.printStackTrace();
-			}
-
-		} else {
-
-			btnSiguiente.setEnabled(true);
-			btnAnterior.setEnabled(false);
-		}
-	}
-
 }
