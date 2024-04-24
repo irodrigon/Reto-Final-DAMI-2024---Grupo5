@@ -33,6 +33,8 @@ import javax.swing.ImageIcon;
 import java.awt.SystemColor;
 
 import java.awt.Toolkit;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 
 public class VEntrada extends JFrame implements ActionListener {
@@ -109,10 +111,10 @@ public class VEntrada extends JFrame implements ActionListener {
 		btnEntrar = new JButton("ENTRAR");
 		btnEntrar.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		btnEntrar.setBounds(650, 395, 220, 42);
-		contentPane.add(btnEntrar);
 		btnEntrar.setOpaque(true);
-		btnEntrar.setBorderPainted(false);
-
+		//btnEntrar.setBorderPainted(true);
+		contentPane.add(btnEntrar);
+		
 		btnNews = new JButton("NOTICIAS");
 		btnNews.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		btnNews.setBounds(291, 570, 690, 74);

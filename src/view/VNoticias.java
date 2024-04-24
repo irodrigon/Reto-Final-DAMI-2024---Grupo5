@@ -83,7 +83,7 @@ public class VNoticias extends JFrame implements ActionListener {
 		lblDescripcion = new JLabel("");
 		lblDescripcion.setForeground(new Color(0, 0, 0));
 		lblDescripcion.setFont(new Font("Dialog", Font.BOLD, 17));
-		lblDescripcion.setBounds(237, 532, 1019, 43);
+		lblDescripcion.setBounds(304, 532, 1019, 43);
 
 		contentPane.add(lblDescripcion);
 

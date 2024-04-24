@@ -176,12 +176,12 @@ public class VPolicias extends JFrame implements ActionListener{
 		
 		btnVerArsenal = new JButton("Ver el arsenal disponible");
 		btnVerArsenal.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
-		btnVerArsenal.setBounds(244, 324, 207, 23);
+		btnVerArsenal.setBounds(224, 324, 227, 23);
 		contentPane.add(btnVerArsenal);
 		
 		btnElegirArsenal = new JButton("Elegir Arsenal");
 		btnElegirArsenal.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
-		btnElegirArsenal.setBounds(805, 440, 182, 23);
+		btnElegirArsenal.setBounds(798, 440, 182, 23);
 		contentPane.add(btnElegirArsenal);
 		
 		btnModificar = new JButton("Modificar mi perfil");
@@ -201,7 +201,7 @@ public class VPolicias extends JFrame implements ActionListener{
 		
 		JLabel lblFondo = new JLabel("");
 		lblFondo.setIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
-		lblFondo.setBounds(10, 10, 1266, 673);
+		lblFondo.setBounds(0, 0, 1276, 683);
 		contentPane.add(lblFondo);
 		
 		
