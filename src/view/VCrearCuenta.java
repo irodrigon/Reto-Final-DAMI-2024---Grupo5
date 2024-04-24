@@ -48,11 +48,13 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private Controller c;
 	private JButton btnCrear;
 	private JLabel lblFiles;
-
+	private String dni;
+	private JComboBox<String> comboBoxRango;
 	/**
 	 * Create the frame.
 	 */
-	public VCrearCuenta(Controller c) {
+	public VCrearCuenta(Controller c,String dni) {
+		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,19 +87,19 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(passwordField);
 		passwordField.setBorder(new LineBorder(Color.BLUE, 3));
 
-		JLabel lblContrasena = new JLabel("Introduce la contraseña:");
+		JLabel lblContrasena = new JLabel("Contraseña:");
 		lblContrasena.setForeground(new Color(255, 255, 255));
 		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblContrasena.setBounds(60, 225, 320, 47);
 		contentPane.add(lblContrasena);
 
-		JLabel lblNewLabel_1 = new JLabel("Introduce tu primer apellido:");
+		JLabel lblNewLabel_1 = new JLabel("Apellido:");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblNewLabel_1.setBounds(60, 141, 352, 33);
 		contentPane.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("Introduce tu nombre:");
+		JLabel lblNewLabel_2 = new JLabel("Nombre:");
 		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblNewLabel_2.setBounds(60, 103, 264, 35);
@@ -109,19 +111,19 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		lblNewLabel.setBounds(299, 30, 276, 35);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_3 = new JLabel("Introduce tu usuario:");
+		JLabel lblNewLabel_3 = new JLabel("Usuario: " + this.dni);
 		lblNewLabel_3.setForeground(new Color(255, 255, 255));
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblNewLabel_3.setBounds(60, 196, 276, 19);
 		contentPane.add(lblNewLabel_3);
 		
-		JLabel lblRango = new JLabel("Selecciona tu rango:");
+		JLabel lblRango = new JLabel("Rango:");
 		lblRango.setForeground(Color.WHITE);
 		lblRango.setFont(new Font("Tahoma", Font.BOLD, 24));
 		lblRango.setBounds(60, 323, 406, 29);
 		contentPane.add(lblRango);
 		
-		JComboBox comboBoxRango = new JComboBox<String>();
+		comboBoxRango = new JComboBox<String>();
 		comboBoxRango.setBounds(495, 329, 165, 28);
 		comboBoxRango.addItem("CABO");
 		comboBoxRango.addItem("TENIENTE");
@@ -130,12 +132,6 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		comboBoxRango.addItem("COMANDANTE");
 		comboBoxRango.setForeground(new Color(0, 0, 0));
 		contentPane.add(comboBoxRango);
-		
-		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(495, 193, 165, 28);
-		contentPane.add(textFieldUsuario);
-		textFieldUsuario.setColumns(10);
-		textFieldUsuario.setBorder(new LineBorder(Color.BLUE, 3));
 
 		btnSubirFoto = new JButton("Subir foto");
 		btnSubirFoto.setBackground(new Color(192, 192, 192));
