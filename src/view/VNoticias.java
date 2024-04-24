@@ -13,7 +13,6 @@ import java.util.ListIterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
 import model.News;
@@ -45,6 +44,7 @@ public class VNoticias extends JFrame implements ActionListener {
 	private JLabel lblTitulo;
 	private JLabel lblDescripcion;
 	private JLabel lblBienvenida;
+	private int index;
 
 	public VNoticias(Controller c) {
 		addWindowListener(new WindowAdapter() {
@@ -190,14 +190,9 @@ public class VNoticias extends JFrame implements ActionListener {
 	private void siguiente() {
 		// TODO Auto-generated method stub
 		btnAnterior.setEnabled(true);
-		if (it.hasNext() && it.nextIndex() 	!= news.size() -1) {
-			//System.out.println(" ejecuta siguiente");
-			it.next();
-			n = it.next();
-			it.previous();
-			if(it.nextIndex() == news.size()-1) {
-				it.next();
-			}
+		if(index >= 0 && index <= news.size()) {
+			index++;
+			n = news.get(index);
 			lblTitulo.setText(n.getTitulo());
 			lblDescripcion.setText(n.getDescripcion());
 			aBlob = n.getFoto_noticia();
@@ -214,8 +209,10 @@ public class VNoticias extends JFrame implements ActionListener {
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
-
-		}else {
+			if(index == news.size()-1) {
+				btnSiguiente.setEnabled(false);
+			}
+		} else {
 			btnSiguiente.setEnabled(false);
 			btnAnterior.setEnabled(true);
 		}
@@ -230,15 +227,10 @@ public class VNoticias extends JFrame implements ActionListener {
 	}
 
 	private void anterior() {
-		btnSiguiente.setEnabled(true);
-		if (it.hasPrevious() && it.previousIndex() != -1) {
-			it.previous();
-			n = it.previous();
-			it.next();
-			if(it.previousIndex() == 0) {
-				it.previous();
-				btnAnterior.setEnabled(false);
-			}
+		
+			if(index >= 0 && index > -1) {
+				index--;
+			n= news.get(index);
 			lblTitulo.setText(n.getTitulo());
 			lblDescripcion.setText(n.getDescripcion());
 			aBlob = n.getFoto_noticia();
@@ -256,7 +248,9 @@ public class VNoticias extends JFrame implements ActionListener {
 			} catch (SQLException e3) {
 				e3.printStackTrace();
 			}
-			
+			if(index == 0) {
+				btnAnterior.setEnabled(false);
+			}
 		}else {
 			btnSiguiente.setEnabled(true);
 			btnAnterior.setEnabled(false);
