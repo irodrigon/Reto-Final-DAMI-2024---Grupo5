@@ -40,6 +40,7 @@ public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 	private JButton btnAtras;
 
 	public VVerPoliciaAdmin(Controller c, String dni, String dni2) {
+		setResizable(false);
 		this.c = c;
 		this.dni = dni;
 		this.dni2 = dni2;

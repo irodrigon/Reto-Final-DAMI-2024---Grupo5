@@ -51,6 +51,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 
 
 	public VCrearCuenta(Controller c) {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

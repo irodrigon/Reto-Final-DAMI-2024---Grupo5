@@ -98,6 +98,7 @@ public class VManagement extends JFrame implements ActionListener {
 	private JButton btnSeeProfile2;
 
 	public VManagement(Controller contr, String dni) {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VManagement.class.getResource("/fotos/pixelart2.png")));
 		this.contr = contr;
 		this.dni = dni;
