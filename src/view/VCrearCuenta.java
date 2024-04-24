@@ -49,13 +49,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private JButton btnCrear;
 	private JLabel lblFiles;
 
-<<<<<<< HEAD
-	
-=======
-	/**
-	 * Create the frame.
-	 */
->>>>>>> 47903d2b90956f139fa55d5d94b57d298749af83
+
 	public VCrearCuenta(Controller c) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
