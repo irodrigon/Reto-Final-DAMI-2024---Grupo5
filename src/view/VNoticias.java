@@ -139,6 +139,7 @@ public class VNoticias extends JFrame implements ActionListener {
 		btnAnterior.addActionListener(this);
 		btnAtras.addActionListener(this);
 		btnSiguiente.addActionListener(this);
+		btnAnterior.setEnabled(false);
 
 		it = news.listIterator();
 	}
@@ -146,6 +147,14 @@ public class VNoticias extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
+
+
+		//it = news.listIterator();
+		/*if (it.nextIndex() > news.size()-1 && !it.hasNext()) {
+			btnSiguiente.setEnabled(false);
+		} else {
+			btnSiguiente.setEnabled(true);
+=======
 		boolean siguiente = true;
 		boolean anterior = true;
 		/*
@@ -195,6 +204,7 @@ public class VNoticias extends JFrame implements ActionListener {
 				btnSiguiente.setEnabled(false);
 				btnAnterior.setEnabled(true);
 			}
+
 		}
 
 		// n = new News();
@@ -215,6 +225,10 @@ public class VNoticias extends JFrame implements ActionListener {
 		if (e.getSource().equals(btnSiguiente)) {
 			// System.out.println("siguiente");
 
+
+		if (e.getSource().equals(btnSiguiente) ) {
+			//System.out.println("siguiente");
+
 			siguiente();
 
 		}
@@ -232,11 +246,19 @@ public class VNoticias extends JFrame implements ActionListener {
 	private void siguiente() {
 		// TODO Auto-generated method stub
 		btnAnterior.setEnabled(true);
+
+		if (it.hasNext() && it.nextIndex() 	!= news.size() -1) {
+			//System.out.println(" ejecuta siguiente");
+
 		if (it.hasNext()) {
 			// System.out.println(" ejecuta siguiente");
+
 			it.next();
 			n = it.next();
 			it.previous();
+			if(it.nextIndex() == news.size()-1) {
+				it.next();
+			}
 			lblTitulo.setText(n.getTitulo());
 			lblDescripcion.setText(n.getDescripcion());
 			aBlob = n.getFoto_noticia();
@@ -271,11 +293,19 @@ public class VNoticias extends JFrame implements ActionListener {
 	private void anterior() {
 		btnSiguiente.setEnabled(true);
 
+		if (it.hasPrevious() && it.previousIndex() != -1) {
+
+
 		if (it.hasPrevious()) {
+
 
 			it.previous();
 			n = it.previous();
 			it.next();
+			if(it.previousIndex() == 0) {
+				it.previous();
+				btnAnterior.setEnabled(false);
+			}
 			lblTitulo.setText(n.getTitulo());
 			lblDescripcion.setText(n.getDescripcion());
 			aBlob = n.getFoto_noticia();
