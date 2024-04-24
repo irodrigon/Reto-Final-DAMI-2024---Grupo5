@@ -51,6 +51,7 @@ public class VElegirArmas extends JFrame implements ActionListener {
 	private String pass;
 
 	public VElegirArmas(Controller c, String dni, String pass) {
+		setResizable(false);
 		setUndecorated(true);
 		this.c = c;
 		this.dni = dni;

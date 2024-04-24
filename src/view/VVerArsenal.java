@@ -51,6 +51,7 @@ public class VVerArsenal extends JFrame implements ActionListener{
 	private JLabel lblNewLabel;
 
 	public VVerArsenal(Controller c, String dni,String pass) {
+		setResizable(false);
 		this.c = c;
 		this.dni = dni;
 		this.pass = pass;

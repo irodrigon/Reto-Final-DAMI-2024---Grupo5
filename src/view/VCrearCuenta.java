@@ -48,12 +48,15 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private Controller c;
 	private JButton btnCrear;
 	private JLabel lblFiles;
+
 	private String dni;
 	private JComboBox<String> comboBoxRango;
 	/**
 	 * Create the frame.
 	 */
 	public VCrearCuenta(Controller c,String dni) {
+
+		setResizable(false);
 		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;

@@ -45,6 +45,7 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 	private String dni2;
 
 	public VVerNoticiaAdmin(Controller c, String dni, String dni2) {
+		setResizable(false);
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
 

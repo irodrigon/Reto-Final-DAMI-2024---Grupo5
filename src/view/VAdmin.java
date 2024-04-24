@@ -45,6 +45,7 @@ public class VAdmin extends JFrame implements ActionListener {
 	private String dni;
 
 	public VAdmin(Controller c, String dni) {
+		setResizable(false);
 		//setUndecorated(true);
 		this.c = c;
 		this.dni = dni;

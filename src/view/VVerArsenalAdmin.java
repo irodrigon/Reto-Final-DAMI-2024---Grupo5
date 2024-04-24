@@ -42,6 +42,7 @@ public class VVerArsenalAdmin extends JFrame implements ActionListener{
 	private String dni;
 	
 	public VVerArsenalAdmin(Controller c, String nombre,String dni) {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VVerArsenalAdmin.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		this.nombre = nombre;

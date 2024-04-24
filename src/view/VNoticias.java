@@ -47,16 +47,16 @@ public class VNoticias extends JFrame implements ActionListener {
 	private int index;
 
 	public VNoticias(Controller c) {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				VEntrada ve = new VEntrada(c);
 				ve.setVisible(true);
-				
+
 			}
 		});
-		
-		
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
 
 		this.c = c;
@@ -106,7 +106,6 @@ public class VNoticias extends JFrame implements ActionListener {
 		btnAtras = new JButton("Atrás");
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnAtras.setBounds(561, 585, 167, 37);
-
 		contentPane.add(btnAtras);
 
 		news = c.showNews();
@@ -147,49 +146,64 @@ public class VNoticias extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		//n = new News();
 
+		// it = news.listIterator();
+		/*
+		 * if (it.nextIndex() > news.size()-1 && !it.hasNext()) {
+		 * btnSiguiente.setEnabled(false); } else { btnSiguiente.setEnabled(true);
+		 * ======= boolean siguiente = true; boolean anterior = true; /* n = new News();
+		 * 
+		 * 
+		 * it = news.listIterator(); if (it.nextIndex() >= news.size() && !it.hasNext())
+		 * { btnSiguiente.setEnabled(false); } else { btnSiguiente.setEnabled(true); }
+		 * 
+		 * if (it.nextIndex() == news.size()) { it.previous(); }
+		 * 
+		 * if (it.previousIndex() == -1) { it.next(); }
+		 * 
+		 * if (it.previousIndex() == -1 && !it.hasPrevious()) {
+		 * btnAnterior.setEnabled(false); } else { btnAnterior.setEnabled(true); }
+		 */
 
-		//it = news.listIterator();
-		/*if (it.nextIndex() > news.size()-1 && !it.hasNext()) {
-			btnSiguiente.setEnabled(false);
-		} else {
-			btnSiguiente.setEnabled(true);
+		// n = new News();
+
+		// it = news.listIterator();
+		/*
+		 * if (it.nextIndex() > news.size()-2 && !it.hasNext()) {
+		 * btnSiguiente.setEnabled(false); } else { btnSiguiente.setEnabled(true); }
+		 * 
+		 * if (it.nextIndex() == news.size()) { it.previous(); }
+		 * 
+		 * if (it.previousIndex() == -1) { it.next(); }
+		 * 
+		 * if (it.previousIndex() == -1 && !it.hasPrevious()) {
+		 * btnAnterior.setEnabled(false); } else { btnAnterior.setEnabled(true); }
+		 */
+
+		if (e.getSource().equals(btnSiguiente)) {
+			// System.out.println("siguiente");
+
+			if (e.getSource().equals(btnSiguiente)) {
+				// System.out.println("siguiente");
+
+				siguiente();
+
+			}
+
+			if (e.getSource().equals(btnAnterior)) {
+				anterior();
+
+			}
+			if (e.getSource().equals(btnAtras)) {
+				volver();
+			}
 		}
-
-		if (it.nextIndex() == news.size()) {
-			it.previous();
-		}
-
-		if (it.previousIndex() == -1) {
-			it.next();
-		}
-
-		if (it.previousIndex() == -1 && !it.hasPrevious()) {
-			btnAnterior.setEnabled(false);
-		} else {
-			btnAnterior.setEnabled(true);
-		}*/
-
-		if (e.getSource().equals(btnSiguiente) ) {
-			//System.out.println("siguiente");
-			siguiente();
-			
-		} 
-		if (e.getSource().equals(btnAnterior)) {
-			anterior();
-
-		} 
-		if (e.getSource().equals( btnAtras)) {
-			volver();
-		}
-
 	}
 
 	private void siguiente() {
 		// TODO Auto-generated method stub
 		btnAnterior.setEnabled(true);
+
 		if(index >= 0 && index <= news.size()) {
 			index++;
 			n = news.get(index);
@@ -216,15 +230,18 @@ public class VNoticias extends JFrame implements ActionListener {
 			btnSiguiente.setEnabled(false);
 			btnAnterior.setEnabled(true);
 		}
-		
+
 	}
+
+	
+		
 
 	private void volver() {
 		VEntrada ve = new VEntrada(c);
 		ve.setVisible(true);
 		this.dispose();
-		
 	}
+
 
 	private void anterior() {
 		
@@ -255,6 +272,6 @@ public class VNoticias extends JFrame implements ActionListener {
 			btnSiguiente.setEnabled(true);
 			btnAnterior.setEnabled(false);
 		}
-	}
 
+	}
 }
