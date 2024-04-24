@@ -68,18 +68,21 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(verticalBox);
 
 		textFieldNombre = new JTextField();
+		textFieldNombre.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		textFieldNombre.setBounds(495, 108, 165, 28);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		textFieldNombre.setBorder(new LineBorder(Color.BLUE, 3));
 
 		textFieldApellido = new JTextField();
+		textFieldApellido.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		textFieldApellido.setBounds(495, 150, 165, 28);
 		contentPane.add(textFieldApellido);
 		textFieldApellido.setColumns(10);
 		textFieldApellido.setBorder(new LineBorder(Color.BLUE, 3));
 
 		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		passwordField.setBounds(495, 236, 165, 28);
 		contentPane.add(passwordField);
 		passwordField.setBorder(new LineBorder(Color.BLUE, 3));
@@ -121,6 +124,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(lblRango);
 		
 		JComboBox comboBoxRango = new JComboBox<String>();
+		comboBoxRango.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		comboBoxRango.setBounds(495, 329, 165, 28);
 		comboBoxRango.addItem("CABO");
 		comboBoxRango.addItem("TENIENTE");
@@ -131,6 +135,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(comboBoxRango);
 		
 		textFieldUsuario = new JTextField();
+		textFieldUsuario.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		textFieldUsuario.setBounds(495, 193, 165, 28);
 		contentPane.add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
@@ -148,7 +153,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		btnCancelar = new JButton("Cancelar");
 
 		btnCancelar.setBackground(new Color(192, 192, 192));
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnCancelar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnCancelar.setBounds(33, 429, 157, 29);
 
 
@@ -162,12 +167,13 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel_4);
 
 		passwordField2 = new JPasswordField();
+		passwordField2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		passwordField2.setBounds(495, 279, 165, 28);
 		contentPane.add(passwordField2);
 		passwordField2.setBorder(new LineBorder(Color.BLUE, 3));
 		
 		btnCrear = new JButton("Crear");
-		btnCrear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnCrear.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnCrear.setBackground(new Color(192, 192, 192));
 		btnCrear.setBounds(364, 429, 157, 29);
 		contentPane.add(btnCrear);
@@ -179,7 +185,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(lblFiles);
 		
 		JLabel lblFotoRegistro = new JLabel("");
-		lblFotoRegistro.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblFotoRegistro.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 
 		lblFotoRegistro.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
 		lblFotoRegistro.setBounds(-12, 0, 1493, 683);

@@ -120,7 +120,7 @@ public class VElegirArmas extends JFrame implements ActionListener {
 		table.getColumnModel().getColumn(2).setCellEditor(editor);
 
 		btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnConfirmar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnConfirmar.setForeground(new Color(0, 0, 0));
 		btnConfirmar.setBackground(new Color(116, 116, 116));
 		btnConfirmar.setBounds(130, 777, 104, 23);
@@ -128,15 +128,15 @@ public class VElegirArmas extends JFrame implements ActionListener {
 
 		btnBack = new JButton("Volver");
 		btnBack.setForeground(new Color(0, 0, 0));
-		btnBack.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		btnBack.setBackground(new Color(116, 116, 116));
+		btnBack.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		btnBack.setBackground(new Color(0, 0, 0));
 		btnBack.setEnabled(false);
 		btnBack.setBounds(452, 777, 89, 23);
 		contentPane.add(btnBack);
 
 		btnCancel = new JButton("Cancelar");
 		btnCancel.setForeground(new Color(0, 0, 0));
-		btnCancel.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnCancel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnCancel.setBackground(new Color(116, 116, 116));
 		btnCancel.setBounds(781, 777, 89, 23);
 		contentPane.add(btnCancel);
