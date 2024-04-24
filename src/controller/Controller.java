@@ -494,7 +494,10 @@ public class Controller implements InterfaceController {
 
 		} catch (SQLException e) {
 			System.out.println("Error en la BD.");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 47903d2b90956f139fa55d5d94b57d298749af83
 		}
 		return p;
 	}

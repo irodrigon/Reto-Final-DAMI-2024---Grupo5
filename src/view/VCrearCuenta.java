@@ -49,7 +49,13 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private JButton btnCrear;
 	private JLabel lblFiles;
 
+<<<<<<< HEAD
 	
+=======
+	/**
+	 * Create the frame.
+	 */
+>>>>>>> 47903d2b90956f139fa55d5d94b57d298749af83
 	public VCrearCuenta(Controller c) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
@@ -129,15 +135,6 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		comboBoxRango.setForeground(new Color(0, 0, 0));
 		contentPane.add(comboBoxRango);
 		
-		btnSubirFoto = new JButton("Subir foto");
-		btnSubirFoto.setBackground(new Color(192, 192, 192));
-		btnSubirFoto.setForeground(new Color(0, 0, 0));
-		btnSubirFoto.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnSubirFoto.setBounds(996, 300, 157, 35);
-
-		contentPane.add(btnSubirFoto);
-		btnSubirFoto.addActionListener(this);
-
 		textFieldUsuario = new JTextField();
 		textFieldUsuario.setBounds(495, 193, 165, 28);
 		contentPane.add(textFieldUsuario);
@@ -193,19 +190,16 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		lblFotoRegistro.setBounds(-12, 0, 1493, 683);
 
 		contentPane.add(lblFotoRegistro);
-		
-		
-		
-		
+		btnSubirFoto.addActionListener(this);
 		
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		Object o = e.getSource();
-		if ( o == btnSubirFoto) {
+		
+		//Object o = e.getSource();
+		if (e.getSource().equals(btnSubirFoto)) {
 			fileChooser = new JFileChooser();
 			fileChooser.setAcceptAllFileFilterUsed(false);
 			filtro = new FileNameExtensionFilter("Imágenes jpg", "jpg");
@@ -223,11 +217,11 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 				// si ha producido un Error
 				lblFiles.setText("Se ha producido un Error.");
 			}
-		} else if ((e.getSource() == btnCancelar)) {
+		} else if ((e.getSource().equals(btnCancelar))) {
 			VEntrada vE = new VEntrada(c);
 			vE.setVisible(true);
 			this.dispose();
-		}else if (o == btnCrear&& lblFiles.getText().equals("")) {
+		}else if (e.getSource().equals(btnCrear)&& lblFiles.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Por favor, selecciona un fotografía.", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}

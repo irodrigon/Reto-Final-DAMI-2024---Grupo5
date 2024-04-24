@@ -18,7 +18,11 @@ import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 
+<<<<<<< HEAD
 public class s extends JFrame implements ActionListener{
+=======
+public class VModificarPerfilPolicia extends JFrame implements ActionListener{
+>>>>>>> 47903d2b90956f139fa55d5d94b57d298749af83
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -99,6 +103,12 @@ public class s extends JFrame implements ActionListener{
 		lblNewLabel_2.setBounds(-14, -45, 1290, 893);
 		contentPane.add(lblNewLabel_2);
 		return p;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
