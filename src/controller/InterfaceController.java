@@ -27,6 +27,8 @@ public interface InterfaceController {
 	public boolean insertAssociation(String dni, int id_arsenal);
 	public Policia returnPolicemanById (String dni);//
 	public ArrayList<Elige> showAssociations();
+  public Criminal showCriminalByPolicemanAdmin(String dni_policia);
+
 
 
 }
