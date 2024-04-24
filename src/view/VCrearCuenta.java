@@ -125,7 +125,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		lblRango.setBounds(60, 323, 406, 29);
 		contentPane.add(lblRango);
 		
-		JComboBox comboBoxRango = new JComboBox();
+		JComboBox comboBoxRango = new JComboBox<String>();
 		comboBoxRango.setBounds(495, 329, 165, 28);
 		comboBoxRango.addItem("CABO");
 		comboBoxRango.addItem("TENIENTE");
