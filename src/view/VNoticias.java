@@ -52,11 +52,10 @@ public class VNoticias extends JFrame implements ActionListener {
 			public void windowClosing(WindowEvent e) {
 				VEntrada ve = new VEntrada(c);
 				ve.setVisible(true);
-				
+
 			}
 		});
-		
-		
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
 
 		this.c = c;
@@ -146,37 +145,33 @@ public class VNoticias extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		boolean siguiente = true;
+		boolean anterior = true;
 		/*
-		n = new News();
-
-
-		it = news.listIterator();
-		if (it.nextIndex() >= news.size() && !it.hasNext()) {
-			btnSiguiente.setEnabled(false);
-		} else {
-			btnSiguiente.setEnabled(true);
-		}
-
-		if (it.nextIndex() == news.size()) {
-			it.previous();
-		}
-
-		if (it.previousIndex() == -1) {
-			it.next();
-		}
-
-		if (it.previousIndex() == -1 && !it.hasPrevious()) {
-			btnAnterior.setEnabled(false);
-		} else {
-			btnAnterior.setEnabled(true);
-		}
-*/
-		if (e.getSource().equals(btnSiguiente) ) {
+		 * n = new News();
+		 * 
+		 * 
+		 * it = news.listIterator(); if (it.nextIndex() >= news.size() && !it.hasNext())
+		 * { btnSiguiente.setEnabled(false); } else { btnSiguiente.setEnabled(true); }
+		 * 
+		 * if (it.nextIndex() == news.size()) { it.previous(); }
+		 * 
+		 * if (it.previousIndex() == -1) { it.next(); }
+		 * 
+		 * if (it.previousIndex() == -1 && !it.hasPrevious()) {
+		 * btnAnterior.setEnabled(false); } else { btnAnterior.setEnabled(true); }
+		 */
+		if (e.getSource().equals(btnSiguiente)) {
 			System.out.println("siguiente");
 			btnAnterior.setEnabled(true);
 			if (it.hasNext()) {
 				System.out.println(" ejecuta siguiente");
-				it.next();
+
+				if (siguiente) {
+					it.next();
+					siguiente = false;
+				}
+				anterior = true;
 				n = it.next();
 				lblTitulo.setText(n.getTitulo());
 				lblDescripcion.setText(n.getDescripcion());
@@ -195,16 +190,16 @@ public class VNoticias extends JFrame implements ActionListener {
 					e2.printStackTrace();
 				}
 
-			}else {
+			} else {
 				btnSiguiente.setEnabled(false);
 				btnAnterior.setEnabled(true);
 			}
-		} 
+		}
 		if (e.getSource().equals(btnAnterior)) {
-			anterior();
+			anterior(anterior, siguiente);
 
-		} 
-		if (e.getSource().equals( btnAtras)) {
+		}
+		if (e.getSource().equals(btnAtras)) {
 			volver();
 		}
 
@@ -214,12 +209,17 @@ public class VNoticias extends JFrame implements ActionListener {
 		VEntrada ve = new VEntrada(c);
 		ve.setVisible(true);
 		this.dispose();
-		
+
 	}
 
-	private void anterior() {
+	private void anterior(boolean anterior, boolean siguiente) {
 		if (it.hasPrevious()) {
-			it.previous();
+
+			if (anterior) {
+				it.previous();
+				anterior = false;
+			}
+			siguiente = true;
 			n = it.previous();
 			lblTitulo.setText(n.getTitulo());
 			lblDescripcion.setText(n.getDescripcion());
@@ -239,7 +239,7 @@ public class VNoticias extends JFrame implements ActionListener {
 				e3.printStackTrace();
 			}
 
-		}else {
+		} else {
 			btnSiguiente.setEnabled(true);
 			btnAnterior.setEnabled(false);
 		}

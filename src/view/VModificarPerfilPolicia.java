@@ -9,13 +9,16 @@ import controller.Controller;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 
-public class VModificarPerfilPolicia extends JFrame implements ActionListenner{
+public class s extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -95,5 +98,12 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListenner{
 		lblNewLabel_2.setIcon(new ImageIcon(VModificarPerfilPolicia.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
 		lblNewLabel_2.setBounds(-14, -45, 1290, 893);
 		contentPane.add(lblNewLabel_2);
+		return p;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
