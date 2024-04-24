@@ -24,6 +24,8 @@ import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
@@ -35,6 +37,7 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.JToggleButton;
 
 
 public class VEntrada extends JFrame implements ActionListener {
@@ -52,8 +55,19 @@ public class VEntrada extends JFrame implements ActionListener {
 	private Administrador admin;
 	private String adminDni;
 	private JButton btnSalir;
+	private JToggleButton tglbtnSee;
 
 	public VEntrada(Controller c) {
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		}
 		setResizable(false);
 
 		//El método cambia el icono en la parte superior izquierda de la ventana.
@@ -129,16 +143,59 @@ public class VEntrada extends JFrame implements ActionListener {
 		btnSalir.setBorderPainted(false);
 		btnSalir.setBounds(397, 395, 220, 42);
 		contentPane.add(btnSalir);
+		
+		tglbtnSee = new JToggleButton("Ver");
+		tglbtnSee.setBounds(893, 316, 121, 23);
+		contentPane.add(tglbtnSee);
 
 		JLabel lblFoto = new JLabel("");
 		lblFoto.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
 		lblFoto.setBounds(-12, 0, 1493, 683);
 
 		contentPane.add(lblFoto);
+		
+	
 
 		btnNews.addActionListener(this);
 		btnEntrar.addActionListener(this);
 		btnSalir.addActionListener(this);
+		
+		tglbtnSee.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (tglbtnSee.isSelected()) {
+					passField.setEchoChar((char) 0);
+				} else {
+					passField.setEchoChar('*');
+				}
+			}
+		});
 		
 		textFieldUser.addMouseListener(new MouseListener() {
 			

@@ -34,6 +34,9 @@ import model.Policia;
 import controller.Controller;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -217,15 +220,13 @@ public class VManagement extends JFrame implements ActionListener {
 		scroll2 = new JScrollPane(table2);
 		scroll2.setBounds(10, 40, 964, 557);
 		panel2.add(scroll2);
-    
+
 		btnSeeProfile2 = new JButton("Ver Perfil de arsenal");
 		btnSeeProfile2.setBackground(new Color(116, 116, 116));
 		btnSeeProfile2.setForeground(new Color(0, 0, 0));
 		btnSeeProfile2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnSeeProfile2.setBounds(10, 654, 216, 23);
 		panel2.add(btnSeeProfile2);
-		
-
 
 		btnCreateArticle = new JButton("Crear Perfil de artículo");
 		btnCreateArticle.setForeground(Color.BLACK);
@@ -273,7 +274,6 @@ public class VManagement extends JFrame implements ActionListener {
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		panel2.add(lblNewLabel_1_1);
 
-		
 		btnSeeProfile2.addActionListener(this);
 
 		btnBack2.addActionListener(this);
@@ -448,13 +448,14 @@ public class VManagement extends JFrame implements ActionListener {
 		btnMdifyNew.addActionListener(this);
 		btnEliminarNew.addActionListener(this);
 		btnCreateNew.addActionListener(this);
+
 	}
 
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		Object o = e.getSource();
 
+		Object o = e.getSource();
 
 		if (o == btnSeeProfile) {
 			if (table.getSelectedRow() == -1) {
@@ -468,23 +469,41 @@ public class VManagement extends JFrame implements ActionListener {
 				this.dispose();
 			}
 
-		}else if(o == btnBack) {
+		} else if (o == btnEliminarPolicia) {
+			if (table.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione un policía en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				Policia p = new Policia();
+				int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este policía?");
+				if (option == JOptionPane.YES_OPTION) {
+					p = contr.returnPolicemanById((String) table.getValueAt(table.getSelectedRow(), 0));
+					contr.deletePoliceman(p.getDni());
+					contr.deletePoliceman2(p.getDni());
+					JOptionPane.showMessageDialog(this,
+							"Policía eliminado correctamente. No podrá volver a ver este policía.", "Advertencia",
+							JOptionPane.INFORMATION_MESSAGE);
+					model.removeRow(table.getSelectedRow());
+				}
+
+			}
+		} else if (o == btnBack) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		}else if(o == btnBack2) {
+		} else if (o == btnBack2) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		}else if(o == btnBack3) {
+		} else if (o == btnBack3) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		}else if(o == btnBack4) {
+		} else if (o == btnBack4) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		}else if (o == btnEliminarWeapons) {
+		} else if (o == btnEliminarWeapons) {
 			if (table2.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
 						JOptionPane.ERROR_MESSAGE);
@@ -495,7 +514,7 @@ public class VManagement extends JFrame implements ActionListener {
 					a = contr.returnWeaponByName((String) table2.getValueAt(table2.getSelectedRow(), 0));
 					contr.deleteWeapon(a.getId_arsenal());
 					JOptionPane.showMessageDialog(this,
-							"Artículo eliminado correctamente. No podrá volver este artículo.", "Advertencia",
+							"Artículo eliminado correctamente. No podrá volver a ver este artículo.", "Advertencia",
 							JOptionPane.INFORMATION_MESSAGE);
 					model2.removeRow(table2.getSelectedRow());
 				}
@@ -512,7 +531,7 @@ public class VManagement extends JFrame implements ActionListener {
 				vvaa.setVisible(true);
 				this.dispose();
 			}
-		} else if(o==btnSeeProfile3){
+		} else if (o == btnSeeProfile3) {
 			if (table3.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un criminal en la tabla.", "Error.",
 						JOptionPane.ERROR_MESSAGE);
@@ -522,11 +541,59 @@ public class VManagement extends JFrame implements ActionListener {
 				VVerCriminalAdmin vvca = new VVerCriminalAdmin(contr, dni, cr.getDni());
 				vvca.setVisible(true);
 				this.dispose();
-			
-		}
 
-	} else if(o==btnSeeProfile4) {
-		
+			}
+
+		} else if (o == btnEliminarCriminal) {
+
+			if (table3.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione un criminal en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				Criminal crim = new Criminal();
+				int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este perfil?");
+				if (option == JOptionPane.YES_OPTION) {
+					crim = contr.showCriminalByPolicemanAdmin((String) table3.getValueAt(table3.getSelectedRow(), 0));
+					contr.deletePoliceman(crim.getDni());
+					contr.deletePoliceman2(crim.getDni());
+					JOptionPane.showMessageDialog(this,
+							"Criminal eliminado correctamente. No podrá volver a ver este criminal.", "Advertencia",
+							JOptionPane.INFORMATION_MESSAGE);
+					model3.removeRow(table3.getSelectedRow());
+				}
+
+			}
+		} else if (o == btnSeeProfile4) {
+			if (table4.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione una noticia en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				News n = new News();
+				n = contr.returnNews((String) table4.getValueAt(table4.getSelectedRow(), 0));
+				VVerNoticiaAdmin vna = new VVerNoticiaAdmin(contr, n.getTitulo());
+				vna.setVisible(true);
+				this.dispose();
+
+			}
+		} else if (o == btnEliminarNew) {
+			if (table4.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione una noticia en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				News n = new News();
+				int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta noticia?");
+				if (option == JOptionPane.YES_OPTION) {
+					n = contr.returnNews((String) table4.getValueAt(table4.getSelectedRow(), 0));
+					contr.deleteNew(n.getId_noticia());
+
+					JOptionPane.showMessageDialog(this,
+							"Noticia eliminada correctamente. No podrá volver a ver esta noticia.", "Advertencia",
+							JOptionPane.INFORMATION_MESSAGE);
+					model4.removeRow(table4.getSelectedRow());
+				}
+			}
+
+		}
 	}
-}
+	 
 }

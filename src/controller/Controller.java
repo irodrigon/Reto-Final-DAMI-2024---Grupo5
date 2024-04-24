@@ -44,7 +44,17 @@ public class Controller implements InterfaceController {
 	private final String INSERT_ASSOCIATION = "INSERT INTO ELIGE VALUES(?,?)";
 	private final String SHOW_ASSOCIATION = "SELECT * FROM ELIGE";
 	private final String RETURN_CRIMINAL_BY_ID = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni WHERE criminal.dni = ?";
-
+	private final String INSERT_POLICEMAN = "INSERT INTO POLICIA VALUES(?,?)";
+	private final String INSERT_PEOPLE = "INSERT INTO PERSONA VALUES(?,?,?,?,?)";
+	private final String UPDATE_DEFAULT_CRIMINAL = "UPDATE CRIMINAL SET dni_policia = ? WHERE dni = ?";
+	private final String SELECT_RANDOM_CRIMINAL = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni ORDER BY RAND() LIMIT 1";
+	private final String UPDATE_PEOPLE ="UPDATE PERSONA SET nombre = ?, apellido = ?, contrasena = ?, fotografia_persona = ? WHERE dni = ?";		
+	private final String UPDATE_POLICEMAN = "UPDATE POLICIA SET rango = ? WHERE dni = ?";		
+	private final String RETURN_NEWS = "SELECT * FROM NOTICIA WHERE titulo = ?";
+	private final String DELETE_POLICEMAN2 = "DELETE FROM POLICIA WHERE dni_policia = ?";
+	private final String DELETE_CRIMINAL = "DELETE FROM CRIMINAL WHERE dni = ?";
+	private final String DELETE_NEW = "DELETE FROM NOTICIA WHERE id_noticia = ?";
+	
 	public Policia policeLogIn(String password, String dni) {
 
 		con = DatabaseConnectionPolice.getConnection();
@@ -597,6 +607,270 @@ public class Controller implements InterfaceController {
 			}
 		}
 		return cr;
+	}
+
+	@Override
+	public boolean insertPeople(String dni, String nombre, String apellido, String contrasena,
+			Blob fotografia_persona) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionPolice.getConnection();
+
+		try {
+			stmt = con.prepareStatement(INSERT_PEOPLE);
+
+			stmt.setString(1, dni);
+			stmt.setString(2, nombre);
+			stmt.setString(3, apellido);
+			stmt.setString(4, contrasena);
+			stmt.setBlob(5, fotografia_persona);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+
+	@Override
+	public boolean insertPoliceman(String dni, String rango) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionPolice.getConnection();
+
+		try {
+			stmt = con.prepareStatement(INSERT_POLICEMAN);
+
+			stmt.setString(1, dni);
+			stmt.setString(2, rango);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+
+	@Override
+	public boolean updateDefaultCriminal(String dni_policia, String dni) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionPolice.getConnection();
+
+		try {
+			stmt = con.prepareStatement(UPDATE_DEFAULT_CRIMINAL);
+
+			stmt.setString(1, dni_policia);
+			stmt.setString(2, dni);
+			
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+
+	@Override
+	public Criminal selectRandomCriminal() {
+		con = DatabaseConnectionAdmin.getConnection();
+		ResultSet rs = null;
+		Criminal c = null;
+
+		try {
+			stmt = con.prepareStatement(SELECT_RANDOM_CRIMINAL);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				c = new Criminal(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
+						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("descripcion"),
+						rs.getString("dni_policia"));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
+				}
+			}
+		}
+
+		return c;
+	}
+
+	@Override
+	public boolean updatePeople(String nombre, String apellido, String contrasena, Blob fotografia_persona,
+			String dni) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionPolice.getConnection();
+
+		try {
+			stmt = con.prepareStatement(UPDATE_PEOPLE);
+
+			stmt.setString(1, nombre);
+			stmt.setString(2, apellido);
+			stmt.setString(3, contrasena);
+			stmt.setBlob(4, fotografia_persona);
+			stmt.setString(5, dni);
+			
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+
+	@Override
+	public boolean updatePoliceman(String rango,String dni) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionPolice.getConnection();
+
+		try {
+			stmt = con.prepareStatement(UPDATE_POLICEMAN);
+
+			stmt.setString(1, rango);
+			stmt.setString(2, dni);
+			
+			
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+
+	@Override
+	public News returnNews(String titulo) {
+		ResultSet rs = null;
+		News n= null;
+
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(RETURN_NEWS);
+
+			// Cargamos los parámetros
+			stmt.setString(1, titulo);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				n = new News();
+				n.setId_noticia(rs.getInt("id_noticia"));
+				n.setFoto_noticia(rs.getBlob("fotografia_noticia"));
+				n.setTitulo(rs.getString("Titulo"));
+				n.setDescripcion(rs.getString("descripcion"));
+				n.setDni_administrador(rs.getString("dni"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
+				}
+			}
+		}
+		return n;
+
+	}
+
+	@Override
+	public boolean deletePoliceman2(String dni) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(DELETE_POLICEMAN2);
+
+			stmt.setString(1, dni);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+	
+	@Override
+	public boolean deleteCriminal(String dni) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(DELETE_CRIMINAL);
+
+			stmt.setString(1, dni);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+	
+	@Override
+	public boolean deleteNew(int id) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(DELETE_NEW);
+
+			stmt.setInt(1,id);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
 	}
 
 }

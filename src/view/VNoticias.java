@@ -39,7 +39,6 @@ public class VNoticias extends JFrame implements ActionListener {
 	private JButton btnAtras;
 	private ArrayList<News> news;
 	private Blob aBlob;
-	private ListIterator<News> it;
 	private News n;
 	private JLabel lblTitulo;
 	private JLabel lblDescripcion;
@@ -48,7 +47,8 @@ public class VNoticias extends JFrame implements ActionListener {
 
 	public VNoticias(Controller c) {
 		setResizable(false);
-		addWindowListener(new WindowAdapter() {
+		//con el código comentado volvemos a la ventana anterior al cerrar.
+		/*addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				VEntrada ve = new VEntrada(c);
@@ -56,7 +56,7 @@ public class VNoticias extends JFrame implements ActionListener {
 
 			}
 		});
-
+	*/
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
 
 		this.c = c;
@@ -141,7 +141,6 @@ public class VNoticias extends JFrame implements ActionListener {
 		btnSiguiente.addActionListener(this);
 		btnAnterior.setEnabled(false);
 
-		it = news.listIterator();
 	}
 
 	@Override
@@ -180,7 +179,7 @@ public class VNoticias extends JFrame implements ActionListener {
 		 * btnAnterior.setEnabled(false); } else { btnAnterior.setEnabled(true); }
 		 */
 
-		if (e.getSource().equals(btnSiguiente)) {
+		
 			// System.out.println("siguiente");
 
 			if (e.getSource().equals(btnSiguiente)) {
@@ -198,7 +197,7 @@ public class VNoticias extends JFrame implements ActionListener {
 				volver();
 			}
 		}
-	}
+	
 
 	private void siguiente() {
 		// TODO Auto-generated method stub
@@ -232,9 +231,6 @@ public class VNoticias extends JFrame implements ActionListener {
 		}
 
 	}
-
-	
-		
 
 	private void volver() {
 		VEntrada ve = new VEntrada(c);

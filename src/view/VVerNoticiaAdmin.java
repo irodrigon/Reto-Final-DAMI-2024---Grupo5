@@ -34,21 +34,19 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 	private Controller c;
 	private JLabel lblFoto;
 	private JButton btnAtras;
-	private ArrayList<News> news;
 	private Blob aBlob;
-	private ListIterator<News> it;
 	private News n;
 	private JLabel lblTitulo;
 	private JLabel lblDescripcion;
 	private JLabel lblBienvenida;
 	private String dni;
-	private String dni2;
+	private String title;
 
-	public VVerNoticiaAdmin(Controller c, String dni, String dni2) {
+	public VVerNoticiaAdmin(Controller c, String title) {
 		setResizable(false);
-
+		this.title = title;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
-
+		n = c.returnNews(title);
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -90,9 +88,7 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 
 		contentPane.add(btnAtras);
 
-		news = c.showNews();
-
-		aBlob = c.showNews().get(0).getFoto_noticia();
+		aBlob = this.n.getFoto_noticia();
 
 		try {
 			InputStream is;
@@ -107,8 +103,8 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		lblTitulo.setText(news.get(0).getTitulo());
-		lblDescripcion.setText(news.get(0).getDescripcion());
+		lblTitulo.setText(this.n.getTitulo());
+		lblDescripcion.setText(this.n.getDescripcion());
 
 		JLabel lblNewLabel = new JLabel("");
 
@@ -118,8 +114,6 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 
 		contentPane.add(lblNewLabel);
 		btnAtras.addActionListener(this);
-
-		it = news.listIterator();
 	}
 
 	@Override
