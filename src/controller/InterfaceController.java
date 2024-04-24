@@ -27,8 +27,11 @@ public interface InterfaceController {
 	public boolean insertAssociation(String dni, int id_arsenal);
 	public Policia returnPolicemanById (String dni);//
 	public ArrayList<Elige> showAssociations();
-  public Criminal showCriminalByPolicemanAdmin(String dni_policia);
-
-
-
+	public Criminal showCriminalByPolicemanAdmin(String dni_policia);
+	public boolean insertPeople(String dni, String nombre, String apellido, String contrasena, Blob fotografia_persona);
+	public boolean insertPoliceman(String dni,String rango);
+	public boolean updateDefaultCriminal(String dni_policia, String dni);
+	public Criminal selectRandomCriminal();
+	public boolean updatePeople(String nombre, String apellido, String contrasena, Blob fotografia_persona,String dni);
+	public boolean updatePoliceman(String rango,String dni);
 }

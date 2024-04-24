@@ -4,16 +4,29 @@ import javax.swing.JFrame;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.mysql.cj.jdbc.Blob;
 
 import controller.Controller;
+import model.Criminal;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -31,6 +44,13 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 	private Controller c;
 	private String dni;
 	private String pass;
+	private JFileChooser fileChooser;
+	private FileFilter filtro;
+	private File file;
+	private JLabel lblNewLabel_4;
+	private JPasswordField passwordField2;
+	private JLabel lblFiles;
+	private JToggleButton tglbtnSee;
 	//Ventana para modificar perfil
 	
 	public VModificarPerfilPolicia(Controller c,String dni,String pass) {
@@ -107,6 +127,12 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		txtjh.setColumns(10);
 		txtjh.setBounds(563, 242, 136, 31);
 		contentPane.add(txtjh);
+		
+		lblFiles = new JLabel();
+		lblFiles.setForeground(new Color(255, 255, 255));
+		lblFiles.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblFiles.setBounds(552, 588, 136, 31);
+		contentPane.add(lblFiles);
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
@@ -114,9 +140,15 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		lblNewLabel_2.setIcon(new ImageIcon(VModificarPerfilPolicia.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
 		lblNewLabel_2.setBounds(-14, -45, 1290, 893);
 		contentPane.add(lblNewLabel_2);
+		
+		JLabel label = new JLabel("New label");
+		label.setBounds(590, 592, 46, 14);
+		contentPane.add(label);
 
 		
 		btnCancelar.addActionListener(this);
+		btnNewButton.addActionListener(this);
+		btnCrear.addActionListener(this);
 
 	}
 
@@ -128,6 +160,57 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 			VPolicias vP = new VPolicias(c, dni, pass);
 			vP.setVisible(true);
 			this.dispose();
+		}if (e.getSource().equals(btnNewButton)) {
+			fileChooser = new JFileChooser();
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			filtro = new FileNameExtensionFilter("Imágenes jpg", "jpg");
+			fileChooser.addChoosableFileFilter(filtro);
+			int opcion = fileChooser.showOpenDialog(this);
+			if (opcion == JFileChooser.APPROVE_OPTION) {
+				// si ha pulsado Aceptar
+				file = fileChooser.getSelectedFile();
+				lblFiles.setText("Ha elegido el archivo " + fileChooser.getSelectedFile());
+
+			} else if (opcion == JFileChooser.CANCEL_OPTION) {
+				// si ha pulsado Cancelar
+				lblFiles.setText("Ha pulsado Cancelar");
+			} else if (opcion == JFileChooser.ERROR_OPTION) {
+				// si ha producido un Error
+				lblFiles.setText("Se ha producido un Error.");
+			}
+		} else if ((e.getSource().equals(btnCancelar))) {
+			VEntrada vE = new VEntrada(c);
+			vE.setVisible(true);
+			this.dispose();
+		}else if (e.getSource().equals(btnCrear)&& lblFiles.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Por favor, selecciona un fotografía.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}else if(e.getSource().equals(btnCrear) && txtDhrhdt.getText().equals("") && txtjh.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Introduce el nombre y el apellido.", "Error", JOptionPane.ERROR_MESSAGE);
+		}else if(e.getSource().equals(btnCrear) && new String(passwordField.getPassword()).equals("")) {
+			JOptionPane.showMessageDialog(this, "Introduce la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
+		}else if(e.getSource().equals(btnCrear)) {
+			
+			FileInputStream is = null;
+			try {
+				is = new FileInputStream(file);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Blob blob = null;
+			try {
+				blob = new Blob(is.readAllBytes(), null);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			int option = JOptionPane.showConfirmDialog(this,
+					"¿Está seguro de que desea modificar el policía?");
+			if (option == JOptionPane.YES_OPTION) {
+			c.updatePeople(txtDhrhdt.getText(), txtjh.getText(), new String(passwordField.getPassword()), blob, dni);
+			JOptionPane.showMessageDialog(this, "Policía modificado correctamente", "Mensaje para el usuario", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		
 

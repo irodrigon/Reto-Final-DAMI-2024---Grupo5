@@ -7,15 +7,20 @@ import javax.swing.border.EmptyBorder;
 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.mysql.cj.jdbc.Blob;
+
 import javax.swing.border.LineBorder;
 
 
 import controller.Controller;
+import model.Criminal;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,7 +28,12 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -37,7 +47,6 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
 	private JPasswordField passwordField;
-	private JTextField textFieldUsuario;
 	private JButton btnSubirFoto;
 	private JFileChooser fileChooser;
 	private FileFilter filtro;
@@ -48,8 +57,9 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private Controller c;
 	private JButton btnCrear;
 	private JLabel lblFiles;
-
 	private String dni;
+	private JToggleButton tglbtnSee;
+	private JToggleButton tglbtnSee2;
 	private JComboBox<String> comboBoxRango;
 	/**
 	 * Create the frame.
@@ -90,6 +100,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		passwordField.setBounds(495, 236, 165, 28);
+		passwordField.setEchoChar('*');
 		contentPane.add(passwordField);
 		passwordField.setBorder(new LineBorder(Color.BLUE, 3));
 
@@ -129,8 +140,9 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		lblRango.setBounds(60, 323, 406, 29);
 		contentPane.add(lblRango);
 		
-
+		comboBoxRango = new JComboBox<String>();
 		comboBoxRango.setBounds(495, 329, 165, 28);
+		comboBoxRango.addItem("-");
 		comboBoxRango.addItem("CABO");
 		comboBoxRango.addItem("TENIENTE");
 		comboBoxRango.addItem("SARGENTO");
@@ -138,14 +150,6 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		comboBoxRango.addItem("COMANDANTE");
 		comboBoxRango.setForeground(new Color(0, 0, 0));
 		contentPane.add(comboBoxRango);
-
-		
-		textFieldUsuario = new JTextField();
-		textFieldUsuario.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
-		textFieldUsuario.setBounds(495, 193, 165, 28);
-		contentPane.add(textFieldUsuario);
-		textFieldUsuario.setColumns(10);
-		textFieldUsuario.setBorder(new LineBorder(Color.BLUE, 3));
 
 
 		btnSubirFoto = new JButton("Subir foto");
@@ -177,6 +181,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		passwordField2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		passwordField2.setBounds(495, 279, 165, 28);
 		contentPane.add(passwordField2);
+		passwordField2.setEchoChar('*');
 		passwordField2.setBorder(new LineBorder(Color.BLUE, 3));
 		
 		btnCrear = new JButton("Crear");
@@ -191,6 +196,14 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		lblFiles.setBounds(161, 365, 569, 33);
 		contentPane.add(lblFiles);
 		
+		tglbtnSee = new JToggleButton("Ver");
+		tglbtnSee.setBounds(670, 238, 89,23);
+		contentPane.add(tglbtnSee);
+		
+		tglbtnSee2 = new JToggleButton("Ver");
+		tglbtnSee2.setBounds(670, 286, 89, 23);
+		contentPane.add(tglbtnSee2);
+		
 		JLabel lblFotoRegistro = new JLabel("");
 		lblFotoRegistro.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 
@@ -198,7 +211,83 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		lblFotoRegistro.setBounds(-12, 0, 1493, 683);
 
 		contentPane.add(lblFotoRegistro);
+		
+		tglbtnSee.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (tglbtnSee.isSelected()) {
+					passwordField.setEchoChar((char) 0);
+				} else {
+					passwordField.setEchoChar('*');
+				}
+			}
+		});
+		tglbtnSee2.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (tglbtnSee2.isSelected()) {
+					passwordField2.setEchoChar((char) 0);
+				} else {
+					passwordField2.setEchoChar('*');
+				}
+			}
+		});
+		
 		btnSubirFoto.addActionListener(this);
+		btnCrear.addActionListener(this);
+		btnCancelar.addActionListener(this);
 		
 
 	}
@@ -232,6 +321,40 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		}else if (e.getSource().equals(btnCrear)&& lblFiles.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Por favor, selecciona un fotografía.", "Error",
 					JOptionPane.ERROR_MESSAGE);
+		}else if(e.getSource().equals(btnCrear) && comboBoxRango.getSelectedItem().equals("-")) {
+			JOptionPane.showMessageDialog(this, "Selecciona un rango disponible.", "Error", JOptionPane.ERROR_MESSAGE);
+		}else if(e.getSource().equals(btnCrear) && textFieldNombre.getText().equals("") && textFieldApellido.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Introduce el nombre y el apellido.", "Error", JOptionPane.ERROR_MESSAGE);
+		}else if(e.getSource().equals(btnCrear) && new String(passwordField.getPassword()).equals("") && new String(passwordField2.getPassword()).equals("")) {
+			JOptionPane.showMessageDialog(this, "Introduce la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
+		}else if(e.getSource().equals(btnCrear) && !new String(passwordField.getPassword()).equals(new String(passwordField2.getPassword()))) {
+			JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
+		}else if(e.getSource().equals(btnCrear)) {
+			Criminal crim = new Criminal();
+			FileInputStream is = null;
+			try {
+				is = new FileInputStream(file);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Blob blob = null;
+			try {
+				blob = new Blob(is.readAllBytes(), null);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			int option = JOptionPane.showConfirmDialog(this,
+					"¿Está seguro de que desea crear un nuevo usuario?");
+			if (option == JOptionPane.YES_OPTION) {
+			c.insertPeople(dni, textFieldNombre.getText(), textFieldApellido.getText(),new String(passwordField2.getPassword()) , blob);
+			c.insertPoliceman(dni, (String)comboBoxRango.getSelectedItem());
+			crim = c.selectRandomCriminal();
+			c.updateDefaultCriminal(dni,crim.getDni());
+			c.insertAssociation(dni, 7);
+			JOptionPane.showMessageDialog(this, "Usuario creado correctamente", "Mensaje para el usuario", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 	}
 }
