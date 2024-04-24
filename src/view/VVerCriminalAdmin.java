@@ -110,7 +110,7 @@ public class VVerCriminalAdmin extends JFrame implements ActionListener {
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(VVerCriminalAdmin.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
-		lblNewLabel.setBounds(0, 10, 1266, 663);
+		lblNewLabel.setBounds(0, 10, 1266, 683);
 		contentPane.add(lblNewLabel);
 
 		btnAtras.addActionListener(this);

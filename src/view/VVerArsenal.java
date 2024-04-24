@@ -74,46 +74,46 @@ public class VVerArsenal extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 
 		lblFoto = new JLabel("");
-		lblFoto.setBounds(180, 74, 455, 275);
+		lblFoto.setBounds(440, 84, 455, 275);
 		contentPane.add(lblFoto);
 		
 		lblNombre = new JLabel("Nombre: "+ weaponsAssigned.get(0).getNombre());
 		lblNombre.setForeground(new Color(255, 255, 255));
 		lblNombre.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblNombre.setBounds(115, 440, 388, 27);
+		lblNombre.setBounds(428, 398, 388, 27);
 		contentPane.add(lblNombre);
 		
 		lblTipo = new JLabel("Tipo: "+ weaponsAssigned.get(0).getTipo());
 		lblTipo.setForeground(new Color(255, 255, 255));
 		lblTipo.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblTipo.setBounds(117, 468, 320, 27);
+		lblTipo.setBounds(428, 435, 320, 27);
 		contentPane.add(lblTipo); 
 		
 		lblDescripcion = new JLabel("Descripción: " +weaponsAssigned.get(0).getDescripcion());
 		lblDescripcion.setForeground(new Color(255, 255, 255));
 		lblDescripcion.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblDescripcion.setBounds(118, 494, 740, 43);
+		lblDescripcion.setBounds(428, 461, 740, 43);
 		contentPane.add(lblDescripcion);
 		
 		lblBienvenida = new JLabel("ARSENAL DISPONIBLE");
 		lblBienvenida.setForeground(new Color(255, 255, 255));
 		lblBienvenida.setFont(new Font("Dialog", Font.BOLD, 37));
-		lblBienvenida.setBounds(239, 9, 438, 54);
+		lblBienvenida.setBounds(457, 10, 438, 54);
 		contentPane.add(lblBienvenida);
 
 		btnAnterior = new JButton("Anterior");
 		btnAnterior.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnAnterior.setBounds(80, 640, 167, 37);
+		btnAnterior.setBounds(233, 616, 167, 37);
 		contentPane.add(btnAnterior);
 
 		btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnSiguiente.setBounds(620, 640, 167, 37);
+		btnSiguiente.setBounds(981, 616, 167, 37);
 		contentPane.add(btnSiguiente);
 
 		btnAtras = new JButton("Atrás");
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnAtras.setBounds(354, 640, 167, 37);
+		btnAtras.setBounds(592, 616, 167, 37);
 		contentPane.add(btnAtras);
 
 		aBlob = weaponsAssigned.get(0).getFoto_arsenal();

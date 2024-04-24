@@ -85,8 +85,8 @@ public class VVerArsenalAdmin extends JFrame implements ActionListener{
 		contentPane.add(lblBienvenida);
 
 		btnAtras = new JButton("Atrás");
-		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		btnAtras.setBounds(354, 640, 167, 37);
+		btnAtras.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24));
+		btnAtras.setBounds(578, 636, 167, 37);
 		contentPane.add(btnAtras);
 
 		aBlob = a.getFoto_arsenal();
