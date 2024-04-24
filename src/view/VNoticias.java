@@ -146,12 +146,12 @@ public class VNoticias extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/*
-		n = new News();
+		
+		//n = new News();
 
 
-		it = news.listIterator();
-		if (it.nextIndex() >= news.size() && !it.hasNext()) {
+		//it = news.listIterator();
+		/*if (it.nextIndex() > news.size()-2 && !it.hasNext()) {
 			btnSiguiente.setEnabled(false);
 		} else {
 			btnSiguiente.setEnabled(true);
@@ -169,36 +169,13 @@ public class VNoticias extends JFrame implements ActionListener {
 			btnAnterior.setEnabled(false);
 		} else {
 			btnAnterior.setEnabled(true);
-		}
-*/
-		if (e.getSource().equals(btnSiguiente) ) {
-			System.out.println("siguiente");
-			btnAnterior.setEnabled(true);
-			if (it.hasNext()) {
-				System.out.println(" ejecuta siguiente");
-				it.next();
-				n = it.next();
-				lblTitulo.setText(n.getTitulo());
-				lblDescripcion.setText(n.getDescripcion());
-				aBlob = n.getFoto_noticia();
-				try {
-					InputStream is;
-					is = aBlob.getBinaryStream(1, aBlob.length());
-					BufferedImage imag;
-					imag = ImageIO.read(is);
-					lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
-							lblFoto.getHeight(), Image.SCALE_DEFAULT)));
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
+		}*/
 
-			}else {
-				btnSiguiente.setEnabled(false);
-				btnAnterior.setEnabled(true);
-			}
+		if (e.getSource().equals(btnSiguiente) ) {
+			//System.out.println("siguiente");
+			
+			siguiente();
+			
 		} 
 		if (e.getSource().equals(btnAnterior)) {
 			anterior();
@@ -210,6 +187,39 @@ public class VNoticias extends JFrame implements ActionListener {
 
 	}
 
+	private void siguiente() {
+		// TODO Auto-generated method stub
+		btnAnterior.setEnabled(true);
+		if (it.hasNext()) {
+			//System.out.println(" ejecuta siguiente");
+			it.next();
+			n = it.next();
+			it.previous();
+			lblTitulo.setText(n.getTitulo());
+			lblDescripcion.setText(n.getDescripcion());
+			aBlob = n.getFoto_noticia();
+			try {
+				InputStream is;
+				is = aBlob.getBinaryStream(1, aBlob.length());
+				BufferedImage imag;
+				imag = ImageIO.read(is);
+				lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
+						lblFoto.getHeight(), Image.SCALE_DEFAULT)));
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+			
+
+		}else {
+			btnSiguiente.setEnabled(false);
+			btnAnterior.setEnabled(true);
+		}
+		
+	}
+
 	private void volver() {
 		VEntrada ve = new VEntrada(c);
 		ve.setVisible(true);
@@ -218,9 +228,11 @@ public class VNoticias extends JFrame implements ActionListener {
 	}
 
 	private void anterior() {
+		btnSiguiente.setEnabled(true);
 		if (it.hasPrevious()) {
 			it.previous();
 			n = it.previous();
+			it.next();
 			lblTitulo.setText(n.getTitulo());
 			lblDescripcion.setText(n.getDescripcion());
 			aBlob = n.getFoto_noticia();
@@ -238,7 +250,7 @@ public class VNoticias extends JFrame implements ActionListener {
 			} catch (SQLException e3) {
 				e3.printStackTrace();
 			}
-
+			
 		}else {
 			btnSiguiente.setEnabled(true);
 			btnAnterior.setEnabled(false);
