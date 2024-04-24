@@ -494,6 +494,7 @@ public class Controller implements InterfaceController {
 
 		} catch (SQLException e) {
 			System.out.println("Error en la BD.");
+
 		}
 		return p;
 	}
