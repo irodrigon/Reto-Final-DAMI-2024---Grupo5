@@ -140,6 +140,7 @@ public class VNoticias extends JFrame implements ActionListener {
 		btnAnterior.addActionListener(this);
 		btnAtras.addActionListener(this);
 		btnSiguiente.addActionListener(this);
+		btnAnterior.setEnabled(false);
 
 		it = news.listIterator();
 	}
@@ -151,7 +152,7 @@ public class VNoticias extends JFrame implements ActionListener {
 
 
 		//it = news.listIterator();
-		/*if (it.nextIndex() > news.size()-2 && !it.hasNext()) {
+		/*if (it.nextIndex() > news.size()-1 && !it.hasNext()) {
 			btnSiguiente.setEnabled(false);
 		} else {
 			btnSiguiente.setEnabled(true);
@@ -173,7 +174,6 @@ public class VNoticias extends JFrame implements ActionListener {
 
 		if (e.getSource().equals(btnSiguiente) ) {
 			//System.out.println("siguiente");
-			
 			siguiente();
 			
 		} 
@@ -190,11 +190,14 @@ public class VNoticias extends JFrame implements ActionListener {
 	private void siguiente() {
 		// TODO Auto-generated method stub
 		btnAnterior.setEnabled(true);
-		if (it.hasNext()) {
+		if (it.hasNext() && it.nextIndex() 	!= news.size() -1) {
 			//System.out.println(" ejecuta siguiente");
 			it.next();
 			n = it.next();
 			it.previous();
+			if(it.nextIndex() == news.size()-1) {
+				it.next();
+			}
 			lblTitulo.setText(n.getTitulo());
 			lblDescripcion.setText(n.getDescripcion());
 			aBlob = n.getFoto_noticia();
@@ -211,7 +214,6 @@ public class VNoticias extends JFrame implements ActionListener {
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
-			
 
 		}else {
 			btnSiguiente.setEnabled(false);
@@ -229,10 +231,14 @@ public class VNoticias extends JFrame implements ActionListener {
 
 	private void anterior() {
 		btnSiguiente.setEnabled(true);
-		if (it.hasPrevious()) {
+		if (it.hasPrevious() && it.previousIndex() != -1) {
 			it.previous();
 			n = it.previous();
 			it.next();
+			if(it.previousIndex() == 0) {
+				it.previous();
+				btnAnterior.setEnabled(false);
+			}
 			lblTitulo.setText(n.getTitulo());
 			lblDescripcion.setText(n.getDescripcion());
 			aBlob = n.getFoto_noticia();
