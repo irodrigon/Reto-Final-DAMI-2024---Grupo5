@@ -764,4 +764,44 @@ public class Controller implements InterfaceController {
 		return cambios;
 	}
 
+	@Override
+	public News returnNews(String titulo) {
+		ResultSet rs = null;
+		News n= null;
+
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(RETURN_NEWS);
+
+			// Cargamos los parámetros
+			stmt.setString(1, titulo);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				n = new News();
+				n.setId_noticia(rs.getInt("id_noticia"));
+				n.setFoto_noticia(rs.getBlob("fotografia_noticia"));
+				n.setTitulo(rs.getString("Titulo"));
+				n.setDescripcion(rs.getString("descripcion"));
+				n.setDni_administrador(rs.getString("dni"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
+				}
+			}
+		}
+		return n;
+
+	}
+
 }

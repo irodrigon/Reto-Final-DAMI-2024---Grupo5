@@ -217,15 +217,13 @@ public class VManagement extends JFrame implements ActionListener {
 		scroll2 = new JScrollPane(table2);
 		scroll2.setBounds(10, 40, 964, 557);
 		panel2.add(scroll2);
-    
+
 		btnSeeProfile2 = new JButton("Ver Perfil de arsenal");
 		btnSeeProfile2.setBackground(new Color(116, 116, 116));
 		btnSeeProfile2.setForeground(new Color(0, 0, 0));
 		btnSeeProfile2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnSeeProfile2.setBounds(10, 654, 216, 23);
 		panel2.add(btnSeeProfile2);
-		
-
 
 		btnCreateArticle = new JButton("Crear Perfil de artículo");
 		btnCreateArticle.setForeground(Color.BLACK);
@@ -273,7 +271,6 @@ public class VManagement extends JFrame implements ActionListener {
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		panel2.add(lblNewLabel_1_1);
 
-		
 		btnSeeProfile2.addActionListener(this);
 
 		btnBack2.addActionListener(this);
@@ -452,9 +449,8 @@ public class VManagement extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		Object o = e.getSource();
 
+		Object o = e.getSource();
 
 		if (o == btnSeeProfile) {
 			if (table.getSelectedRow() == -1) {
@@ -468,23 +464,23 @@ public class VManagement extends JFrame implements ActionListener {
 				this.dispose();
 			}
 
-		}else if(o == btnBack) {
+		} else if (o == btnBack) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		}else if(o == btnBack2) {
+		} else if (o == btnBack2) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		}else if(o == btnBack3) {
+		} else if (o == btnBack3) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		}else if(o == btnBack4) {
+		} else if (o == btnBack4) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		}else if (o == btnEliminarWeapons) {
+		} else if (o == btnEliminarWeapons) {
 			if (table2.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
 						JOptionPane.ERROR_MESSAGE);
@@ -512,7 +508,7 @@ public class VManagement extends JFrame implements ActionListener {
 				vvaa.setVisible(true);
 				this.dispose();
 			}
-		} else if(o==btnSeeProfile3){
+		} else if (o == btnSeeProfile3) {
 			if (table3.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un criminal en la tabla.", "Error.",
 						JOptionPane.ERROR_MESSAGE);
@@ -522,11 +518,22 @@ public class VManagement extends JFrame implements ActionListener {
 				VVerCriminalAdmin vvca = new VVerCriminalAdmin(contr, dni, cr.getDni());
 				vvca.setVisible(true);
 				this.dispose();
-			
-		}
 
-	} else if(o==btnSeeProfile4) {
+			}
+
+		} else if (o == btnSeeProfile4) {
+			if (table4.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione una noticia en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				News n = new News();
+				n = contr.returnNews((String) table4.getValueAt(table4.getSelectedRow(), 0));
+				VVerNoticiaAdmin vna = new VVerNoticiaAdmin(contr, n.getTitulo());
+				vna.setVisible(true);
+				this.dispose();
+
+			}
+		}
 		
 	}
-}
 }
