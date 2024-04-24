@@ -79,7 +79,7 @@ public class VPolicias extends JFrame implements ActionListener{
 		aBlob = p.getFotografia();
 		
 		JLabel lblFoto = new JLabel("");
-		lblFoto.setBounds(22, 10, 106, 153);
+		lblFoto.setBounds(33, 22, 169, 235);
 		try {
 			InputStream is;
 			is = aBlob.getBinaryStream(1, aBlob.length());
@@ -96,33 +96,33 @@ public class VPolicias extends JFrame implements ActionListener{
 		
 		JLabel lblDni = new JLabel("DNI: " + p.getDni());
 		lblDni.setForeground(new Color(255, 255, 255));
-		lblDni.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblDni.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24));
 
-		lblDni.setBounds(142, 10, 285, 32);
+		lblDni.setBounds(224, 33, 285, 32);
 
 		contentPane.add(lblDni);
 		
 		JLabel lblNombre = new JLabel("Nombre: " + p.getNombre());
 		lblNombre.setForeground(new Color(255, 255, 255));
-		lblNombre.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblNombre.setBounds(142, 40, 285, 32);
+		lblNombre.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24));
+		lblNombre.setBounds(224, 75, 285, 32);
 		contentPane.add(lblNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido: " + p.getApellido());
 		lblApellido.setForeground(new Color(255, 255, 255));
-		lblApellido.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblApellido.setBounds(142, 68, 285, 32);
+		lblApellido.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24));
+		lblApellido.setBounds(224, 124, 285, 32);
 		contentPane.add(lblApellido);
 		
 		JLabel lblRango = new JLabel("Rango: " + p.getRango());
 		lblRango.setForeground(new Color(255, 255, 255));
-		lblRango.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblRango.setBounds(142, 98, 285, 32);
+		lblRango.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24));
+		lblRango.setBounds(224, 166, 285, 45);
 		contentPane.add(lblRango);
 
 
 		lblFoto2 = new JLabel("");
-		lblFoto2.setBounds(738, 10, 106, 153);
+		lblFoto2.setBounds(1056, 33, 169, 212);
 		
 		aBlob = crims.get(0).getFotografia();
 
@@ -141,60 +141,67 @@ public class VPolicias extends JFrame implements ActionListener{
 		
 		contentPane.add(lblFoto2);
 		btnAnterior = new JButton("Anterior");
-		btnAnterior.setBounds(682, 174, 89, 23);
+		btnAnterior.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		btnAnterior.setBounds(1031, 269, 98, 23);
 		contentPane.add(btnAnterior);
 		
 		btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setBounds(781, 174, 89, 23);
+		btnSiguiente.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		btnSiguiente.setBounds(1154, 269, 89, 23);
 		contentPane.add(btnSiguiente);
 		
 		lblDniC = new JLabel("DNI: " + crims.get(0).getDni());
 		lblDniC.setForeground(Color.WHITE);
-		lblDniC.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblDniC.setBounds(433, 10, 311, 32);
+		lblDniC.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24));
+		lblDniC.setBounds(694, 33, 311, 32);
 		contentPane.add(lblDniC);
 		
 		lblNombreC = new JLabel("Nombre: " + crims.get(0).getNombre());
 		lblNombreC.setForeground(Color.WHITE);
-		lblNombreC.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblNombreC.setBounds(433, 40, 311, 32);
+		lblNombreC.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24));
+		lblNombreC.setBounds(694, 75, 311, 32);
 		contentPane.add(lblNombreC);
 		
 		lblApellidoC = new JLabel("Apellido: " + crims.get(0).getApellido());
 		lblApellidoC.setForeground(Color.WHITE);
-		lblApellidoC.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblApellidoC.setBounds(430, 68, 314, 32);
+		lblApellidoC.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24));
+		lblApellidoC.setBounds(694, 124, 314, 32);
 		contentPane.add(lblApellidoC);
 		
 		lblDesc = new JLabel("Descripción: " + crims.get(0).getDescripcion());
 		lblDesc.setForeground(Color.WHITE);
-		lblDesc.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblDesc.setBounds(433, 92, 229, 45);
+		lblDesc.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24));
+		lblDesc.setBounds(694, 166, 324, 45);
 		contentPane.add(lblDesc);
 		
 		btnVerArsenal = new JButton("Ver el arsenal disponible");
-		btnVerArsenal.setBounds(45, 352, 207, 23);
+		btnVerArsenal.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		btnVerArsenal.setBounds(244, 324, 207, 23);
 		contentPane.add(btnVerArsenal);
 		
 		btnElegirArsenal = new JButton("Elegir Arsenal");
-		btnElegirArsenal.setBounds(562, 417, 182, 23);
+		btnElegirArsenal.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		btnElegirArsenal.setBounds(805, 440, 182, 23);
 		contentPane.add(btnElegirArsenal);
 		
 		btnModificar = new JButton("Modificar mi perfil");
-		btnModificar.setBounds(165, 417, 183, 23);
+		btnModificar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		btnModificar.setBounds(311, 440, 183, 23);
 		contentPane.add(btnModificar);
 		
 		btnAtras = new JButton("Volver");
-		btnAtras.setBounds(354, 489, 200, 23);
+		btnAtras.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		btnAtras.setBounds(554, 593, 200, 23);
 		contentPane.add(btnAtras);
 		
 		btnEliminar = new JButton("Eliminar mi perfil");
-		btnEliminar.setBounds(651, 334, 207, 23);
+		btnEliminar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		btnEliminar.setBounds(839, 324, 207, 23);
 		contentPane.add(btnEliminar);
 		
 		JLabel lblFondo = new JLabel("");
-		lblFondo.setIcon(new ImageIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPoliciaFinal.jpg")).getImage().getScaledInstance(884, 600, Image.SCALE_DEFAULT)));
-		lblFondo.setBounds(0, 10, 870, 543);
+		lblFondo.setIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
+		lblFondo.setBounds(10, 10, 1266, 673);
 		contentPane.add(lblFondo);
 		
 		

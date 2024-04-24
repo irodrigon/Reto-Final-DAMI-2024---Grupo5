@@ -74,7 +74,7 @@ public class VEntrada extends JFrame implements ActionListener {
 
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setForeground(new Color(255, 255, 255));
-		lblUsuario.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
+		lblUsuario.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
 		lblUsuario.setBounds(150, 197, 187, 28);
 		contentPane.add(lblUsuario);
 
@@ -96,13 +96,13 @@ public class VEntrada extends JFrame implements ActionListener {
 
 		JLabel lblPassword = new JLabel("Contraseña:");
 		lblPassword.setForeground(new Color(255, 255, 255));
-		lblPassword.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
+		lblPassword.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
 		lblPassword.setBounds(150, 311, 187, 28);
 		contentPane.add(lblPassword);
 
 		JLabel lblBienvenida = new JLabel("BIENVENIDO, AGENTE.");
 		lblBienvenida.setForeground(new Color(255, 255, 255));
-		lblBienvenida.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
+		lblBienvenida.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 24));
 		lblBienvenida.setBounds(550, 10, 255, 25);
 		contentPane.add(lblBienvenida);
 
@@ -119,7 +119,7 @@ public class VEntrada extends JFrame implements ActionListener {
 		contentPane.add(btnNews);
 		btnNews.setBorderPainted(false);
 
-		btnNews.setBackground(Color.GRAY);
+		btnNews.setBackground(new Color(128, 128, 255));
 		
 		btnSalir = new JButton("SALIR");
 		btnSalir.setOpaque(true);

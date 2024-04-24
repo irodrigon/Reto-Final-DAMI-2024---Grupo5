@@ -83,7 +83,7 @@ public class VNoticias extends JFrame implements ActionListener {
 		lblDescripcion = new JLabel("");
 		lblDescripcion.setForeground(new Color(0, 0, 0));
 		lblDescripcion.setFont(new Font("Dialog", Font.BOLD, 17));
-		lblDescripcion.setBounds(313, 532, 793, 43);
+		lblDescripcion.setBounds(237, 532, 1019, 43);
 
 		contentPane.add(lblDescripcion);
 
@@ -94,17 +94,17 @@ public class VNoticias extends JFrame implements ActionListener {
 		contentPane.add(lblBienvenida);
 
 		btnAnterior = new JButton("Anterior");
-		btnAnterior.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnAnterior.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnAnterior.setBounds(255, 585, 167, 37);
 		contentPane.add(btnAnterior);
 
 		btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnSiguiente.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnSiguiente.setBounds(850, 585, 167, 37);
 		contentPane.add(btnSiguiente);
 
 		btnAtras = new JButton("Atrás");
-		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnAtras.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnAtras.setBounds(561, 585, 167, 37);
 		contentPane.add(btnAtras);
 
