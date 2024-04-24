@@ -50,10 +50,6 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private JLabel lblFiles;
 
 	/**
-	 * Launch the application.
-	 */
-
-	/**
 	 * Create the frame.
 	 */
 	public VCrearCuenta(Controller c) {
@@ -142,7 +138,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		btnSubirFoto.setBounds(996, 300, 157, 35);
 
 		contentPane.add(btnSubirFoto);
-		btnSubirFoto.addActionListener(this);
+		
 
 		textFieldUsuario = new JTextField();
 		textFieldUsuario.setBounds(495, 193, 165, 28);
@@ -199,19 +195,16 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		lblFotoRegistro.setBounds(-12, 0, 1493, 683);
 
 		contentPane.add(lblFotoRegistro);
-		
-		
-		
-		
+		btnSubirFoto.addActionListener(this);
 		
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 		Object o = e.getSource();
-		if ( o == btnSubirFoto) {
+		if (o == btnSubirFoto) {
 			fileChooser = new JFileChooser();
 			fileChooser.setAcceptAllFileFilterUsed(false);
 			filtro = new FileNameExtensionFilter("Imágenes jpg", "jpg");

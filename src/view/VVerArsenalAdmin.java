@@ -102,7 +102,6 @@ public class VVerArsenalAdmin extends JFrame implements ActionListener{
 			lblNewLabel.setBounds(0, -22, 1280, 720);
 			contentPane.add(lblNewLabel);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
