@@ -52,11 +52,12 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 	private JLabel lblSaveChanges;
 	
 	public VCrearArsenal(Controller c, String dni) {
+		setResizable(false);
 		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearArsenal.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 20, 1000, 1000);
+		setBounds(500, 20, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new RoundedBorder(5));
 
@@ -65,92 +66,98 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 
 		JLabel lblCrearFichaDe = new JLabel("CREAR FICHA DE ARSENAL", SwingConstants.CENTER);
 		lblCrearFichaDe.setForeground(Color.BLACK);
-		lblCrearFichaDe.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblCrearFichaDe.setBounds(75, 97, 820, 36);
+		lblCrearFichaDe.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblCrearFichaDe.setBounds(476, 96, 361, 36);
 		contentPane.add(lblCrearFichaDe);
 
 		JLabel lblName = new JLabel("Nombre:");
 		lblName.setForeground(Color.BLACK);
-		lblName.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblName.setBounds(148, 221, 104, 36);
+		lblName.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblName.setBounds(391, 207, 104, 36);
 		contentPane.add(lblName);
 
 		JLabel lblDesc = new JLabel("Descripcion:");
 		lblDesc.setForeground(Color.BLACK);
-		lblDesc.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblDesc.setBounds(148, 268, 132, 36);
+		lblDesc.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblDesc.setBounds(346, 264, 149, 36);
 		contentPane.add(lblDesc);
+
 
 		btnUpload = new JButton("Subir Foto");
 		btnUpload.setForeground(Color.BLACK);
-		btnUpload.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnUpload.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnUpload.setBackground(new Color(116, 116, 116));
-		btnUpload.setBounds(296, 489, 316, 23);
+		btnUpload.setBounds(531, 490, 316, 23);
 		contentPane.add(btnUpload);
 
 		btnSave = new JButton("Guardar Cambios");
+
 		btnSave.setForeground(Color.BLACK);
-		btnSave.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnSave.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnSave.setBackground(new Color(116, 116, 116));
-		btnSave.setBounds(182, 632, 132, 23);
+		btnSave.setBounds(446, 551, 114, 23);
 		contentPane.add(btnSave);
 
 		btnBack = new JButton("Volver");
 		btnBack.setForeground(Color.BLACK);
-		btnBack.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnBack.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnBack.setEnabled(false);
 		btnBack.setBackground(new Color(116, 116, 116));
-		btnBack.setBounds(368, 632, 132, 23);
+		btnBack.setBounds(630, 551, 132, 23);
 		contentPane.add(btnBack);
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(Color.BLACK);
-		btnCancelar.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		btnCancelar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnCancelar.setBackground(new Color(116, 116, 116));
-		btnCancelar.setBounds(552, 632, 132, 23);
+		btnCancelar.setBounds(835, 551, 132, 23);
 		contentPane.add(btnCancelar);
 
 		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		textField_2.setColumns(10);
-		textField_2.setBounds(296, 225, 316, 28);
+		textField_2.setBounds(521, 218, 316, 28);
 		contentPane.add(textField_2);
 
 		textArea = new JTextArea();
-		textArea.setBounds(296, 276, 316, 123);
+		textArea.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 13));
+		textArea.setBounds(521, 276, 316, 123);
 		contentPane.add(textArea);
 
 		lblID_Arsenal = new JLabel("");
-		lblID_Arsenal.setFont(new Font("Teko SemiBold", Font.PLAIN, 32));
-		lblID_Arsenal.setBounds(310, 21, 411, 36);
+
+		lblID_Arsenal.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 32));
+		lblID_Arsenal.setBounds(465, 21, 522, 36);
 		contentPane.add(lblID_Arsenal);
 
 		lblID_Arsenal.setText("El último id de arsenal es: "+ c.returnMaxWeapon().getId_arsenal());
 
 		lblTipo = new JLabel("Tipo:");
 		lblTipo.setForeground(Color.BLACK);
-		lblTipo.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
-		lblTipo.setBounds(148, 413, 132, 36);
+		lblTipo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblTipo.setBounds(428, 414, 67, 36);
 		contentPane.add(lblTipo);
 
 		String[] tipoStrings = { "-", "Arma", "Armadura", "Herramienta" };
 		comboTipo = new JComboBox<String>(tipoStrings);
-		comboTipo.setBounds(296, 410, 316, 34);
+		comboTipo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
+		comboTipo.setBounds(521, 416, 316, 34);
 		contentPane.add(comboTipo);
 		
 		lblFiles = new JLabel("");
 		lblFiles.setForeground(Color.BLACK);
-		lblFiles.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
-		lblFiles.setBounds(212, 523, 509, 18);
+		lblFiles.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		lblFiles.setBounds(425, 523, 509, 18);
 		contentPane.add(lblFiles);
 
 		lblSaveChanges = new JLabel("");
-		lblSaveChanges.setFont(new Font("Teko SemiBold", Font.PLAIN, 32));
-		lblSaveChanges.setBounds(296, 782, 316, 36);
+		lblSaveChanges.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 32));
+		lblSaveChanges.setBounds(306, 522, 316, 36);
 		contentPane.add(lblSaveChanges);
 
 		lblNewLabel_1_1 = new JLabel("");
 		lblNewLabel_1_1.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoArsenal.jpg")));
-		lblNewLabel_1_1.setBounds(-60, -73, 1066, 1135);
+		lblNewLabel_1_1.setBounds(-17, -179, 1283, 1135);
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		contentPane.add(lblNewLabel_1_1);
 

@@ -39,4 +39,5 @@ public interface InterfaceController {
 	public boolean deleteCriminal(String dni);
 	public boolean deleteNew(int id);
 	public Arsenal returnMaxWeapon();
+	public boolean insertCriminal(String dni, String descripcion, String dni_policia);
 }
