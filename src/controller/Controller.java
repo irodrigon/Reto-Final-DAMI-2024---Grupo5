@@ -55,6 +55,7 @@ public class Controller implements InterfaceController {
 	private final String DELETE_NEW = "DELETE FROM NOTICIA WHERE id_noticia = ?";
 	private final String RETURN_MAX_WEAPON = "SELECT * FROM ARSENAL WHERE ID_arsenal = (SELECT MAX(ID_arsenal) FROM Arsenal)";
 	
+	
 	public Policia policeLogIn(String password, String dni) {
 
 		con = DatabaseConnectionPolice.getConnection();

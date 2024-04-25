@@ -63,7 +63,7 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		this.dni = dni;
 		this.pass = pass;
 		this.p = p;
-//Ventana para modificar perfil
+		//Ventana para modificar perfil
 
 	
 		setResizable(false);
@@ -104,7 +104,8 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		btnCrear.setBounds(340, 484, 161, 52);
 		btnCrear.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(btnCrear);
-
+		
+	
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(762, 484, 161, 52);
 		btnCancelar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
