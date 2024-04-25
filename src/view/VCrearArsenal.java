@@ -1,10 +1,7 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -25,7 +22,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Color;
-import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -37,7 +33,6 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
 	private JTextField textField_2;
 	private Controller c;
 	private JButton btnUpload;
@@ -49,7 +44,6 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 	private JLabel lblID_Arsenal;
 	private JLabel lblTipo;
 	private JComboBox<String> comboTipo;
-	private int id_admin;
 	private String dni;
 	private JFileChooser fileChooser;
 	private FileFilter filtro;
@@ -70,12 +64,6 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		textField = new JTextField();
-		textField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
-		textField.setColumns(10);
-		textField.setBounds(521, 172, 316, 28);
-		contentPane.add(textField);
-
 		JLabel lblCrearFichaDe = new JLabel("CREAR FICHA DE ARSENAL", SwingConstants.CENTER);
 		lblCrearFichaDe.setForeground(Color.BLACK);
 		lblCrearFichaDe.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
@@ -94,11 +82,6 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 		lblDesc.setBounds(346, 264, 149, 36);
 		contentPane.add(lblDesc);
 
-		JLabel lblAviso = new JLabel("Las fotos deberán tener una resolución de 474x711, si no, no se mostrarán bien.");
-		lblAviso.setForeground(Color.BLACK);
-		lblAviso.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
-		lblAviso.setBounds(401, 461, 625, 18);
-		contentPane.add(lblAviso);
 
 		btnUpload = new JButton("Subir Foto");
 		btnUpload.setForeground(Color.BLACK);
@@ -107,13 +90,8 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 		btnUpload.setBounds(531, 490, 316, 23);
 		contentPane.add(btnUpload);
 
-		JLabel lblIdarsenal = new JLabel("ID_arsenal:");
-		lblIdarsenal.setForeground(Color.BLACK);
-		lblIdarsenal.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
-		lblIdarsenal.setBounds(354, 161, 149, 36);
-		contentPane.add(lblIdarsenal);
+		btnSave = new JButton("Guardar Cambios");
 
-		btnSave = new JButton("Guardar");
 		btnSave.setForeground(Color.BLACK);
 		btnSave.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnSave.setBackground(new Color(116, 116, 116));
@@ -147,6 +125,7 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 		contentPane.add(textArea);
 
 		lblID_Arsenal = new JLabel("");
+
 		lblID_Arsenal.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 32));
 		lblID_Arsenal.setBounds(465, 21, 522, 36);
 		contentPane.add(lblID_Arsenal);
@@ -199,8 +178,8 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 			VManagement vM = new VManagement(c,dni);
 			vM.setVisible(true);
 			this.dispose();
-		} else if (o == btnSave && textField.getText().equals("") || textField_2.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "Introduce al menos los datos de id y nombre.", "Error",
+		} else if (o == btnSave && textField_2.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Introduce al menos los datos del nombre.", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		} else if (o == btnSave && textArea.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Introduce una descripción.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -245,7 +224,7 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 					e1.printStackTrace();
 				}
 
-				c.insertWeapon(Integer.parseInt(textField.getText()), blob, textField_2.getText(),
+				c.insertWeapon(c.returnMaxWeapon().getId_arsenal()+1, blob, textField_2.getText(),
 						(String) comboTipo.getSelectedItem(),textArea.getText());
 				lblSaveChanges.setText("Cambios guardados.");
 				btnBack.setEnabled(true);
