@@ -38,7 +38,6 @@ public class Controller implements InterfaceController {
 	private final String RETURN_ADMIN = "SELECT persona.dni,nombre,apellido,contrasena,fotografia_persona,fecha_primerLog,fecha_ultimoLog FROM persona join administrador on persona.dni = administrador.dni WHERE contrasena = ? AND persona.dni in (SELECT dni from administrador WHERE dni = ?);";
 	private final String RETURN_CHOICE = "SELECT * FROM elige WHERE dni_policia = ?";
 	private final String SHOW_CRIMINAL = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni";
-	private final String INSERT_WEAPON = "{CALL AnadirArsenal(?,?,?,?,?};";
 	private final String RETURN_WEAPON_BY_NAME = "SELECT * FROM ARSENAL WHERE nombre = ?";
 	private final String RETURN_POLICEMAN_BY_ID = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE dni in (SELECT dni_policia from policia WHERE dni_policia = ?)";
 	private final String INSERT_ASSOCIATION = "INSERT INTO ELIGE VALUES(?,?)";
@@ -55,6 +54,7 @@ public class Controller implements InterfaceController {
 	private final String DELETE_CRIMINAL = "DELETE FROM CRIMINAL WHERE dni = ?";
 	private final String DELETE_NEW = "DELETE FROM NOTICIA WHERE id_noticia = ?";
 	private final String RETURN_MAX_WEAPON = "SELECT * FROM ARSENAL WHERE ID_arsenal = (SELECT MAX(ID_arsenal) FROM Arsenal)";
+	
 	
 	public Policia policeLogIn(String password, String dni) {
 
@@ -415,20 +415,22 @@ public class Controller implements InterfaceController {
 
 	@Override
 	public boolean insertWeapon(int id, Blob foto, String nombre, String tipo, String descripcion) {
-
+		
+		
+		
 		boolean cambios = false;
 
 		con = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			CallableStatement cs = (CallableStatement) this.con.prepareCall(INSERT_WEAPON);
+			CallableStatement cs = (CallableStatement) this.con.prepareCall("{CALL AnadirArsenal(?, ?, ?, ?, ?)}");
 
 			cs.setInt(1, id);
 			cs.setBlob(2, foto);
 			cs.setString(3, nombre);
 			cs.setString(4, tipo);
 			cs.setString(5, descripcion);
-
+			
 			if (cs.executeUpdate() == 1)
 				cambios = true;
 
@@ -863,32 +865,6 @@ public class Controller implements InterfaceController {
 
 			stmt.setInt(1,id);
 
-			if (stmt.executeUpdate() == 1)
-				cambios = true;
-
-		} catch (SQLException e1) {
-			System.out.println("Error de SQL");
-			e1.printStackTrace();
-		}
-
-		return cambios;
-	}
-
-	@Override
-	public boolean insertArsenal(int id, Blob foto, String nombre_arsenal, String tipo_arsenal, String descripcion) {
-		boolean cambios = false;
-
-		con = DatabaseConnectionAdmin.getConnection();
-
-		try {
-			stmt = con.prepareStatement(DELETE_NEW);
-
-			stmt.setInt(1,id);
-			stmt.setBlob(2,foto);
-			stmt.setString(3,nombre_arsenal);
-			stmt.setString(4,tipo_arsenal);
-			stmt.setString(5,descripcion);
-			
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
 

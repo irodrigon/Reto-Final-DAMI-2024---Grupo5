@@ -38,6 +38,5 @@ public interface InterfaceController {
 	public boolean deletePoliceman2(String dni);
 	public boolean deleteCriminal(String dni);
 	public boolean deleteNew(int id);
-	public boolean insertArsenal(int id,Blob foto, String nombre_arsenal,String tipo_arsenal,String descripcion);
 	public Arsenal returnMaxWeapon();
 }
