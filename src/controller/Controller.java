@@ -54,6 +54,7 @@ public class Controller implements InterfaceController {
 	private final String DELETE_POLICEMAN2 = "DELETE FROM POLICIA WHERE dni_policia = ?";
 	private final String DELETE_CRIMINAL = "DELETE FROM CRIMINAL WHERE dni = ?";
 	private final String DELETE_NEW = "DELETE FROM NOTICIA WHERE id_noticia = ?";
+	private final String RETURN_MAX_WEAPON = "SELECT * FROM ARSENAL WHERE ID_arsenal = (SELECT MAX(ID_arsenal) FROM Arsenal)";
 	
 	public Policia policeLogIn(String password, String dni) {
 
@@ -871,6 +872,70 @@ public class Controller implements InterfaceController {
 		}
 
 		return cambios;
+	}
+
+	@Override
+	public boolean insertArsenal(int id, Blob foto, String nombre_arsenal, String tipo_arsenal, String descripcion) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(DELETE_NEW);
+
+			stmt.setInt(1,id);
+			stmt.setBlob(2,foto);
+			stmt.setString(3,nombre_arsenal);
+			stmt.setString(4,tipo_arsenal);
+			stmt.setString(5,descripcion);
+			
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+
+	@Override
+	public Arsenal returnMaxWeapon() {
+		ResultSet rs = null;
+		Arsenal a = null;
+
+		// Abrimos la conexión
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(RETURN_MAX_WEAPON);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				a = new Arsenal();
+				a.setId_arsenal(rs.getInt("id_arsenal"));
+				a.setFoto_arsenal(rs.getBlob("fotografia_arsenal"));
+				a.setNombre(rs.getString("nombre"));
+				a.setTipo(rs.getString("tipo"));
+				a.setDescripcion(rs.getString("descripcion"));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
+				}
+			}
+	}
+		return a;
 	}
 
 }

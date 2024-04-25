@@ -503,7 +503,11 @@ public class VManagement extends JFrame implements ActionListener {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		} else if (o == btnEliminarWeapons) {
+		}else if(o == btnCreateArticle) { 
+			VCrearArsenal vca = new VCrearArsenal(contr, dni);
+			vca.setVisible(true);
+			this.dispose();
+		}else if (o == btnEliminarWeapons) {
 			if (table2.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
 						JOptionPane.ERROR_MESSAGE);
