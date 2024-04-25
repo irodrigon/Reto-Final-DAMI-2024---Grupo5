@@ -38,7 +38,7 @@ public class Controller implements InterfaceController {
 	private final String RETURN_ADMIN = "SELECT persona.dni,nombre,apellido,contrasena,fotografia_persona,fecha_primerLog,fecha_ultimoLog FROM persona join administrador on persona.dni = administrador.dni WHERE contrasena = ? AND persona.dni in (SELECT dni from administrador WHERE dni = ?);";
 	private final String RETURN_CHOICE = "SELECT * FROM elige WHERE dni_policia = ?";
 	private final String SHOW_CRIMINAL = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni";
-	private final String INSERT_WEAPON = "{CALL AnadirArsenal(?,?,?,?,?};";
+	private final String INSERT_WEAPON = "(CALL AnadirArsenal(?,?,?,?,?))";
 	private final String RETURN_WEAPON_BY_NAME = "SELECT * FROM ARSENAL WHERE nombre = ?";
 	private final String RETURN_POLICEMAN_BY_ID = "SELECT dni,nombre,apellido,contrasena,fotografia_persona,rango FROM persona join policia on persona.dni = policia.dni_policia WHERE dni in (SELECT dni_policia from policia WHERE dni_policia = ?)";
 	private final String INSERT_ASSOCIATION = "INSERT INTO ELIGE VALUES(?,?)";
@@ -55,6 +55,7 @@ public class Controller implements InterfaceController {
 	private final String DELETE_CRIMINAL = "DELETE FROM CRIMINAL WHERE dni = ?";
 	private final String DELETE_NEW = "DELETE FROM NOTICIA WHERE id_noticia = ?";
 	private final String RETURN_MAX_WEAPON = "SELECT * FROM ARSENAL WHERE ID_arsenal = (SELECT MAX(ID_arsenal) FROM Arsenal)";
+	private final String INSERT_CRIMINAL = ""
 	
 	public Policia policeLogIn(String password, String dni) {
 
@@ -881,7 +882,7 @@ public class Controller implements InterfaceController {
 		con = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(DELETE_NEW);
+			stmt = con.prepareStatement(INSERT_WEAPON);
 
 			stmt.setInt(1,id);
 			stmt.setBlob(2,foto);
