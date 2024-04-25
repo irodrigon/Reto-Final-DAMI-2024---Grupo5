@@ -55,7 +55,7 @@ public class Controller implements InterfaceController {
 	private final String DELETE_CRIMINAL = "DELETE FROM CRIMINAL WHERE dni = ?";
 	private final String DELETE_NEW = "DELETE FROM NOTICIA WHERE id_noticia = ?";
 	private final String RETURN_MAX_WEAPON = "SELECT * FROM ARSENAL WHERE ID_arsenal = (SELECT MAX(ID_arsenal) FROM Arsenal)";
-	private final String INSERT_CRIMINAL = ""
+	private final String INSERT_CRIMINAL = "INSERT INTO CRIMINAL VALUES(?,?,?)";
 	
 	public Policia policeLogIn(String password, String dni) {
 
@@ -937,6 +937,28 @@ public class Controller implements InterfaceController {
 			}
 	}
 		return a;
+	}
+
+	@Override
+	public boolean insertCriminal(String dni, String descripcion, String dni_policia) {
+		boolean cambios = false;
+		
+		con = DatabaseConnectionAdmin.getConnection();
+		
+		try {
+			stmt = con.prepareStatement(INSERT_CRIMINAL);
+			stmt.setString(1,dni);
+			stmt.setString(2,descripcion);
+			stmt.setString(3,dni_policia);
+			
+			if (stmt.executeUpdate()==1) {
+				cambios = true;
+			}
+		} catch (Exception e) {
+			System.out.println("Error SQL");
+		}
+		
+		return cambios;
 	}
 
 }

@@ -95,7 +95,7 @@ public class VVerArsenal extends JFrame implements ActionListener{
 		lblDescripcion.setBounds(428, 461, 740, 43);
 		contentPane.add(lblDescripcion);
 		
-		lblBienvenida = new JLabel("ARSENAL DISPONIBLE");
+		lblBienvenida = new JLabel("ARSENAL ASIGNADO");
 		lblBienvenida.setForeground(new Color(255, 255, 255));
 		lblBienvenida.setFont(new Font("Dialog", Font.BOLD, 37));
 		lblBienvenida.setBounds(457, 10, 438, 54);

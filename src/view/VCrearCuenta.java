@@ -61,9 +61,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private JToggleButton tglbtnSee;
 	private JToggleButton tglbtnSee2;
 	private JComboBox<String> comboBoxRango;
-	/**
-	 * Create the frame.
-	 */
+	
 	public VCrearCuenta(Controller c,String dni) {
 
 		setResizable(false);
@@ -197,10 +195,12 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(lblFiles);
 		
 		tglbtnSee = new JToggleButton("Ver");
+		tglbtnSee.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		tglbtnSee.setBounds(670, 238, 89,23);
 		contentPane.add(tglbtnSee);
 		
 		tglbtnSee2 = new JToggleButton("Ver");
+		tglbtnSee2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		tglbtnSee2.setBounds(670, 286, 89, 23);
 		contentPane.add(tglbtnSee2);
 		
