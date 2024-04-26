@@ -60,13 +60,11 @@ public class VManagement extends JFrame implements ActionListener {
 	private JButton btnEliminarPolicia;
 	private JButton btnBack;
 	private JLabel lblNewLabel;
-	private Policia p;
 	private JLabel lblNewLabel_1_1;
 	private DefaultTableModel model2;
 	private JTable table2;
 	private JScrollPane scroll2;
 	private ArrayList<Arsenal> weapons;
-	private JButton btnVerArsenal;
 	private JButton btnCrearPolicia;
 	private JButton btnMdifyWeapons;
 	private JButton btnEliminarWeapons;
@@ -623,14 +621,11 @@ public class VManagement extends JFrame implements ActionListener {
 				vmpa.setVisible(true);
 				this.dispose();
 			}
-		}
-	}
-
-
-		} else if (o == btnCrearPolicia) {
+			} else if (o == btnCrearPolicia) {
 			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni);
 			vpa.setVisible(true);
       this.dispose();
 
 		}
+}
 }
