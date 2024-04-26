@@ -67,6 +67,7 @@ public class VManagement extends JFrame implements ActionListener {
 	private JScrollPane scroll2;
 	private ArrayList<Arsenal> weapons;
 	private JButton btnVerArsenal;
+	private JButton btnCrearPolicia;
 	private JButton btnMdifyWeapons;
 	private JButton btnEliminarWeapons;
 	private JButton btnBack2;
@@ -145,25 +146,30 @@ public class VManagement extends JFrame implements ActionListener {
 		tabbedPane.addTab("Policias", new ImageIcon(VManagement.class.getResource("/fotos/pixelart2.png")), panel1,
 				"Pestaña de agentes");
 
+		btnCrearPolicia = new JButton("Crear Perfil de Policía");
+		btnCrearPolicia.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		btnCrearPolicia.setBounds(295, 655, 200, 21);
+		panel1.add(btnCrearPolicia);
+
 		btnSeeProfile = new JButton("Ver Perfil de Policia");
 		btnSeeProfile.setBackground(new Color(116, 116, 116));
 		btnSeeProfile.setForeground(new Color(0, 0, 0));
 		btnSeeProfile.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
-		btnSeeProfile.setBounds(63, 654, 216, 23);
+		btnSeeProfile.setBounds(63, 654, 178, 23);
 		panel1.add(btnSeeProfile);
 
 		btnMdifyPoliceman = new JButton("Modificar policia");
 		btnMdifyPoliceman.setBackground(new Color(116, 116, 116));
 		btnMdifyPoliceman.setForeground(new Color(0, 0, 0));
 		btnMdifyPoliceman.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
-		btnMdifyPoliceman.setBounds(397, 654, 216, 23);
+		btnMdifyPoliceman.setBounds(558, 654, 170, 23);
 		panel1.add(btnMdifyPoliceman);
 
 		btnEliminarPolicia = new JButton("Eliminar policia");
 		btnEliminarPolicia.setBackground(new Color(116, 116, 116));
 		btnEliminarPolicia.setForeground(new Color(0, 0, 0));
 		btnEliminarPolicia.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
-		btnEliminarPolicia.setBounds(733, 654, 216, 23);
+		btnEliminarPolicia.setBounds(793, 654, 156, 23);
 		panel1.add(btnEliminarPolicia);
 
 		btnBack = new JButton("Atrás");
@@ -195,6 +201,7 @@ public class VManagement extends JFrame implements ActionListener {
 		btnMdifyPoliceman.addActionListener(this);
 		btnEliminarPolicia.addActionListener(this);
 		btnBack.addActionListener(this);
+		btnCrearPolicia.addActionListener(this);
 
 		panel2 = new JPanel();
 		tabbedPane.addTab("Arsenal", new ImageIcon(VManagement.class.getResource("/fotos/pixelart2.png")), panel2,
@@ -600,6 +607,7 @@ public class VManagement extends JFrame implements ActionListener {
 			VCrearCriminal vcc = new VCrearCriminal(contr, dni);
 			vcc.setVisible(true);
 			this.dispose();
+
 		} else if (o == btnCreateNew) {
 			VCrearNoticia vcn = new VCrearNoticia(contr, dni);
 			vcn.setVisible(true);
@@ -618,4 +626,11 @@ public class VManagement extends JFrame implements ActionListener {
 		}
 	}
 
+
+		} else if (o == btnCrearPolicia) {
+			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni);
+			vpa.setVisible(true);
+      this.dispose();
+
+		}
 }
