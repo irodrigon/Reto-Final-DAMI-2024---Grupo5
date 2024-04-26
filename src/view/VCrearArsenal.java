@@ -157,7 +157,7 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 
 		lblNewLabel_1_1 = new JLabel("");
 		lblNewLabel_1_1.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoArsenal.jpg")));
-		lblNewLabel_1_1.setBounds(-17, -179, 1283, 1135);
+		lblNewLabel_1_1.setBounds(-27, -179, 1283, 1135);
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		contentPane.add(lblNewLabel_1_1);
 
