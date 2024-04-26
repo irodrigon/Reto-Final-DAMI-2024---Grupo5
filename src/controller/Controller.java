@@ -55,7 +55,8 @@ public class Controller implements InterfaceController {
 	private final String DELETE_NEW = "DELETE FROM NOTICIA WHERE id_noticia = ?";
 	private final String RETURN_MAX_WEAPON = "SELECT * FROM ARSENAL WHERE ID_arsenal = (SELECT MAX(ID_arsenal) FROM Arsenal)";
 	private final String INSERT_CRIMINAL = "INSERT INTO CRIMINAL VALUES(?,?,?)";
-	
+	private final String INSERT_NEW = "INSERT INTO NOTICIA VALUES(?,?,?,?,?)";
+	private final String RETURN_MAX_NEW = "SELECT * FROM NOTICIA WHERE ID_noticia = (SELECT MAX(ID_noticia) FROM NOTICIA)";
 	
 	public Policia policeLogIn(String password, String dni) {
 
@@ -876,7 +877,8 @@ public class Controller implements InterfaceController {
 
 		return cambios;
 	}
-  
+	
+	@Override
 	public Arsenal returnMaxWeapon() {
 		ResultSet rs = null;
 		Arsenal a = null;
@@ -934,6 +936,68 @@ public class Controller implements InterfaceController {
 		}
 		
 		return cambios;
+	}
+
+	@Override
+	public boolean insertNew(int id_noticia, Blob fotografia_noticia, String titulo, String descripcion, String dni) {
+		boolean cambios = false;
+		
+		con = DatabaseConnectionAdmin.getConnection();
+		
+		try {
+			stmt = con.prepareStatement(INSERT_NEW);
+			stmt.setInt(1,id_noticia);
+			stmt.setBlob(2,fotografia_noticia);
+			stmt.setString(3,titulo);
+			stmt.setString(4,descripcion);
+			stmt.setString(5,dni);
+			
+			if (stmt.executeUpdate()==1) {
+				cambios = true;
+			}
+		} catch (Exception e) {
+			System.out.println("Error SQL");
+		}
+		
+		return cambios;
+	}
+
+	@Override
+	public News returnMaxNews() {
+		ResultSet rs = null;
+		News n = null;
+
+		// Abrimos la conexión
+		con = DatabaseConnectionAdmin.getConnection();
+
+		try {
+			stmt = con.prepareStatement(RETURN_MAX_NEW);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				n = new News();
+				n.setId_noticia(rs.getInt("id_noticia"));;
+				n.setFoto_noticia(rs.getBlob("fotografia_noticia"));
+				n.setTitulo(rs.getString("titulo"));
+				n.setDescripcion(rs.getString("descripcion"));
+				n.setDni_administrador(rs.getString("dni"));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		} finally {
+			// Cerramos ResultSet
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					System.out.println("Error en cierre del ResultSet");
+				}
+			}
+	}
+		return n;
 	}
 
 }
