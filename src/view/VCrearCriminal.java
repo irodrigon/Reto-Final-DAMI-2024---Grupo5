@@ -155,21 +155,21 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 		lblFiles.setForeground(new Color(255, 255, 255));
 		lblFiles.setBounds(150, 483, 558, 33);
 		contentPane.add(lblFiles);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		textField_1.setColumns(10);
 		textField_1.setBorder(new LineBorder(Color.BLUE, 3));
 		textField_1.setBounds(409, 185, 165, 28);
 		contentPane.add(textField_1);
-		
+
 		textField_2 = new JTextField();
 		textField_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		textField_2.setColumns(10);
 		textField_2.setBorder(new LineBorder(Color.BLUE, 3));
 		textField_2.setBounds(396, 357, 165, 28);
 		contentPane.add(textField_2);
-		
+
 		JLabel lblDniPoli = new JLabel("DNI del policía:");
 		lblDniPoli.setForeground(Color.WHITE);
 		lblDniPoli.setFont(new Font("Tahoma", Font.BOLD, 24));
@@ -183,8 +183,6 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 		lblFotoRegistro.setBounds(-12, 0, 1493, 683);
 
 		contentPane.add(lblFotoRegistro);
-		
-		
 
 		btnSubirFoto.addActionListener(this);
 		btnCrear.addActionListener(this);
@@ -193,7 +191,7 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if (e.getSource().equals(btnSubirFoto)) {
 			fileChooser = new JFileChooser();
 			fileChooser.setAcceptAllFileFilterUsed(false);
@@ -216,12 +214,14 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 			VManagement vm = new VManagement(c, dni);
 			vm.setVisible(true);
 			this.dispose();
-		}else if (e.getSource().equals(btnCrear)&& lblFiles.getText().equals("")) {
+		} else if (e.getSource().equals(btnCrear) && lblFiles.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Por favor, selecciona un fotografía.", "Error",
 					JOptionPane.ERROR_MESSAGE);
-		}else if(e.getSource().equals(btnCrear) && textFieldDni.getText().equals("") && textFieldNombre.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "Introduce el nombre y el apellido.", "Error", JOptionPane.ERROR_MESSAGE);
-		}else if(e.getSource().equals(btnCrear)) {
+		} else if (e.getSource().equals(btnCrear) && textFieldDni.getText().equals("")
+				&& textFieldNombre.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Introduce el nombre y el apellido.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		} else if (e.getSource().equals(btnCrear)) {
 			FileInputStream is = null;
 			try {
 				is = new FileInputStream(file);
@@ -236,15 +236,15 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			int option = JOptionPane.showConfirmDialog(this,
-					"¿Está seguro de que desea crear un nuevo perfil?");
+			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea crear un nuevo perfil?");
 			if (option == JOptionPane.YES_OPTION) {
-			c.insertPeople(textFieldDni.getText(), textFieldNombre.getText(),textField_1.getText(), Integer.toString((int)(Math.random()*10000)), blob);
-			c.insertCriminal(textFieldDni.getText(), textArea.getText(), textField_2.getText());
-			JOptionPane.showMessageDialog(this, "Perfil creado correctamente", "Mensaje para el administrador", JOptionPane.INFORMATION_MESSAGE);
+				c.insertPeople(textFieldDni.getText(), textFieldNombre.getText(), textField_1.getText(),
+						Integer.toString((int) (Math.random() * 10000)), blob);
+				c.insertCriminal(textFieldDni.getText(), textArea.getText(), textField_2.getText());
+				JOptionPane.showMessageDialog(this, "Perfil creado correctamente", "Mensaje para el administrador",
+						JOptionPane.INFORMATION_MESSAGE);
 
+			}
+		}
 	}
 }
-	}
-}
-
