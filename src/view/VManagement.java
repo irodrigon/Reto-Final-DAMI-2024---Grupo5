@@ -607,10 +607,11 @@ public class VManagement extends JFrame implements ActionListener {
 			VCrearCriminal vcc = new VCrearCriminal(contr, dni);
 			vcc.setVisible(true);
 			this.dispose();
+
 		} else if (o == btnCrearPolicia) {
 			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni);
 			vpa.setVisible(true);
-			this.dispose();
+      this.dispose();
+
 		}
-	}
 }
