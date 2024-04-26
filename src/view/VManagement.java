@@ -279,8 +279,6 @@ public class VManagement extends JFrame implements ActionListener {
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		panel2.add(lblNewLabel_1_1);
 
-		btnSeeProfile2.addActionListener(this);
-
 		btnBack2.addActionListener(this);
 		btnMdifyWeapons.addActionListener(this);
 		btnEliminarWeapons.addActionListener(this);
@@ -625,11 +623,11 @@ public class VManagement extends JFrame implements ActionListener {
 		}
 
 		if (o == btnCrearPolicia) {
-      	VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni);
+			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni);
 			vpa.setVisible(true);
 			this.dispose();
 
-			} 
-		
 		}
 
+	}
+}
