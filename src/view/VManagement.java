@@ -279,8 +279,6 @@ public class VManagement extends JFrame implements ActionListener {
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		panel2.add(lblNewLabel_1_1);
 
-		btnSeeProfile2.addActionListener(this);
-
 		btnBack2.addActionListener(this);
 		btnMdifyWeapons.addActionListener(this);
 		btnEliminarWeapons.addActionListener(this);
@@ -535,7 +533,7 @@ public class VManagement extends JFrame implements ActionListener {
 			} else {
 				Arsenal a = new Arsenal();
 				a = contr.returnWeaponByName((String) table2.getValueAt(table2.getSelectedRow(), 0));
-				VVerArsenalAdmin vvaa = new VVerArsenalAdmin(contr, a.getNombre(), dni);
+				VVerArsenalAdmin vvaa = new VVerArsenalAdmin(contr, a.getNombre(), dni,panel2);
 				vvaa.setVisible(true);
 				this.dispose();
 			}
@@ -600,7 +598,7 @@ public class VManagement extends JFrame implements ActionListener {
 					model4.removeRow(table4.getSelectedRow());
 				}
 			}
-
+			
 		} else if (o == btnCreateSuspect) {
 			VCrearCriminal vcc = new VCrearCriminal(contr, dni);
 			vcc.setVisible(true);
@@ -625,11 +623,13 @@ public class VManagement extends JFrame implements ActionListener {
 		}
 
 		if (o == btnCrearPolicia) {
-      	VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni);
+			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni,panel1);
 			vpa.setVisible(true);
 			this.dispose();
 
 			} 
 		
 		}
+	
+}
 

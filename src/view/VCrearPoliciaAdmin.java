@@ -59,9 +59,10 @@ public class VCrearPoliciaAdmin extends JFrame implements ActionListener {
 	private JComboBox<String> comboBoxRango;
 	private JTextField textDNI;
 	private JTextField textFieldApellido;
+	private JPanel panel1;
 
-	public VCrearPoliciaAdmin(Controller c, String dni) {
-
+	public VCrearPoliciaAdmin(Controller c, String dni,JPanel panel1) {
+		this.panel1 = panel1;
 		setResizable(false);
 		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
