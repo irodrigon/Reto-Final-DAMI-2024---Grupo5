@@ -1,22 +1,9 @@
 package view;
 
-import javax.swing.JFrame;
-
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import com.mysql.cj.jdbc.Blob;
-
-import controller.Controller;
-import model.Criminal;
-import model.Policia;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
+import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -26,16 +13,27 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-import javax.swing.JPasswordField;
-import javax.swing.ImageIcon;
-import java.awt.Color;
-import java.awt.Toolkit;
+import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class VModificarPerfilPolicia extends JFrame implements ActionListener {
+import com.mysql.cj.jdbc.Blob;
+
+import controller.Controller;
+import model.Policia;
+import javax.swing.JComboBox;
+
+public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -47,21 +45,20 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 	private JButton btnCancelar;
 	private Controller c;
 	private String dni;
-	private String pass;
 	private JFileChooser fileChooser;
 	private FileFilter filtro;
 	private File file;
 	private JLabel lblFiles;
 	private JToggleButton tglbtnSee;
 	private Policia p;
+	private JComboBox<String> comboBoxRango;
 
 	//Ventana para modificar perfil
 	
-	public VModificarPerfilPolicia(Controller c,String dni,String pass) {
+	public VModifyPolicemanAdmin(Controller c,String dni) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VModificarPerfilPolicia.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		this.dni = dni;
-		this.pass = pass;
 		this.p = p;
 		//Ventana para modificar perfil
 
@@ -76,7 +73,7 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Modifica tu perfil:");
+		JLabel lblNewLabel = new JLabel("Modifica el perfil:");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setBounds(469, 32, 262, 81);
 		lblNewLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
@@ -143,6 +140,24 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		tglbtnSee = new JToggleButton("Ver");
 		tglbtnSee.setBounds(710, 341, 121, 23);
 		contentPane.add(tglbtnSee);
+		
+		JLabel lblNewLabel_1_3 = new JLabel("DNI: " + this.dni);
+		lblNewLabel_1_3.setForeground(Color.WHITE);
+		lblNewLabel_1_3.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblNewLabel_1_3.setBounds(469, 88, 464, 52);
+		contentPane.add(lblNewLabel_1_3);
+		
+		String[] arrayStrings = {"-","CABO","TENIENTE","SARGENTO","CAPITAN","COMANDANTE"};
+		comboBoxRango = new JComboBox<String>(arrayStrings);
+		comboBoxRango.setForeground(Color.BLACK);
+		comboBoxRango.setBounds(550, 392, 165, 28);
+		contentPane.add(comboBoxRango);
+		
+		JLabel lblRango = new JLabel("Rango:");
+		lblRango.setForeground(Color.WHITE);
+		lblRango.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblRango.setBounds(115, 386, 406, 29);
+		contentPane.add(lblRango);
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
@@ -154,6 +169,8 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		JLabel label = new JLabel("New label");
 		label.setBounds(590, 592, 46, 14);
 		contentPane.add(label);
+		
+	
 		
 		tglbtnSee.addMouseListener(new MouseListener() {
 
@@ -204,8 +221,8 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 
 		if(e.getSource().equals(btnCancelar)) {
-			VPolicias vP = new VPolicias(c, dni, pass);
-			vP.setVisible(true);
+			VManagement vm = new VManagement(c,dni);
+			vm.setVisible(true);
 			this.dispose();
 		}if (e.getSource().equals(btnNewButton)) {
 			fileChooser = new JFileChooser();
@@ -232,6 +249,8 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(this, "Introduce el nombre y el apellido.", "Error", JOptionPane.ERROR_MESSAGE);
 		}else if(e.getSource().equals(btnCrear) && new String(passwordField.getPassword()).equals("")) {
 			JOptionPane.showMessageDialog(this, "Introduce la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
+		}else if(e.getSource().equals(btnCrear) && comboBoxRango.getSelectedItem().equals("-")) {
+				JOptionPane.showMessageDialog(this, "Selecciona un rango disponible.", "Error", JOptionPane.ERROR_MESSAGE);
 		}else if(e.getSource().equals(btnCrear)) {
 			
 			FileInputStream is = null;
@@ -252,10 +271,10 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 					"¿Está seguro de que desea modificar el policía?");
 			if (option == JOptionPane.YES_OPTION) {
 			c.updatePeople(txtDhrhdt.getText(), txtjh.getText(), new String(passwordField.getPassword()), blob, dni);
-			JOptionPane.showMessageDialog(this, "Policía modificado correctamente", "Mensaje para el usuario", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Policía modificado correctamente", "Mensaje para el aministrador", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 		
 
-	}
+}
 }
