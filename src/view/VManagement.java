@@ -608,6 +608,25 @@ public class VManagement extends JFrame implements ActionListener {
 			vcc.setVisible(true);
 			this.dispose();
 
+		} else if (o == btnCreateNew) {
+			VCrearNoticia vcn = new VCrearNoticia(contr, dni);
+			vcn.setVisible(true);
+			this.dispose();
+		} else if (o == btnMdifyPoliceman) {
+			if (table.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione un policia en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				Policia p = new Policia();
+				p = contr.returnPolicemanById((String) table.getValueAt(table.getSelectedRow(), 0));
+				VModifyPolicemanAdmin vmpa = new VModifyPolicemanAdmin(contr, p.getDni());
+				vmpa.setVisible(true);
+				this.dispose();
+			}
+		}
+	}
+
+
 		} else if (o == btnCrearPolicia) {
 			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni);
 			vpa.setVisible(true);

@@ -31,6 +31,7 @@ import com.mysql.cj.jdbc.Blob;
 import controller.Controller;
 import model.Arsenal;
 import model.News;
+import model.Policia;
 
 public class VCrearNoticia extends JFrame implements ActionListener{
 
@@ -45,7 +46,6 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 	private JTextArea textArea;
 	private JLabel lblNewLabel_1_1;
 	private JLabel lblID_Arsenal;
-	private JLabel lblTipo;
 	private String dni;
 	private JFileChooser fileChooser;
 	private FileFilter filtro;
