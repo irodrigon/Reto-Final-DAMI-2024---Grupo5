@@ -42,4 +42,5 @@ public interface InterfaceController {
 	public boolean insertCriminal(String dni, String descripcion, String dni_policia);
 	public boolean insertNew(int id_noticia, Blob fotografia_noticia, String titulo, String descripcion, String dni);
 	public News returnMaxNews();
+	public boolean updateNew(Blob fotografia_noticia, String titulo, String descripcion);
 }
