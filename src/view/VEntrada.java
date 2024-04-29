@@ -39,7 +39,6 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JToggleButton;
 
-
 public class VEntrada extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -59,33 +58,33 @@ public class VEntrada extends JFrame implements ActionListener {
 
 	public VEntrada(Controller c) {
 		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		        if ("Nimbus".equals(info.getName())) {
-		            UIManager.setLookAndFeel(info.getClassName());
-		            break;
-		        }
-		    }
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
 		} catch (Exception e) {
-		    // If Nimbus is not available, you can set the GUI to another look and feel.
+			// If Nimbus is not available, you can set the GUI to another look and feel.
 		}
 		setResizable(false);
 
-		//El método cambia el icono en la parte superior izquierda de la ventana.
+		// El método cambia el icono en la parte superior izquierda de la ventana.
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
-		
-		//Para usar los métodos SQL, tenemos que traer el controlador.
+
+		// Para usar los métodos SQL, tenemos que traer el controlador.
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 1280, 720);
 		contentPane = new JPanel();
 
-		
-		//El panel principal usa la clase "RoundedBorder" como borde para las ventanas.
+		// El panel principal usa la clase "RoundedBorder" como borde para las ventanas.
 
 		contentPane.setBorder(new RoundedBorder(5));
 
 		setContentPane(contentPane);
-		//El setLayout(null) permite colocar los botones, etiquetas y el resto de elementos de la ventana dónde quieras
+		// El setLayout(null) permite colocar los botones, etiquetas y el resto de
+		// elementos de la ventana dónde quieras
 		contentPane.setLayout(null);
 
 		JLabel lblUsuario = new JLabel("Usuario:");
@@ -103,8 +102,9 @@ public class VEntrada extends JFrame implements ActionListener {
 
 		contentPane.add(textFieldUser);
 		textFieldUser.setColumns(10);
-		
-		//Usar un passwordField en vez de un textField sirve para ocultar lo que se escriba.
+
+		// Usar un passwordField en vez de un textField sirve para ocultar lo que se
+		// escriba.
 		passField = new JPasswordField();
 		passField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
 		passField.setBounds(397, 314, 473, 28);
@@ -126,9 +126,9 @@ public class VEntrada extends JFrame implements ActionListener {
 		btnEntrar.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		btnEntrar.setBounds(650, 395, 220, 42);
 		btnEntrar.setOpaque(true);
-		//btnEntrar.setBorderPainted(true);
+		// btnEntrar.setBorderPainted(true);
 		contentPane.add(btnEntrar);
-		
+
 		btnNews = new JButton("NOTICIAS");
 		btnNews.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		btnNews.setBounds(291, 570, 690, 74);
@@ -136,14 +136,14 @@ public class VEntrada extends JFrame implements ActionListener {
 		btnNews.setBorderPainted(false);
 
 		btnNews.setBackground(new Color(128, 128, 255));
-		
+
 		btnSalir = new JButton("SALIR");
 		btnSalir.setOpaque(true);
 		btnSalir.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 17));
 		btnSalir.setBorderPainted(false);
 		btnSalir.setBounds(397, 395, 220, 42);
 		contentPane.add(btnSalir);
-		
+
 		tglbtnSee = new JToggleButton("Ver");
 		tglbtnSee.setBounds(893, 316, 121, 23);
 		contentPane.add(tglbtnSee);
@@ -153,13 +153,11 @@ public class VEntrada extends JFrame implements ActionListener {
 		lblFoto.setBounds(-12, 0, 1493, 683);
 
 		contentPane.add(lblFoto);
-		
-	
 
 		btnNews.addActionListener(this);
 		btnEntrar.addActionListener(this);
 		btnSalir.addActionListener(this);
-		
+
 		tglbtnSee.addMouseListener(new MouseListener() {
 
 			@Override
@@ -196,32 +194,32 @@ public class VEntrada extends JFrame implements ActionListener {
 				}
 			}
 		});
-		
+
 		textFieldUser.addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -259,21 +257,20 @@ public class VEntrada extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		Object o = e.getSource();
-		if (o == btnEntrar && textFieldUser.getText().equals("")
-				&& new String(passField.getPassword()).equals("")) {
+		if (o == btnEntrar && textFieldUser.getText().equals("") && new String(passField.getPassword()).equals("")) {
 			JOptionPane.showMessageDialog(this, "Los datos están vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
-		}else if (o == btnNews) {
+		} else if (o == btnNews) {
 			VNoticias vn = new VNoticias(c);
 			vn.setVisible(true);
 			this.dispose();
 		} else if (o == btnEntrar) {
 			admin = c.adminLogIn(new String(passField.getPassword()), textFieldUser.getText());
 			p = c.policeLogIn(new String(passField.getPassword()), textFieldUser.getText());
-			if(admin != null) {
-				VAdmin vA = new VAdmin(c,admin.getDni());
+			if (admin != null) {
+				VAdmin vA = new VAdmin(c, admin.getDni());
 				vA.setVisible(true);
 				this.dispose();
-			}else if (p != null) {
+			} else if (p != null) {
 				dni = p.getDni();
 				pass = p.getPassword();
 				VPolicias vp = new VPolicias(c, dni, pass);
@@ -284,12 +281,12 @@ public class VEntrada extends JFrame implements ActionListener {
 						"Esto le llevará a crear un nuevo usuario. ¿Está seguro de que desea crear un nuevo usuario?");
 				if (option == JOptionPane.YES_OPTION) {
 					dni = textFieldUser.getText();
-					VCrearCuenta vcc = new VCrearCuenta(c,dni);
+					VCrearCuenta vcc = new VCrearCuenta(c, dni);
 					vcc.setVisible(true);
 					this.dispose();
 				}
 			}
-		}else if (o == btnSalir) {
+		} else if (o == btnSalir) {
 			this.dispose();
 		}
 	}
