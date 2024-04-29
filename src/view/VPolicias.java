@@ -201,7 +201,7 @@ public class VPolicias extends JFrame implements ActionListener{
 		contentPane.add(btnEliminar);
 		
 		JLabel lblFondo = new JLabel("");
-		lblFondo.setIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
+		lblFondo.setIcon(new ImageIcon(VPolicias.class.getResource("/fotos/fondoPoliciaFinal2.jpg")));
 		lblFondo.setBounds(0, 0, 1276, 683);
 		contentPane.add(lblFondo);
 		

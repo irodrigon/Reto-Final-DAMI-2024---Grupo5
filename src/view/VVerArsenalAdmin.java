@@ -40,8 +40,10 @@ public class VVerArsenalAdmin extends JFrame implements ActionListener{
 	private JButton btnAtras;
 	private JLabel lblNewLabel;
 	private String dni;
+	private JPanel panel2;
 	
-	public VVerArsenalAdmin(Controller c, String nombre,String dni) {
+	public VVerArsenalAdmin(Controller c, String nombre,String dni,JPanel panel2) {
+		this.panel2 = panel2;
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VVerArsenalAdmin.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
@@ -113,10 +115,9 @@ public class VVerArsenalAdmin extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		
-		Object o = e.getSource();
-		
-		if(o == btnAtras) {
+		if(e.getSource().equals(btnAtras)) {
 			VManagement vm = new VManagement(c, dni);
 			vm.setVisible(true);
 			this.dispose();
