@@ -279,8 +279,6 @@ public class VManagement extends JFrame implements ActionListener {
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		panel2.add(lblNewLabel_1_1);
 
-		btnSeeProfile2.addActionListener(this);
-
 		btnBack2.addActionListener(this);
 		btnMdifyWeapons.addActionListener(this);
 		btnEliminarWeapons.addActionListener(this);
@@ -460,6 +458,18 @@ public class VManagement extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		Object o = e.getSource();
+		
+		if (o == btnMdifyNew) {
+			JOptionPane.showMessageDialog(this, "Por favor, seleccione una noticia en la tabla.", "Error.",
+					JOptionPane.ERROR_MESSAGE);
+		} else {
+			News n = new News();
+			n = contr.returnNews((String) table4.getValueAt(table4.getSelectedRow(), 0));
+			VModificarNoticia vmn = new VModificarNoticia(contr, dni, n.getTitulo());
+			vmn.setVisible(true);
+			this.dispose();
+			
+		}
 
 		if (o == btnSeeProfile) {
 			if (table.getSelectedRow() == -1) {
@@ -625,11 +635,11 @@ public class VManagement extends JFrame implements ActionListener {
 		}
 
 		if (o == btnCrearPolicia) {
-      	VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni);
+			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni);
 			vpa.setVisible(true);
 			this.dispose();
 
-			} 
-		
 		}
 
+	}
+}
