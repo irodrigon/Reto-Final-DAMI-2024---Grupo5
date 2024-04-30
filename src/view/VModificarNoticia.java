@@ -38,7 +38,6 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtTitulo;
-	private JTextField txtjh;
 	private JButton btnNewButton;
 	private JButton btnCrear;
 	private JButton btnCancelar;
@@ -49,7 +48,6 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 	private FileFilter filtro;
 	private File file;
 	private JLabel lblFiles;
-	private JToggleButton tglbtnSee;
 	private News n;
 	private JTextField textDescripcion;
 
@@ -80,13 +78,13 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		lblNewLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Nombre:");
+		JLabel lblNewLabel_1 = new JLabel("Título:");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setBounds(469, 136, 84, 52);
 		lblNewLabel_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_1_1 = new JLabel("Password:");
+		JLabel lblNewLabel_1_1 = new JLabel("Descripción:");
 		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1.setBounds(469, 323, 97, 52);
 		lblNewLabel_1_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
@@ -118,27 +116,11 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		contentPane.add(txtTitulo);
 		txtTitulo.setColumns(10);
 
-		JLabel lblNewLabel_1_2 = new JLabel("Apellido:");
-		lblNewLabel_1_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblNewLabel_1_2.setBounds(469, 231, 84, 52);
-		contentPane.add(lblNewLabel_1_2);
-
-		txtjh = new JTextField();
-		txtjh.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		txtjh.setColumns(10);
-		txtjh.setBounds(563, 242, 136, 31);
-		contentPane.add(txtjh);
-
 		lblFiles = new JLabel();
 		lblFiles.setForeground(new Color(255, 255, 255));
 		lblFiles.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		lblFiles.setBounds(552, 588, 136, 31);
 		contentPane.add(lblFiles);
-
-		tglbtnSee = new JToggleButton("Ver");
-		tglbtnSee.setBounds(710, 341, 121, 23);
-		contentPane.add(tglbtnSee);
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
@@ -187,7 +169,7 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		} else if (e.getSource().equals(btnCrear) && lblFiles.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Por favor, selecciona un fotografía.", "Error",
 					JOptionPane.ERROR_MESSAGE);
-		} else if (e.getSource().equals(btnCrear) && txtTitulo.getText().equals("") && txtjh.getText().equals("")) {
+		} else if (e.getSource().equals(btnCrear) && txtTitulo.getText().equals("") && textDescripcion.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Introduce el título.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else if (e.getSource().equals(btnCrear) && (textDescripcion.getText().equals(""))) {
 			JOptionPane.showMessageDialog(this, "Introduce la descripción.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -209,7 +191,7 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 			}
 			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea modificar la noticia?");
 			if (option == JOptionPane.YES_OPTION) {
-				n.updateNew(blob, txtTitulo.getText(), textDescripcion.getText());
+				c.updateNew(blob, txtTitulo.getText(), textDescripcion.getText());
 				JOptionPane.showMessageDialog(this, "Noticia modificada correctamente", "Mensaje para el usuario",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
