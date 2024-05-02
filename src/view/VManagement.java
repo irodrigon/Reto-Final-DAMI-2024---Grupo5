@@ -465,13 +465,14 @@ public class VManagement extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
 						JOptionPane.ERROR_MESSAGE);
 			} else {
-			Arsenal arse = new Arsenal();
-			arse = contr.returnWeaponByName((String) table2.getValueAt(table2.getSelectedRow(), 0));
-			VModificarArsenal VMa = new VModificarArsenal(contr, dni,(String) table2.getValueAt(table2.getSelectedRow(), 0));
+				Arsenal arse = new Arsenal();
+				arse = contr.returnWeaponByName((String) table2.getValueAt(table2.getSelectedRow(), 0));
+				VModificarArsenal VMa = new VModificarArsenal(contr, dni,
+						(String) table2.getValueAt(table2.getSelectedRow(), 0));
 
-			VMa.setVisible(true);
-			this.dispose();
-		}
+				VMa.setVisible(true);
+				this.dispose();
+			}
 		}
 
 		if (o == btnMdifyNew) {
@@ -655,6 +656,16 @@ public class VManagement extends JFrame implements ActionListener {
 			vpa.setVisible(true);
 			this.dispose();
 
+		} else if (o == btnMdifySuspects) {
+			if (table3.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione un perfil en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				Criminal crim = new Criminal();
+				crim = contr.showCriminalByPolicemanAdmin((String) table3.getValueAt(table3.getSelectedRow(), 0));
+				VModificarCriminal vmc = new VModificarCriminal(contr, crim.getDni());
+				vmc.setVisible(true);
+			}
 		}
 
 	}
