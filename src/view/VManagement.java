@@ -470,8 +470,10 @@ public class VManagement extends JFrame implements ActionListener {
 		}
 
 		if (o == btnMdifyNew) {
-			JOptionPane.showMessageDialog(this, "Por favor, seleccione una noticia en la tabla.", "Error.",
-					JOptionPane.ERROR_MESSAGE);
+			if (table4.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione una noticia en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		} else {
 			News n = new News();
 			n = contr.returnNews((String) table4.getValueAt(table4.getSelectedRow(), 0));

@@ -50,7 +50,7 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 	private File file;
 	private JLabel lblFiles;
 	private News n;
-	private JTextArea textArea;
+	private JTextArea textDescripcion;
 
 	// Ventana para modificar perfil
 
@@ -73,7 +73,7 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Modifica tu perfil:");
+		JLabel lblNewLabel = new JLabel("Modificar noticia:");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setBounds(469, 32, 262, 81);
 		lblNewLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
@@ -88,7 +88,7 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 
 		JLabel lblNewLabel_1_1 = new JLabel("Descripción:");
 		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_1.setBounds(469, 323, 97, 52);
+		lblNewLabel_1_1.setBounds(457, 323, 109, 52);
 		lblNewLabel_1_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(lblNewLabel_1_1);
 
@@ -128,9 +128,9 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		contentPane.add(lblFiles);
 
 		
-		textArea = new JTextArea();
-		textArea.setBounds(588, 248, 252, 131);
-		contentPane.add(textArea);
+		textDescripcion = new JTextArea();
+		textDescripcion.setBounds(588, 248, 252, 131);
+		contentPane.add(textDescripcion);
 
 
 		JLabel lblNewLabel_2 = new JLabel("");
