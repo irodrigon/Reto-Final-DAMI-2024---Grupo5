@@ -1026,9 +1026,29 @@ public class Controller implements InterfaceController {
 	}
 
 	@Override
-	public boolean updateArsenal(Blob fotografia_arsenal, String nombre, String tipo, String descripcion) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateArsenal(Blob fotografia_arsenal, String nombre, String tipo, String descripcion, int id_arsenal) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionPolice.getConnection();
+
+		try {
+			stmt = con.prepareStatement(UPDATE_ARSENAL);
+
+			stmt.setBlob(1, fotografia_arsenal);
+			stmt.setString(2, nombre);
+			stmt.setString(3, tipo);
+			stmt.setString(4, descripcion);
+			stmt.setInt(5,id_arsenal);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
 	}
 
 }

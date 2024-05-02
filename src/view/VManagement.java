@@ -452,7 +452,7 @@ public class VManagement extends JFrame implements ActionListener {
 		btnMdifyNew.addActionListener(this);
 		btnEliminarNew.addActionListener(this);
 		btnCreateNew.addActionListener(this);
-
+		btnMdifyWeapons.addActionListener(this);
 	}
 
 	@Override
@@ -461,26 +461,31 @@ public class VManagement extends JFrame implements ActionListener {
 		Object o = e.getSource();
 
 		if (e.getSource().equals(btnMdifyWeapons)) {
+			if (table2.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(this, "Por favor, seleccione un artículo en la tabla.", "Error.",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
 			Arsenal arse = new Arsenal();
 			arse = contr.returnWeaponByName((String) table2.getValueAt(table2.getSelectedRow(), 0));
-			VModificarArsenal VMa = new VModificarArsenal(contr, dni, nombre);
+			VModificarArsenal VMa = new VModificarArsenal(contr, dni,(String) table2.getValueAt(table2.getSelectedRow(), 0));
 
 			VMa.setVisible(true);
 			this.dispose();
+		}
 		}
 
 		if (o == btnMdifyNew) {
 			if (table4.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione una noticia en la tabla.", "Error.",
 						JOptionPane.ERROR_MESSAGE);
-			}
-		} else {
-			News n = new News();
-			n = contr.returnNews((String) table4.getValueAt(table4.getSelectedRow(), 0));
-			VModificarNoticia vmn = new VModificarNoticia(contr, dni, n.getTitulo());
-			vmn.setVisible(true);
-			this.dispose();
+			} else {
+				News n = new News();
+				n = contr.returnNews((String) table4.getValueAt(table4.getSelectedRow(), 0));
+				VModificarNoticia vmn = new VModificarNoticia(contr, dni, n.getTitulo());
+				vmn.setVisible(true);
+				this.dispose();
 
+			}
 		}
 
 		if (o == btnSeeProfile) {

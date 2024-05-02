@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,9 +63,8 @@ public class VModificarArsenal extends JFrame implements ActionListener {
 				.getImage(VModificarPerfilPolicia.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		this.dni = dni;
-		this.p = p;
 		this.nombre = nombre;
-		a = c.returnWeaponByName(nombre);
+		a = this.c.returnWeaponByName(this.nombre);
 		// Ventana para modificar arsenal
 
 		setResizable(false);
@@ -207,7 +207,7 @@ public class VModificarArsenal extends JFrame implements ActionListener {
 					JOptionPane.ERROR_MESSAGE);
 		} else if (e.getSource().equals(btnCrear) && txtNombre.getText().equals("")
 				&& txtDescripcion.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "Introduce el nombre y el apellido.", "Error",
+			JOptionPane.showMessageDialog(this, "Introduce el nombre y la descripción.", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		} else if (e.getSource().equals(btnCrear) && comboBoxTipo.getSelectedItem().equals("-")) {
 			JOptionPane.showMessageDialog(this, "Selecciona un tipo disponible.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -227,11 +227,10 @@ public class VModificarArsenal extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea modificar el policía?");
+			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea modificar el artículo?");
 			if (option == JOptionPane.YES_OPTION) {
-				c.updatePeople(txtNombre.getText(), txtDescripcion.getText(), new String(passwordField.getPassword()),
-						blob, dni);
-				JOptionPane.showMessageDialog(this, "Policía modificado correctamente", "Mensaje para el aministrador",
+				c.updateArsenal(blob, txtNombre.getText(),(String)comboBoxTipo.getSelectedItem(), txtDescripcion.getText(),a.getId_arsenal());
+				JOptionPane.showMessageDialog(this, "Artículo modificado correctamente", "Mensaje para el aministrador",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
