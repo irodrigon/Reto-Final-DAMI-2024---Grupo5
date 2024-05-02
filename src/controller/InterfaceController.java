@@ -80,5 +80,5 @@ public interface InterfaceController {
 
 	public boolean updateNew(Blob fotografia_noticia, String titulo, String descripcion);
 
-	public boolean updateArsenal(Blob fotografia_arsenal, String nombre, String tipo, String descripcion);
+	public boolean updateArsenal(Blob fotografia_arsenal, String nombre, String tipo, String descripcion, int id_arsenal);
 }
