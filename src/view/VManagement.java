@@ -98,6 +98,7 @@ public class VManagement extends JFrame implements ActionListener {
 	private JLabel lblNewLabel4;
 	private News n;
 	private JButton btnSeeProfile2;
+	private String nombre;
 
 	public VManagement(Controller contr, String dni) {
 		setResizable(false);
@@ -458,7 +459,16 @@ public class VManagement extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		Object o = e.getSource();
-		
+
+		if (e.getSource().equals(btnMdifyWeapons)) {
+			Arsenal arse = new Arsenal();
+			arse = contr.returnWeaponByName((String) table2.getValueAt(table2.getSelectedRow(), 0));
+			VModificarArsenal VMa = new VModificarArsenal(contr, dni, nombre);
+
+			VMa.setVisible(true);
+			this.dispose();
+		}
+
 		if (o == btnMdifyNew) {
 			JOptionPane.showMessageDialog(this, "Por favor, seleccione una noticia en la tabla.", "Error.",
 					JOptionPane.ERROR_MESSAGE);
@@ -468,7 +478,7 @@ public class VManagement extends JFrame implements ActionListener {
 			VModificarNoticia vmn = new VModificarNoticia(contr, dni, n.getTitulo());
 			vmn.setVisible(true);
 			this.dispose();
-			
+
 		}
 
 		if (o == btnSeeProfile) {
@@ -545,7 +555,7 @@ public class VManagement extends JFrame implements ActionListener {
 			} else {
 				Arsenal a = new Arsenal();
 				a = contr.returnWeaponByName((String) table2.getValueAt(table2.getSelectedRow(), 0));
-				VVerArsenalAdmin vvaa = new VVerArsenalAdmin(contr, a.getNombre(), dni,panel2);
+				VVerArsenalAdmin vvaa = new VVerArsenalAdmin(contr, a.getNombre(), dni, panel2);
 				vvaa.setVisible(true);
 				this.dispose();
 			}
@@ -610,7 +620,7 @@ public class VManagement extends JFrame implements ActionListener {
 					model4.removeRow(table4.getSelectedRow());
 				}
 			}
-			
+
 		} else if (o == btnCreateSuspect) {
 			VCrearCriminal vcc = new VCrearCriminal(contr, dni);
 			vcc.setVisible(true);
@@ -632,15 +642,14 @@ public class VManagement extends JFrame implements ActionListener {
 				this.dispose();
 			}
 
-		}else if (o == btnCrearPolicia) {
+		} else if (o == btnCrearPolicia) {
 
-			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni,panel1);
+			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni, panel1);
 			vpa.setVisible(true);
 			this.dispose();
 
 		}
-	
-}
 
 	}
 
+}

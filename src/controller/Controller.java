@@ -47,8 +47,8 @@ public class Controller implements InterfaceController {
 	private final String INSERT_PEOPLE = "INSERT INTO PERSONA VALUES(?,?,?,?,?)";
 	private final String UPDATE_DEFAULT_CRIMINAL = "UPDATE CRIMINAL SET dni_policia = ? WHERE dni = ?";
 	private final String SELECT_RANDOM_CRIMINAL = "SELECT criminal.dni,nombre,apellido,contrasena,fotografia_persona,descripcion,dni_policia FROM persona join criminal on persona.dni = criminal.dni ORDER BY RAND() LIMIT 1";
-	private final String UPDATE_PEOPLE ="UPDATE PERSONA SET nombre = ?, apellido = ?, contrasena = ?, fotografia_persona = ? WHERE dni = ?";		
-	private final String UPDATE_POLICEMAN = "UPDATE POLICIA SET rango = ? WHERE dni = ?";		
+	private final String UPDATE_PEOPLE = "UPDATE PERSONA SET nombre = ?, apellido = ?, contrasena = ?, fotografia_persona = ? WHERE dni = ?";
+	private final String UPDATE_POLICEMAN = "UPDATE POLICIA SET rango = ? WHERE dni = ?";
 	private final String RETURN_NEWS = "SELECT * FROM NOTICIA WHERE titulo = ?";
 	private final String DELETE_POLICEMAN2 = "DELETE FROM POLICIA WHERE dni_policia = ?";
 	private final String DELETE_CRIMINAL = "DELETE FROM CRIMINAL WHERE dni = ?";
@@ -58,7 +58,8 @@ public class Controller implements InterfaceController {
 	private final String INSERT_NEW = "INSERT INTO NOTICIA VALUES(?,?,?,?,?)";
 	private final String RETURN_MAX_NEW = "SELECT * FROM NOTICIA WHERE ID_noticia = (SELECT MAX(ID_noticia) FROM NOTICIA)";
 	private final String UPDATE_NEW = "UPDATE NOTICIA SET fotografia_noticia = ?, titulo = ?, descripcion = ?  WHERE titulo = ?";
-	
+	private final String UPDATE_ARSENAL = "UPDATE ARSENAL SET fotografia_arsenal =?, nombre = ?, tipo = ?, descripcion = ? WHERE id_arsenal = ?";
+
 	public Policia policeLogIn(String password, String dni) {
 
 		con = DatabaseConnectionPolice.getConnection();
@@ -418,9 +419,7 @@ public class Controller implements InterfaceController {
 
 	@Override
 	public boolean insertWeapon(int id, Blob foto, String nombre, String tipo, String descripcion) {
-		
-		
-		
+
 		boolean cambios = false;
 
 		con = DatabaseConnectionAdmin.getConnection();
@@ -433,7 +432,7 @@ public class Controller implements InterfaceController {
 			cs.setString(3, nombre);
 			cs.setString(4, tipo);
 			cs.setString(5, descripcion);
-			
+
 			if (cs.executeUpdate() == 1)
 				cambios = true;
 
@@ -676,7 +675,7 @@ public class Controller implements InterfaceController {
 
 			stmt.setString(1, dni_policia);
 			stmt.setString(2, dni);
-			
+
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
 
@@ -703,7 +702,7 @@ public class Controller implements InterfaceController {
 				c = new Criminal(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
 						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("descripcion"),
 						rs.getString("dni_policia"));
-				
+
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
@@ -737,7 +736,7 @@ public class Controller implements InterfaceController {
 			stmt.setString(3, contrasena);
 			stmt.setBlob(4, fotografia_persona);
 			stmt.setString(5, dni);
-			
+
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
 
@@ -750,7 +749,7 @@ public class Controller implements InterfaceController {
 	}
 
 	@Override
-	public boolean updatePoliceman(String rango,String dni) {
+	public boolean updatePoliceman(String rango, String dni) {
 		boolean cambios = false;
 
 		con = DatabaseConnectionPolice.getConnection();
@@ -760,8 +759,7 @@ public class Controller implements InterfaceController {
 
 			stmt.setString(1, rango);
 			stmt.setString(2, dni);
-			
-			
+
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
 
@@ -776,7 +774,7 @@ public class Controller implements InterfaceController {
 	@Override
 	public News returnNews(String titulo) {
 		ResultSet rs = null;
-		News n= null;
+		News n = null;
 
 		con = DatabaseConnectionAdmin.getConnection();
 
@@ -834,7 +832,7 @@ public class Controller implements InterfaceController {
 
 		return cambios;
 	}
-	
+
 	@Override
 	public boolean deleteCriminal(String dni) {
 		boolean cambios = false;
@@ -856,7 +854,7 @@ public class Controller implements InterfaceController {
 
 		return cambios;
 	}
-	
+
 	@Override
 	public boolean deleteNew(int id) {
 		boolean cambios = false;
@@ -866,7 +864,7 @@ public class Controller implements InterfaceController {
 		try {
 			stmt = con.prepareStatement(DELETE_NEW);
 
-			stmt.setInt(1,id);
+			stmt.setInt(1, id);
 
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
@@ -878,7 +876,7 @@ public class Controller implements InterfaceController {
 
 		return cambios;
 	}
-	
+
 	@Override
 	public Arsenal returnMaxWeapon() {
 		ResultSet rs = null;
@@ -899,7 +897,7 @@ public class Controller implements InterfaceController {
 				a.setNombre(rs.getString("nombre"));
 				a.setTipo(rs.getString("tipo"));
 				a.setDescripcion(rs.getString("descripcion"));
-				
+
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
@@ -913,53 +911,53 @@ public class Controller implements InterfaceController {
 					System.out.println("Error en cierre del ResultSet");
 				}
 			}
-	}
+		}
 		return a;
 	}
 
 	@Override
 	public boolean insertCriminal(String dni, String descripcion, String dni_policia) {
 		boolean cambios = false;
-		
+
 		con = DatabaseConnectionAdmin.getConnection();
-		
+
 		try {
 			stmt = con.prepareStatement(INSERT_CRIMINAL);
-			stmt.setString(1,dni);
-			stmt.setString(2,descripcion);
-			stmt.setString(3,dni_policia);
-			
-			if (stmt.executeUpdate()==1) {
+			stmt.setString(1, dni);
+			stmt.setString(2, descripcion);
+			stmt.setString(3, dni_policia);
+
+			if (stmt.executeUpdate() == 1) {
 				cambios = true;
 			}
 		} catch (Exception e) {
 			System.out.println("Error SQL");
 		}
-		
+
 		return cambios;
 	}
 
 	@Override
 	public boolean insertNew(int id_noticia, Blob fotografia_noticia, String titulo, String descripcion, String dni) {
 		boolean cambios = false;
-		
+
 		con = DatabaseConnectionAdmin.getConnection();
-		
+
 		try {
 			stmt = con.prepareStatement(INSERT_NEW);
-			stmt.setInt(1,id_noticia);
-			stmt.setBlob(2,fotografia_noticia);
-			stmt.setString(3,titulo);
-			stmt.setString(4,descripcion);
-			stmt.setString(5,dni);
-			
-			if (stmt.executeUpdate()==1) {
+			stmt.setInt(1, id_noticia);
+			stmt.setBlob(2, fotografia_noticia);
+			stmt.setString(3, titulo);
+			stmt.setString(4, descripcion);
+			stmt.setString(5, dni);
+
+			if (stmt.executeUpdate() == 1) {
 				cambios = true;
 			}
 		} catch (Exception e) {
 			System.out.println("Error SQL");
 		}
-		
+
 		return cambios;
 	}
 
@@ -978,12 +976,13 @@ public class Controller implements InterfaceController {
 
 			if (rs.next()) {
 				n = new News();
-				n.setId_noticia(rs.getInt("id_noticia"));;
+				n.setId_noticia(rs.getInt("id_noticia"));
+				;
 				n.setFoto_noticia(rs.getBlob("fotografia_noticia"));
 				n.setTitulo(rs.getString("titulo"));
 				n.setDescripcion(rs.getString("descripcion"));
 				n.setDni_administrador(rs.getString("dni"));
-				
+
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
@@ -997,7 +996,7 @@ public class Controller implements InterfaceController {
 					System.out.println("Error en cierre del ResultSet");
 				}
 			}
-	}
+		}
 		return n;
 	}
 
@@ -1013,8 +1012,7 @@ public class Controller implements InterfaceController {
 			stmt.setBlob(1, fotografia_noticia);
 			stmt.setString(2, titulo);
 			stmt.setString(3, descripcion);
-			
-			
+
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
 
@@ -1024,7 +1022,13 @@ public class Controller implements InterfaceController {
 		}
 
 		return cambios;
-		
+
+	}
+
+	@Override
+	public boolean updateArsenal(Blob fotografia_arsenal, String nombre, String tipo, String descripcion) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
