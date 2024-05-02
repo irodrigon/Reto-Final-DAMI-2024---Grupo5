@@ -59,6 +59,7 @@ public class Controller implements InterfaceController {
 	private final String RETURN_MAX_NEW = "SELECT * FROM NOTICIA WHERE ID_noticia = (SELECT MAX(ID_noticia) FROM NOTICIA)";
 	private final String UPDATE_NEW = "UPDATE NOTICIA SET fotografia_noticia = ?, titulo = ?, descripcion = ?  WHERE titulo = ?";
 	private final String UPDATE_ARSENAL = "UPDATE ARSENAL SET fotografia_arsenal =?, nombre = ?, tipo = ?, descripcion = ? WHERE id_arsenal = ?";
+	private final String UPDATE_CRIMINAL = "UPDATE CRIMINAL SET DESCRIPCION = ? WHERE DNI = ?";
 
 	public Policia policeLogIn(String password, String dni) {
 
@@ -1039,6 +1040,30 @@ public class Controller implements InterfaceController {
 			stmt.setString(3, tipo);
 			stmt.setString(4, descripcion);
 			stmt.setInt(5,id_arsenal);
+
+			if (stmt.executeUpdate() == 1)
+				cambios = true;
+
+		} catch (SQLException e1) {
+			System.out.println("Error de SQL");
+			e1.printStackTrace();
+		}
+
+		return cambios;
+	}
+
+	@Override
+	public boolean updateCriminal(String descripcion, String dni) {
+		boolean cambios = false;
+
+		con = DatabaseConnectionPolice.getConnection();
+
+		try {
+			stmt = con.prepareStatement(UPDATE_CRIMINAL);
+
+			stmt.setString(1, descripcion);
+			stmt.setString(2, dni);
+			
 
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
