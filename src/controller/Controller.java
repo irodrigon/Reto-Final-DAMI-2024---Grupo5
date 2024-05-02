@@ -1005,7 +1005,7 @@ public class Controller implements InterfaceController {
 	public boolean updateNew(Blob fotografia_noticia, String titulo, String descripcion) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionPolice.getConnection();
+		con = DatabaseConnectionAdmin.getConnection();
 
 		try {
 			stmt = con.prepareStatement(UPDATE_NEW);
