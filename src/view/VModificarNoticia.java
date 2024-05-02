@@ -32,6 +32,7 @@ import com.mysql.cj.jdbc.Blob;
 import controller.Controller;
 import model.News;
 import model.Policia;
+import javax.swing.JTextArea;
 
 public class VModificarNoticia extends JFrame implements ActionListener {
 
@@ -49,7 +50,7 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 	private File file;
 	private JLabel lblFiles;
 	private News n;
-	private JTextField textDescripcion;
+	private JTextArea textArea;
 
 	// Ventana para modificar perfil
 
@@ -84,6 +85,7 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		lblNewLabel_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(lblNewLabel_1);
 
+
 		JLabel lblNewLabel_1_1 = new JLabel("Descripción:");
 		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1.setBounds(469, 323, 97, 52);
@@ -105,22 +107,31 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		btnCancelar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(btnCancelar);
 
-		textDescripcion = new JTextField();
-		textDescripcion.setBounds(563, 342, 136, 33);
-		contentPane.add(textDescripcion);
-		textDescripcion.setColumns(10);
-
 		txtTitulo = new JTextField();
 		txtTitulo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		txtTitulo.setBounds(563, 147, 136, 31);
+		txtTitulo.setBounds(588, 147, 252, 31);
 		contentPane.add(txtTitulo);
 		txtTitulo.setColumns(10);
+
+
+		JLabel lblNewLabel_1_2 = new JLabel("Descripción:");
+		lblNewLabel_1_2.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblNewLabel_1_2.setBounds(469, 231, 109, 52);
+		contentPane.add(lblNewLabel_1_2);
+
 
 		lblFiles = new JLabel();
 		lblFiles.setForeground(new Color(255, 255, 255));
 		lblFiles.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		lblFiles.setBounds(552, 588, 136, 31);
 		contentPane.add(lblFiles);
+
+		
+		textArea = new JTextArea();
+		textArea.setBounds(588, 248, 252, 131);
+		contentPane.add(textArea);
+
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));

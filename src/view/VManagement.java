@@ -632,11 +632,9 @@ public class VManagement extends JFrame implements ActionListener {
 				this.dispose();
 			}
 
-		}
+		}else if (o == btnCrearPolicia) {
 
-		if (o == btnCrearPolicia) {
-
-			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni);
+			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni,panel1);
 			vpa.setVisible(true);
 			this.dispose();
 
@@ -645,4 +643,4 @@ public class VManagement extends JFrame implements ActionListener {
 }
 
 	}
-}
+
