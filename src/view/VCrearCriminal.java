@@ -51,7 +51,6 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 	private File file;
 	private JButton btnCancelar;
 	private JLabel lblDNI;
-	private JPasswordField passwordField;
 	private Controller c;
 	private JButton btnCrear;
 	private JLabel lblFiles;
@@ -137,7 +136,6 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 		btnCancelar.setBounds(33, 429, 157, 29);
 
 		contentPane.add(btnCancelar);
-		btnCancelar.addActionListener(this);
 
 		lblDNI = new JLabel("DNI:");
 		lblDNI.setForeground(new Color(255, 255, 255));
@@ -210,7 +208,7 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 				// si ha producido un Error
 				lblFiles.setText("Se ha producido un Error.");
 			}
-		} else if ((e.getSource().equals(btnCancelar))) {
+		} else if (e.getSource().equals(btnCancelar)) {
 			VManagement vm = new VManagement(c, dni);
 			vm.setVisible(true);
 			this.dispose();

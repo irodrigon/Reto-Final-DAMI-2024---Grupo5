@@ -171,7 +171,6 @@ public class VCrearPoliciaAdmin extends JFrame implements ActionListener {
 		btnCancelar.setBounds(33, 429, 157, 29);
 
 		contentPane.add(btnCancelar);
-		btnCancelar.addActionListener(this);
 
 		lblNewLabel_4 = new JLabel("Vuelve a introducir la contraseña:");
 		lblNewLabel_4.setForeground(new Color(255, 255, 255));
