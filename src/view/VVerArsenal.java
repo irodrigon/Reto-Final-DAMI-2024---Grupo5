@@ -49,6 +49,7 @@ public class VVerArsenal extends JFrame implements ActionListener{
 	private Blob aBlob;
 	private String pass;
 	private JLabel lblNewLabel;
+	private int index;
 
 	public VVerArsenal(Controller c, String dni,String pass) {
 		setResizable(false);
@@ -141,8 +142,9 @@ public class VVerArsenal extends JFrame implements ActionListener{
 		btnAnterior.addActionListener(this);
 		btnAtras.addActionListener(this);
 		btnSiguiente.addActionListener(this);
+		btnAnterior.setEnabled(false);
 		
-		it = weaponsAssigned.listIterator();
+		//it = weaponsAssigned.listIterator();
 		
 	}
 
@@ -150,7 +152,7 @@ public class VVerArsenal extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 			Arsenal a = new Arsenal();
 			Object o = e.getSource();
-			
+			/*
 			if(it.nextIndex() >= weaponsAssigned.size() && !it.hasNext()){
 				btnSiguiente.setEnabled(false);
 			}else {
@@ -169,10 +171,10 @@ public class VVerArsenal extends JFrame implements ActionListener{
 				btnAnterior.setEnabled(false);
 			}else {
 				btnAnterior.setEnabled(true);
-			}
+			}*/
 
 			if (o == btnSiguiente) {
-				if (it.hasNext()) {
+				/*if (it.hasNext()) {
 					btnAnterior.setEnabled(true);
 					a = it.next();
 					lblNombre.setText("Nombre: " + a.getNombre());
@@ -190,11 +192,39 @@ public class VVerArsenal extends JFrame implements ActionListener{
 						e2.printStackTrace();
 					} catch (SQLException e2) {
 						e2.printStackTrace();
-					}
+					}*/
 					
+				btnAnterior.setEnabled(true);
+				if(index >= 0 && index <= weaponsAssigned.size()) {
+					index++;
+					a = weaponsAssigned.get(index);
+					lblNombre.setText(a.getNombre());
+					lblDescripcion.setText(a.getDescripcion());
+					lblTipo.setText(a.getTipo());
+					aBlob = a.getFoto_arsenal();
+					try {
+						InputStream is;
+						is = aBlob.getBinaryStream(1, aBlob.length());
+						BufferedImage imag;
+						imag = ImageIO.read(is);
+						lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
+								lblFoto.getHeight(), Image.SCALE_DEFAULT)));
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (SQLException e2) {
+						e2.printStackTrace();
+					}
+					if(index == weaponsAssigned.size()-1) {
+						btnSiguiente.setEnabled(false);
+					}
+				} else {
+					btnSiguiente.setEnabled(false);
+					btnAnterior.setEnabled(true);
 				}
+			
 			} else if (o == btnAnterior) {
-				if (it.hasPrevious()) {
+				/*if (it.hasPrevious()) {
 					a= it.previous();
 					lblNombre.setText("Nombre: " + a.getNombre());
 					lblTipo.setText("Tipo: " + a .getTipo());
@@ -212,6 +242,35 @@ public class VVerArsenal extends JFrame implements ActionListener{
 					} catch (SQLException e3) {
 						e3.printStackTrace();
 					}
+				}*/
+				
+				if(index >= 0 && index > -1) {
+					index--;
+					a = weaponsAssigned.get(index);
+					lblNombre.setText(a.getNombre());
+					lblDescripcion.setText(a.getDescripcion());
+					lblTipo.setText(a.getTipo());
+					aBlob = a.getFoto_arsenal();
+					btnSiguiente.setEnabled(true);
+					try {
+						InputStream is;
+						is = aBlob.getBinaryStream(1, aBlob.length());
+						BufferedImage imag;
+						imag = ImageIO.read(is);
+						lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
+								lblFoto.getHeight(), Image.SCALE_DEFAULT)));
+					} catch (IOException e3) {
+						// TODO Auto-generated catch block
+						e3.printStackTrace();
+					} catch (SQLException e3) {
+						e3.printStackTrace();
+					}
+					if(index == 0) {
+						btnAnterior.setEnabled(false);
+					}
+				}else {
+					btnSiguiente.setEnabled(true);
+					btnAnterior.setEnabled(false);
 				}
 			}else if(o == btnAtras){
 				VPolicias vP = new VPolicias(c,dni,pass);

@@ -49,7 +49,6 @@ public class VPolicias extends JFrame implements ActionListener{
 	private JLabel lblDniC;
 	private JLabel lblNombreC;
 	private JLabel lblApellidoC;
-	private JLabel lblDesc;
 	private JLabel lblFoto2;
 	private Criminal crim;
 	private ListIterator<Criminal> it;
@@ -58,6 +57,7 @@ public class VPolicias extends JFrame implements ActionListener{
 	private JButton btnModificar;
 	private JButton btnAtras;
 	private JButton btnEliminar;
+	private int index;
 	
 	public VPolicias(Controller c, String dni,String pass) {
 		setResizable(false);
@@ -169,12 +169,6 @@ public class VPolicias extends JFrame implements ActionListener{
 		lblApellidoC.setBounds(694, 124, 314, 32);
 		contentPane.add(lblApellidoC);
 		
-		lblDesc = new JLabel("Descripción: " + crims.get(0).getDescripcion());
-		lblDesc.setForeground(Color.WHITE);
-		lblDesc.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 24));
-		lblDesc.setBounds(694, 166, 324, 45);
-		contentPane.add(lblDesc);
-		
 		btnVerArsenal = new JButton("Ver el arsenal disponible");
 		btnVerArsenal.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnVerArsenal.setBounds(224, 324, 227, 23);
@@ -214,8 +208,9 @@ public class VPolicias extends JFrame implements ActionListener{
 		btnVerArsenal.addActionListener(this);
 		btnModificar.addActionListener(this);
 		btnElegirArsenal.addActionListener(this);
+		btnAnterior.setEnabled(false);
 		
-		it = crims.listIterator();
+		//it = crims.listIterator();
 	}
 
 	@Override
@@ -223,58 +218,19 @@ public class VPolicias extends JFrame implements ActionListener{
 		crim = new Criminal();
 		Object o = e.getSource();
 		
-		if(it.nextIndex() == crims.size()) {
+		//Con ListIterator no funcionaba
+		/*if(it.nextIndex() == crims.size()) {
 			it.previous();
 		}
 		
 		if(it.previousIndex() == -1) {
 			it.next();
 		}
-
+		 */
 		if (o == btnSiguiente) {
-			if (it.hasNext()) {
-				btnAnterior.setEnabled(true);
-				crim = it.next();
-				lblDniC.setText("DNI: "+ crim.getDni());
-				lblNombreC.setText("Nombre:" + crim.getNombre());
-				lblApellidoC.setText("Apellido: " + crim.getApellido());
-				lblDesc.setText("Descripción: "+ crim.getDescripcion());
-				aBlob = crim.getFotografia();
-				try {
-					InputStream is;
-					is = aBlob.getBinaryStream(1, aBlob.length());
-					BufferedImage imag;
-					imag = ImageIO.read(is);
-					lblFoto2.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto2.getWidth(), lblFoto2.getHeight(), Image.SCALE_DEFAULT)));
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
-				
-			}
+			siguiente();
 		} else if (o == btnAnterior) {
-			if (it.hasPrevious()) {
-				crim = it.previous();
-				lblDniC.setText("DNI: " + crim.getDni());
-				lblNombreC.setText("Nombre: " + crim.getNombre());
-				lblApellidoC.setText("Apellido: " + crim.getApellido());
-				lblDesc.setText("Descripción: " + crim.getDescripcion());
-				aBlob = crim.getFotografia();
-				try {
-					InputStream is;
-					is = aBlob.getBinaryStream(1, aBlob.length());
-					BufferedImage imag;
-					imag = ImageIO.read(is);
-					lblFoto2.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto2.getWidth(),lblFoto2.getHeight(), Image.SCALE_DEFAULT)));
-				} catch (IOException e3) {
-					// TODO Auto-generated catch block
-					e3.printStackTrace();
-				} catch (SQLException e3) {
-					e3.printStackTrace();
-				}
-			}
+			anterior();
 		}else if(o == btnAtras) {
 			VEntrada vE = new VEntrada(c);
 			vE.setVisible(true);
@@ -314,6 +270,70 @@ public class VPolicias extends JFrame implements ActionListener{
 			this.dispose();
 		}
 
+	}
+
+	private void siguiente() {
+		// TODO Auto-generated method stub
+		btnAnterior.setEnabled(true);
+		if(index >= 0 && index <= crims.size()) {
+			index++;
+			crim = crims.get(index);
+			lblDniC.setText(crim.getDni());
+			lblNombreC.setText(crim.getNombre());
+			lblApellidoC.setText(crim.getApellido());
+			aBlob = crim.getFotografia();
+			try {
+				InputStream is;
+				is = aBlob.getBinaryStream(1, aBlob.length());
+				BufferedImage imag;
+				imag = ImageIO.read(is);
+				lblFoto2.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto2.getWidth(),
+						lblFoto2.getHeight(), Image.SCALE_DEFAULT)));
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+			if(index == crims.size()-1) {
+				btnSiguiente.setEnabled(false);
+			}
+		} else {
+			btnSiguiente.setEnabled(false);
+			btnAnterior.setEnabled(true);
+		}
+	}
+
+	private void anterior() {
+		// TODO Auto-generated method stub
+		if(index >= 0 && index > -1) {
+		index--;
+		crim= crims.get(index);
+		lblDniC.setText(crim.getDni());
+		lblNombreC.setText(crim.getNombre());
+		lblApellidoC.setText(crim.getApellido());
+		aBlob = crim.getFotografia();
+		btnSiguiente.setEnabled(true);
+		try {
+			InputStream is;
+			is = aBlob.getBinaryStream(1, aBlob.length());
+			BufferedImage imag;
+			imag = ImageIO.read(is);
+			lblFoto2.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto2.getWidth(),
+					lblFoto2.getHeight(), Image.SCALE_DEFAULT)));
+		} catch (IOException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		} catch (SQLException e3) {
+			e3.printStackTrace();
+		}
+		if(index == 0) {
+			btnAnterior.setEnabled(false);
+		}
+	}else {
+		btnSiguiente.setEnabled(true);
+		btnAnterior.setEnabled(false);
+	}
 	}
 }
 
