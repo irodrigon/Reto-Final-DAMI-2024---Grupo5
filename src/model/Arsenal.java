@@ -7,6 +7,7 @@ import enums.Tipo;
 
 public class Arsenal {
 	private int id_arsenal;
+	//El tipo Blob sirve para cargar la imagen en la base de datos MySQL.
 	private Blob foto_arsenal;
 	private String nombre;
 	private Tipo tipo;

@@ -39,7 +39,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JComboBox;
-
+//Para el registro de usuarios.
 public class VCrearCuenta extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

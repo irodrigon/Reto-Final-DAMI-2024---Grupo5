@@ -3,7 +3,7 @@ package controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+//Usaremos esta clase para conectarnos al usuario administrador que ya hemos creado en la base de datos MysQL. Tenemos tres de estas conexiones.
 public class DatabaseConnectionPolice{
 
 	private static Connection con = null;

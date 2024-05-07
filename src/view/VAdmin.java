@@ -28,7 +28,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JToggleButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
+//Esta ventana usa un autentificación doble para el administrador.
 public class VAdmin extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
