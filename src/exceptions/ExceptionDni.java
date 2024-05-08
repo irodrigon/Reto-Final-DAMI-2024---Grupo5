@@ -1,9 +1,8 @@
 package exceptions;
 
-import javax.swing.JOptionPane;
-
+//Esta excepción lanzará un mensaje en un JOptionPane en la ventana de entrada.
 public class ExceptionDni extends Exception{
-
+	
 	/**
 	 * 
 	 */

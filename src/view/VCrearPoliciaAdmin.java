@@ -34,7 +34,7 @@ import com.mysql.cj.jdbc.Blob;
 
 import controller.Controller;
 import model.Criminal;
-
+//Esta ventana sólo se lanza si se ha entrado a la aplicación como Administrador.
 public class VCrearPoliciaAdmin extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -171,7 +171,6 @@ public class VCrearPoliciaAdmin extends JFrame implements ActionListener {
 		btnCancelar.setBounds(33, 429, 157, 29);
 
 		contentPane.add(btnCancelar);
-		btnCancelar.addActionListener(this);
 
 		lblNewLabel_4 = new JLabel("Vuelve a introducir la contraseña:");
 		lblNewLabel_4.setForeground(new Color(255, 255, 255));

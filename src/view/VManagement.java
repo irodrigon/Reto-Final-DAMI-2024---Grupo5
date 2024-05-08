@@ -83,7 +83,6 @@ public class VManagement extends JFrame implements ActionListener {
 	private JTable table3;
 	private JScrollPane scroll3;
 	private ArrayList<Criminal> suspects;
-	private Criminal c;
 	private String dni;
 	private ArrayList<News> news;
 	private JButton btnMdifyNew;
@@ -96,9 +95,7 @@ public class VManagement extends JFrame implements ActionListener {
 	private JTable table4;
 	private JScrollPane scroll4;
 	private JLabel lblNewLabel4;
-	private News n;
 	private JButton btnSeeProfile2;
-	private String nombre;
 
 	public VManagement(Controller contr, String dni) {
 		setResizable(false);
@@ -519,19 +516,19 @@ public class VManagement extends JFrame implements ActionListener {
 				}
 
 			}
-		} else if (o == btnBack) {
+		} else if (e.getSource().equals(btnBack)) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		} else if (o == btnBack2) {
+		} else if (e.getSource().equals(btnBack2)) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		} else if (o == btnBack3) {
+		} else if (e.getSource().equals(btnBack3)) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
-		} else if (o == btnBack4) {
+		} else if (e.getSource().equals(btnBack4)) {
 			VEntrada ve = new VEntrada(contr);
 			ve.setVisible(true);
 			this.dispose();
@@ -629,7 +626,7 @@ public class VManagement extends JFrame implements ActionListener {
 				}
 			}
 
-		} else if (o == btnCreateSuspect) {
+		} else if (e.getSource().equals(btnCreateSuspect)) {
 			VCrearCriminal vcc = new VCrearCriminal(contr, dni);
 			vcc.setVisible(true);
 			this.dispose();
@@ -650,13 +647,13 @@ public class VManagement extends JFrame implements ActionListener {
 				this.dispose();
 			}
 
-		} else if (o == btnCrearPolicia) {
+		} else if (e.getSource().equals(btnCrearPolicia)) {
 
 			VCrearPoliciaAdmin vpa = new VCrearPoliciaAdmin(contr, dni, panel1);
 			vpa.setVisible(true);
 			this.dispose();
 
-		} else if (o == btnMdifySuspects) {
+		} else if (e.getSource().equals(btnMdifySuspects)) {
 			if (table3.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Por favor, seleccione un perfil en la tabla.", "Error.",
 						JOptionPane.ERROR_MESSAGE);

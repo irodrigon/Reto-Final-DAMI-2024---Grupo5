@@ -145,7 +145,7 @@ public class VNoticias extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		//Intento de hacer el slideshow con la clase ListIterator
 		// it = news.listIterator();
 		/*
 		 * if (it.nextIndex() > news.size()-1 && !it.hasNext()) {

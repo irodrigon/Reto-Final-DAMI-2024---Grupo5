@@ -403,6 +403,7 @@ public class Controller implements InterfaceController {
 		con = DatabaseConnectionAdmin.getConnection();
 
 		try {
+			//Llamamos a un procedimiento almacenado en la base de datos.
 			CallableStatement cs = (CallableStatement) this.con.prepareCall("{CALL BorrarArsenal(?)}");
 
 			cs.setInt(1, id_weapon);
@@ -426,6 +427,7 @@ public class Controller implements InterfaceController {
 		con = DatabaseConnectionAdmin.getConnection();
 
 		try {
+			//Llamamos a un procedimiento.
 			CallableStatement cs = (CallableStatement) this.con.prepareCall("{CALL AnadirArsenal(?, ?, ?, ?, ?)}");
 
 			cs.setInt(1, id);
