@@ -80,7 +80,7 @@ public class VEntrada extends JFrame implements ActionListener {
 
 		// El panel principal usa la clase "RoundedBorder" como borde para las ventanas.
 
-		contentPane.setBorder(new RoundedBorder(5));
+		contentPane.setBorder(new RoundedBorder(20));
 
 		setContentPane(contentPane);
 		// El setLayout(null) permite colocar los botones, etiquetas y el resto de

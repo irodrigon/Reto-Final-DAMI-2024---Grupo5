@@ -34,7 +34,7 @@ import com.mysql.cj.jdbc.Blob;
 
 import controller.Controller;
 import model.Criminal;
-
+//Esta ventana sólo se lanza si se ha entrado a la aplicación como Administrador.
 public class VCrearPoliciaAdmin extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
