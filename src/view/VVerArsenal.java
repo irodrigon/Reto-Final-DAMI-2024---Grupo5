@@ -78,41 +78,41 @@ public class VVerArsenal extends JFrame implements ActionListener{
 		contentPane.add(lblFoto);
 		
 		lblNombre = new JLabel("Nombre: "+ weaponsAssigned.get(0).getNombre());
-		lblNombre.setForeground(new Color(255, 255, 255));
-		lblNombre.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
+		lblNombre.setForeground(new Color(0, 0, 0));
+		lblNombre.setFont(new Font("Dialog", Font.BOLD, 25));
 		lblNombre.setBounds(428, 398, 388, 27);
 		contentPane.add(lblNombre);
 		
 		lblTipo = new JLabel("Tipo: "+ weaponsAssigned.get(0).getTipo());
-		lblTipo.setForeground(new Color(255, 255, 255));
-		lblTipo.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
+		lblTipo.setForeground(new Color(0, 0, 0));
+		lblTipo.setFont(new Font("Dialog", Font.BOLD, 25));
 		lblTipo.setBounds(428, 435, 320, 27);
 		contentPane.add(lblTipo); 
 		
 		lblDescripcion = new JLabel("Descripción: " +weaponsAssigned.get(0).getDescripcion());
-		lblDescripcion.setForeground(new Color(255, 255, 255));
-		lblDescripcion.setFont(new Font("Teko SemiBold", Font.PLAIN, 25));
+		lblDescripcion.setForeground(new Color(0, 0, 0));
+		lblDescripcion.setFont(new Font("Dialog", Font.BOLD, 25));
 		lblDescripcion.setBounds(428, 461, 740, 43);
 		contentPane.add(lblDescripcion);
 		
 		lblBienvenida = new JLabel("ARSENAL ASIGNADO");
-		lblBienvenida.setForeground(new Color(255, 255, 255));
+		lblBienvenida.setForeground(new Color(0, 0, 0));
 		lblBienvenida.setFont(new Font("Dialog", Font.BOLD, 37));
 		lblBienvenida.setBounds(457, 10, 438, 54);
 		contentPane.add(lblBienvenida);
 
 		btnAnterior = new JButton("Anterior");
-		btnAnterior.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnAnterior.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAnterior.setBounds(233, 616, 167, 37);
 		contentPane.add(btnAnterior);
 
 		btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSiguiente.setBounds(981, 616, 167, 37);
 		contentPane.add(btnSiguiente);
 
 		btnAtras = new JButton("Atrás");
-		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAtras.setBounds(592, 616, 167, 37);
 		contentPane.add(btnAtras);
 
