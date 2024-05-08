@@ -63,25 +63,25 @@ public class VVerArsenalAdmin extends JFrame implements ActionListener{
 		contentPane.add(lblFoto);
 		
 		lblNombre = new JLabel("Nombre: " + a.getNombre());
-		lblNombre.setForeground(new Color(255, 255, 255));
+		lblNombre.setForeground(new Color(0, 0, 0));
 		lblNombre.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
-		lblNombre.setBounds(458, 397, 388, 27);
+		lblNombre.setBounds(458, 410, 388, 27);
 		contentPane.add(lblNombre);
 		
 		lblTipo = new JLabel("Tipo: " + a.getTipo());
-		lblTipo.setForeground(new Color(255, 255, 255));
+		lblTipo.setForeground(new Color(0, 0, 0));
 		lblTipo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
-		lblTipo.setBounds(458, 434, 320, 27);
+		lblTipo.setBounds(458, 444, 320, 27);
 		contentPane.add(lblTipo); 
 		
 		lblDescripcion = new JLabel("Descripción: " + a.getDescripcion());
-		lblDescripcion.setForeground(new Color(255, 255, 255));
+		lblDescripcion.setForeground(new Color(0, 0, 0));
 		lblDescripcion.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
 		lblDescripcion.setBounds(458, 471, 740, 43);
 		contentPane.add(lblDescripcion);
 		
 		lblBienvenida = new JLabel("ARSENAL");
-		lblBienvenida.setForeground(new Color(255, 255, 255));
+		lblBienvenida.setForeground(new Color(0, 0, 0));
 		lblBienvenida.setFont(new Font("Dialog", Font.BOLD, 37));
 		lblBienvenida.setBounds(590, 10, 207, 54);
 		contentPane.add(lblBienvenida);
