@@ -92,7 +92,7 @@ public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 		JLabel lblFoto = new JLabel("");
 		lblFoto.setBounds(922, 50, 253, 312);
 		contentPane.add(lblFoto);
-
+//
 		aBlob = p.getFotografia();
 
 		try {
@@ -111,7 +111,7 @@ public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 		}
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VVerPoliciaAdmin.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
+		lblNewLabel.setIcon(new ImageIcon(VVerPoliciaAdmin.class.getResource("/fotos/fondoPoliciaFinal2.jpg")));
 		lblNewLabel.setBounds(0, 0, 1266, 696);
 		contentPane.add(lblNewLabel);
 		

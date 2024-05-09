@@ -57,6 +57,7 @@ public class VEntrada extends JFrame implements ActionListener {
 	private JToggleButton tglbtnSee;
 
 	public VEntrada(Controller c) {
+		setResizable(false);
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -67,7 +68,6 @@ public class VEntrada extends JFrame implements ActionListener {
 		} catch (Exception e) {
 			// If Nimbus is not available, you can set the GUI to another look and feel.
 		}
-		setResizable(false);
 
 		// El método cambia el icono en la parte superior izquierda de la ventana.
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
