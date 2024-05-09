@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import model.Administrador;
 
-public class JUnitTest {
+public class AdministradorTest {
 
 	private Administrador adminTest;
 
