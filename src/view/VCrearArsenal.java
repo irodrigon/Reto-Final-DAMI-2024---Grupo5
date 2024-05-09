@@ -129,7 +129,7 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 		lblID_Arsenal.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 32));
 		lblID_Arsenal.setBounds(465, 21, 522, 36);
 		contentPane.add(lblID_Arsenal);
-
+		//Sacamos el artículo de arsenal con el ID más alto.
 		lblID_Arsenal.setText("El último id de arsenal es: "+ c.returnMaxWeapon().getId_arsenal());
 
 		lblTipo = new JLabel("Tipo:");
@@ -223,7 +223,7 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
+				//Añadimos 1 al ID más alto del arsenal para que nos añada una línea nueva.
 				c.insertWeapon(c.returnMaxWeapon().getId_arsenal()+1, blob, textField_2.getText(),
 						(String) comboTipo.getSelectedItem(),textArea.getText());
 				lblSaveChanges.setText("Cambios guardados.");
