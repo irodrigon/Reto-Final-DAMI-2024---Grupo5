@@ -111,7 +111,7 @@ public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 		}
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VVerPoliciaAdmin.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
+		lblNewLabel.setIcon(new ImageIcon(VVerPoliciaAdmin.class.getResource("/fotos/fondoPoliciaFinal2.jpg")));
 		lblNewLabel.setBounds(0, 0, 1266, 696);
 		contentPane.add(lblNewLabel);
 		
