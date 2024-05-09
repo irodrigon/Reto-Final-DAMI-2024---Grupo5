@@ -92,7 +92,7 @@ public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 		JLabel lblFoto = new JLabel("");
 		lblFoto.setBounds(922, 50, 253, 312);
 		contentPane.add(lblFoto);
-
+//
 		aBlob = p.getFotografia();
 
 		try {
