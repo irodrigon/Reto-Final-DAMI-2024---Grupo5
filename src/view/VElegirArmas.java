@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +24,7 @@ import controller.Controller;
 import model.Arsenal;
 import model.Elige;
 import model.Policia;
+import java.awt.Toolkit;
 
 public class VElegirArmas extends JFrame implements ActionListener {
 
@@ -33,7 +33,6 @@ public class VElegirArmas extends JFrame implements ActionListener {
 	private JTable table;
 	private Controller c;
 	private Policia pol;
-	private int id_user;
 	private ArrayList<Arsenal> weapons;
 	private JScrollPane scroll;
 	private int count;
@@ -51,8 +50,8 @@ public class VElegirArmas extends JFrame implements ActionListener {
 	private String pass;
 
 	public VElegirArmas(Controller c, String dni, String pass) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VElegirArmas.class.getResource("/fotos/pixelart2.png")));
 		setResizable(false);
-		setUndecorated(true);
 		this.c = c;
 		this.dni = dni;
 		this.pass = pass;
