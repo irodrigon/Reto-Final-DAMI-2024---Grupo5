@@ -44,23 +44,23 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 	private JButton btnCancelar;
 	private Controller c;
 	private String dni;
-	private String pass;
 	private JFileChooser fileChooser;
 	private FileFilter filtro;
 	private File file;
 	private JLabel lblFiles;
 	private News n;
 	private JTextArea textDescripcion;
+	private String titulo;
 
 	// Ventana para modificar perfil
 
-	public VModificarNoticia(Controller c, String dni, String pass) {
+	public VModificarNoticia(Controller c, String dni, String titulo) {
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(VModificarPerfilPolicia.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		this.dni = dni;
-		this.pass = pass;
-		this.n = n;
+		this.titulo = titulo;
+		this.n = c.returnNews(titulo);
 		// Ventana para modificar perfil
 
 		setResizable(false);
@@ -184,20 +184,18 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 			try {
 				is = new FileInputStream(file);
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			Blob blob = null;
 			try {
 				blob = new Blob(is.readAllBytes(), null);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea modificar la noticia?");
 			if (option == JOptionPane.YES_OPTION) {
-				
-				JOptionPane.showMessageDialog(this, "Noticia modificada correctamente", "Mensaje para el usuario",
+				c.updateNew(blob, txtTitulo.getText(), textDescripcion.getText(),titulo);
+				JOptionPane.showMessageDialog(this, "Noticia modificada correctamente", "Mensaje para el administrador",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
