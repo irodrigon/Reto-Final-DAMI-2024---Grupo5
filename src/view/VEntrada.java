@@ -39,7 +39,7 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JToggleButton;
 
-public class VEntrada extends JFrame implements ActionListener {
+public class VEntrada extends JFrame implements ActionListener, FocusListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -65,7 +65,7 @@ public class VEntrada extends JFrame implements ActionListener {
 				}
 			}
 		} catch (Exception e) {
-			// If Nimbus is not available, you can set the GUI to another look and feel.
+
 		}
 
 		// El método cambia el icono en la parte superior izquierda de la ventana.
@@ -227,30 +227,7 @@ public class VEntrada extends JFrame implements ActionListener {
 			}
 		});
 
-		textFieldUser.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-				dni = textFieldUser.getText();
-
-				ExceptionDni errorDni = new ExceptionDni(dni);
-				Pattern pat = Pattern.compile("[0-9]{8}[A-Z]");
-				Matcher mat = pat.matcher(dni);
-				if (!mat.matches()) {
-					JOptionPane.showMessageDialog(null,
-							errorDni.mostrarMensajeIncorrecto() + " 8 números + letra Mayúscula", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					textFieldUser.requestFocus();
-				}
-			}
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				// TODO Auto-generated method stub
-				textFieldUser.setBackground(Color.CYAN);
-			}
-		});
+		textFieldUser.addFocusListener(this);
 	}
 
 	@Override
@@ -290,4 +267,29 @@ public class VEntrada extends JFrame implements ActionListener {
 			this.dispose();
 		}
 	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		
+		if (e.getSource().equals(textFieldUser)) {
+			dni = textFieldUser.getText();
+			if (this.isVisible()) {
+				ExceptionDni errorDni = new ExceptionDni(dni);
+				Pattern pat = Pattern.compile("[0-9]{8}[A-Z]");
+				Matcher mat = pat.matcher(dni);
+				if (!mat.matches()) {
+					JOptionPane.showMessageDialog(this,
+							errorDni.mostrarMensajeIncorrecto() + " 8 números + letra Mayúscula", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					textFieldUser.requestFocus();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		textFieldUser.setBackground(Color.CYAN);
+	}
+
 }

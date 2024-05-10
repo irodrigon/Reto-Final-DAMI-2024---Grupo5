@@ -1004,7 +1004,7 @@ public class Controller implements InterfaceController {
 	}
 
 	@Override
-	public boolean updateNew(Blob fotografia_noticia, String titulo, String descripcion) {
+	public boolean updateNew(Blob fotografia_noticia, String titulo, String descripcion, String tituloAntiguo) {
 		boolean cambios = false;
 
 		con = DatabaseConnectionAdmin.getConnection();
@@ -1015,7 +1015,8 @@ public class Controller implements InterfaceController {
 			stmt.setBlob(1, fotografia_noticia);
 			stmt.setString(2, titulo);
 			stmt.setString(3, descripcion);
-
+			stmt.setString(4, tituloAntiguo);
+			
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
 

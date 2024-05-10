@@ -78,7 +78,7 @@ public interface InterfaceController {
 
 	public News returnMaxNews();//El id de noticia más alto.
 
-	public boolean updateNew(Blob fotografia_noticia, String titulo, String descripcion);//Actualiza noticias.
+	public boolean updateNew(Blob fotografia_noticia, String titulo, String descripcion,String tituloAntiguo);//Actualiza noticias.
 
 	public boolean updateArsenal(Blob fotografia_arsenal, String nombre, String tipo, String descripcion, int id_arsenal);//Actualiza artículos de arsenal.
 	

@@ -15,14 +15,18 @@ public class ArsenalTest {
 
 	@BeforeEach
 	public void setUp() {
-		arsenalTest = new Arsenal(25, null,"Guantes anticorte",Tipo.valueOf("ARMADURA"),"Útiles contra armas blancas");
+		arsenalTest = new Arsenal(25, null, "Guantes anticorte", Tipo.valueOf("ARMADURA"),
+				"Útiles contra armas blancas");
 	}
 
 	@Test
 	public void isEqualsTest() {
-		arsenalTest = new Arsenal(25, null,"Guantes anticorte",Tipo.valueOf("ARMADURA"),"Útiles contra armas blancas");
+		arsenalTest = new Arsenal(25, null, "Guantes anticorte", Tipo.valueOf("ARMADURA"),
+				"Útiles contra armas blancas");
 		assertEquals(25, arsenalTest.getId_arsenal());
-		assertNull();
-		
-
+		assertNull(arsenalTest.getFoto_arsenal());
+		assertEquals("Guantes anticorte", arsenalTest.getNombre());
+		assertEquals("ARMADURA", arsenalTest.getTipo());
+		assertEquals("Útiles contra armas blancas", arsenalTest.getDescripcion());
 	}
+}

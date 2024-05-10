@@ -164,8 +164,8 @@ public class VElegirArmas extends JFrame implements ActionListener {
 		} else if (o == chb && !chb.isSelected()) {
 			count--;
 		}
-		if (count > 3) {
-			JOptionPane.showMessageDialog(this, "El agente no puede seleccionar más de tres artículos.", "Error",
+		if (count > 1) {
+			JOptionPane.showMessageDialog(this, "El agente no puede seleccionar más de un artículo por vez.", "Error",
 					JOptionPane.ERROR_MESSAGE);
 			for (int i = 0; i < table.getRowCount(); i++) {
 				chb.setSelected(false);
