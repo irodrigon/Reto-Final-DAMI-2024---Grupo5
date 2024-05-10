@@ -125,6 +125,7 @@ public class VAdmin extends JFrame implements ActionListener {
 		lblNewLabel_1.setBorder(new RoundedBorder(20));
 		contentPane.add(lblNewLabel_1);
 
+		char cPass = passwordField.getEchoChar();
 		btnEnter.addActionListener(this);
 		btnCancelar.addActionListener(this);
 		tglbtnSee.addMouseListener(new MouseListener() {
@@ -159,7 +160,7 @@ public class VAdmin extends JFrame implements ActionListener {
 				if (tglbtnSee.isSelected()) {
 					passwordField.setEchoChar((char) 0);
 				} else {
-					passwordField.setEchoChar('*');
+					passwordField.setEchoChar(cPass);
 				}
 			}
 		});
