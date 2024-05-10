@@ -1,4 +1,4 @@
-package jUnit;
+package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import model.Administrador;
 
-public class JUnitTest {
+public class AdministradorTest {
 
 	private Administrador adminTest;
 

@@ -25,7 +25,13 @@ public class DatabaseConnectionAdmin{
 			e.printStackTrace();
 		}
 	}
+	
+	/*
+	* 	El método devuelve una conexión a la base de datos como administrador.
+	* 	@return objeto Connection con
+	*/
 
+	
 	public static Connection getConnection() {
 		return con;
 	}

@@ -13,6 +13,17 @@ public class Arsenal {
 	private Tipo tipo;
 	private String descripcion;
 	
+	public Arsenal() {
+		
+	}
+	
+	public Arsenal(int id_arsenal, Blob foto_arsenal, String nombre, Tipo tipo, String descripcion) {
+		this.id_arsenal = id_arsenal;
+		this.foto_arsenal = foto_arsenal;
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.descripcion = descripcion;
+	}
 	public int getId_arsenal() {
 		return id_arsenal;
 	}
