@@ -2,6 +2,7 @@ package model;
 
 //La clase que serviría para recoger la tabla de asociación de policías y arsenal.
 
+
 public class Elige {
 	
 	private int id_arsenal;

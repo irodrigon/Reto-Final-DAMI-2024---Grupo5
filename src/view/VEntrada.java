@@ -52,7 +52,6 @@ public class VEntrada extends JFrame implements ActionListener {
 	private String dni;
 	private String pass;
 	private Administrador admin;
-	private String adminDni;
 	private JButton btnSalir;
 	private JToggleButton tglbtnSee;
 

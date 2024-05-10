@@ -9,8 +9,8 @@ public class Principal {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Controller c = new Controller();
-		VEntrada frame = new VEntrada(c);
+		Controller controlador = new Controller();
+		VEntrada frame = new VEntrada(controlador);
 		frame.setVisible(true);
 	}
 
