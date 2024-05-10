@@ -147,7 +147,7 @@ public class VElegirArmas extends JFrame implements ActionListener {
 		contentPane.add(lblCambios);
 		lblNewLabel_1_1 = new JLabel("");
 		lblNewLabel_1_1.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/FondoPoliciaFinal.jpg")));
-		lblNewLabel_1_1.setBounds(-60, -73, 1066, 1135);
+		lblNewLabel_1_1.setBounds(-296, -145, 1296, 1135);
 		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
 		contentPane.add(lblNewLabel_1_1);
 

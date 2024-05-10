@@ -157,6 +157,7 @@ public class VEntrada extends JFrame implements ActionListener {
 		btnNews.addActionListener(this);
 		btnEntrar.addActionListener(this);
 		btnSalir.addActionListener(this);
+		char cPass = passField.getEchoChar();
 
 		tglbtnSee.addMouseListener(new MouseListener() {
 
@@ -190,7 +191,7 @@ public class VEntrada extends JFrame implements ActionListener {
 				if (tglbtnSee.isSelected()) {
 					passField.setEchoChar((char) 0);
 				} else {
-					passField.setEchoChar('*');
+					passField.setEchoChar(cPass);
 				}
 			}
 		});

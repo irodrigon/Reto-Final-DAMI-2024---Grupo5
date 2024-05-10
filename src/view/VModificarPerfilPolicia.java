@@ -154,6 +154,7 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		JLabel label = new JLabel("New label");
 		label.setBounds(590, 592, 46, 14);
 		contentPane.add(label);
+		char cPass = passwordField.getEchoChar();
 		
 		tglbtnSee.addMouseListener(new MouseListener() {
 
@@ -187,7 +188,7 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 				if (tglbtnSee.isSelected()) {
 					passwordField.setEchoChar((char) 0);
 				} else {
-					passwordField.setEchoChar('*');
+					passwordField.setEchoChar(cPass);
 				}
 			}
 		});
@@ -196,6 +197,7 @@ public class VModificarPerfilPolicia extends JFrame implements ActionListener {
 		btnCancelar.addActionListener(this);
 		btnNewButton.addActionListener(this);
 		btnCrear.addActionListener(this);
+		
 
 	}
 
