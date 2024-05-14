@@ -2,23 +2,14 @@ package view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import controller.Controller;
-import model.Administrador;
-
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-import javax.swing.JDesktopPane;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
@@ -33,21 +24,20 @@ public class VAdmin extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField textFieldUsuario;
 	private JPasswordField passwordField;
 	private JToggleButton tglbtnSee;
 	private JButton btnEnter;
 	private JButton btnCancelar;
-	private Administrador admin;
-	private Controller c;
+	private Controller controlador;
 	private JLabel lblWrong;
-	private JLabel lblNewLabel_1;
+	private JLabel lblFondo;
 	private String dni;
 
-	public VAdmin(Controller c, String dni) {
+	public VAdmin(Controller controlador, String dni) {
 		setResizable(false);
 		//setUndecorated(true);
-		this.c = c;
+		this.controlador = controlador;		
 		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VAdmin.class.getResource("/fotos/pixelart2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,11 +66,11 @@ public class VAdmin extends JFrame implements ActionListener {
 		lblPassword.setBounds(187, 222, 179, 37);
 		contentPane.add(lblPassword);
 
-		textField = new JTextField();
-		textField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
-		textField.setColumns(10);
-		textField.setBounds(401, 157, 246, 30);
-		contentPane.add(textField);
+		textFieldUsuario = new JTextField();
+		textFieldUsuario.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		textFieldUsuario.setColumns(10);
+		textFieldUsuario.setBounds(401, 157, 246, 30);
+		contentPane.add(textFieldUsuario);
 
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
@@ -119,11 +109,11 @@ public class VAdmin extends JFrame implements ActionListener {
 		btnCancelar.setBounds(289, 442, 130, 26);
 		contentPane.add(btnCancelar);
 		
-		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(new ImageIcon(VAdmin.class.getResource("/fotos/fondoPoliciaFinal.jpg")).getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT)));
-		lblNewLabel_1.setBounds(-18,-81,1297,884);
-		lblNewLabel_1.setBorder(new RoundedBorder(20));
-		contentPane.add(lblNewLabel_1);
+		lblFondo = new JLabel("");
+		lblFondo.setIcon(new ImageIcon(new ImageIcon(VAdmin.class.getResource("/fotos/fondoPoliciaFinal.jpg")).getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT)));
+		lblFondo.setBounds(-18,-81,1297,884);
+		lblFondo.setBorder(new RoundedBorder(20));
+		contentPane.add(lblFondo);
 
 		char cPass = passwordField.getEchoChar();
 		btnEnter.addActionListener(this);
@@ -169,18 +159,18 @@ public class VAdmin extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
-		String username = textField.getText();
+		String username = textFieldUsuario.getText();
 		String password = new String(passwordField.getPassword());
 		if (o == btnCancelar) {
-			VEntrada vE = new VEntrada(c);
+			VEntrada vE = new VEntrada(controlador);
 			vE.setVisible(true);
 			this.dispose();
 		} else if (o == btnEnter && username.equalsIgnoreCase("admin") && password.equalsIgnoreCase("1234")) {
-			VManagement vm = new VManagement(c,dni);
+			VManagement vm = new VManagement(controlador,  dni);
 			vm.setVisible(true);
 			this.dispose();
 		}
-		if (o == btnEnter && textField.getText().equals("")
+		if (o == btnEnter && textFieldUsuario.getText().equals("")
 				&& new String(passwordField.getPassword()).equals("")) {
 			JOptionPane.showMessageDialog(this, "Los datos están vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
 		}

@@ -83,5 +83,7 @@ public interface InterfaceController {
 	public boolean updateArsenal(Blob fotografia_arsenal, String nombre, String tipo, String descripcion, int id_arsenal);//Actualiza artículos de arsenal.
 	
 	public boolean updateCriminal(String descripcion, String dni);//Actualiza criminales.
+	
+	public News selectingNoticia(int id);
 
 }

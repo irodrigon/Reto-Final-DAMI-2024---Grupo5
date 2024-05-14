@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class RandomString {
-	//Una clase que sirve para crear un Stringb aleatorio, pero que al final no usamos.
+	//Una clase que sirve para crear un Stringb aleatorio, pero al final no la hemos usado.
 	/**
 	 * Generate a random string.
 	 */

@@ -41,12 +41,13 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 	private JLabel lblBienvenida;
 	private String dni;
 	private String title;
+	private int id;
 
-	public VVerNoticiaAdmin(Controller c, String title) {
+	public VVerNoticiaAdmin(Controller c, int id) {
 		setResizable(false);
-		this.title = title;
+		this.id = id;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
-		n = c.returnNews(title);
+		n = c.selectingNoticia(this.id);
 		this.c = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

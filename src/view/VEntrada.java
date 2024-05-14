@@ -2,16 +2,12 @@ package view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import controller.Controller;
 import exceptions.ExceptionDni;
 import model.Administrador;
 import model.Policia;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,42 +17,38 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
-
 import java.awt.Color;
 import javax.swing.ImageIcon;
-
-import java.awt.SystemColor;
-
 import java.awt.Toolkit;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
 import javax.swing.JToggleButton;
 
 public class VEntrada extends JFrame implements ActionListener, FocusListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller c;
+	private Controller controlador;
 	private JTextField textFieldUser;
 	private JPasswordField passField;
 	private JButton btnNews;
 	private JButton btnEntrar;
-	private Policia p;
+	private Policia policia;
 	private String dni;
 	private String pass;
 	private Administrador admin;
 	private JButton btnSalir;
 	private JToggleButton tglbtnSee;
 
-	public VEntrada(Controller c) {
+	public VEntrada(Controller controlador) {
 		setResizable(false);
+
+		// El estilo redondeado de las ventanas se logra gracias a este código que
+		// sigue.
+
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -72,7 +64,7 @@ public class VEntrada extends JFrame implements ActionListener, FocusListener {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VEntrada.class.getResource("/fotos/pixelart2.png")));
 
 		// Para usar los métodos SQL, tenemos que traer el controlador.
-		this.c = c;
+		this.controlador = controlador;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 1280, 720);
 		contentPane = new JPanel();
@@ -101,6 +93,10 @@ public class VEntrada extends JFrame implements ActionListener, FocusListener {
 
 		contentPane.add(textFieldUser);
 		textFieldUser.setColumns(10);
+
+		// Esta línea comienza con el campo de texto seleccionado cuando abres la
+		// ventana.
+		textFieldUser.setFocusable(true);
 
 		// Usar un passwordField en vez de un textField sirve para ocultar lo que se
 		// escriba.
@@ -195,38 +191,6 @@ public class VEntrada extends JFrame implements ActionListener, FocusListener {
 			}
 		});
 
-		textFieldUser.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				textFieldUser.setFocusable(true);
-			}
-		});
-
 		textFieldUser.addFocusListener(this);
 	}
 
@@ -234,23 +198,21 @@ public class VEntrada extends JFrame implements ActionListener, FocusListener {
 	public void actionPerformed(ActionEvent e) {
 
 		Object o = e.getSource();
-		if (o == btnEntrar && textFieldUser.getText().equals("") && new String(passField.getPassword()).equals("")) {
-			JOptionPane.showMessageDialog(this, "Los datos están vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
-		} else if (o == btnNews) {
-			VNoticias vn = new VNoticias(c);
+		if (o == btnNews) {
+			VNoticias vn = new VNoticias(controlador);
 			vn.setVisible(true);
 			this.dispose();
 		} else if (o == btnEntrar) {
-			admin = c.adminLogIn(new String(passField.getPassword()), textFieldUser.getText());
-			p = c.policeLogIn(new String(passField.getPassword()), textFieldUser.getText());
+			admin = controlador.adminLogIn(new String(passField.getPassword()), textFieldUser.getText());
+			policia = controlador.policeLogIn(new String(passField.getPassword()), textFieldUser.getText());
 			if (admin != null) {
-				VAdmin vA = new VAdmin(c, admin.getDni());
+				VAdmin vA = new VAdmin(controlador, admin.getDni());
 				vA.setVisible(true);
 				this.dispose();
-			} else if (p != null) {
-				dni = p.getDni();
-				pass = p.getPassword();
-				VPolicias vp = new VPolicias(c, dni, pass);
+			} else if (policia != null) {
+				dni = policia.getDni();
+				pass = policia.getPassword();
+				VPolicias vp = new VPolicias(controlador, dni, pass);
 				vp.setVisible(true);
 				this.dispose();
 			} else {
@@ -258,7 +220,7 @@ public class VEntrada extends JFrame implements ActionListener, FocusListener {
 						"Esto le llevará a crear un nuevo usuario. ¿Está seguro de que desea crear un nuevo usuario?");
 				if (option == JOptionPane.YES_OPTION) {
 					dni = textFieldUser.getText();
-					VCrearCuenta vcc = new VCrearCuenta(c, dni);
+					VCrearCuenta vcc = new VCrearCuenta(controlador, dni);
 					vcc.setVisible(true);
 					this.dispose();
 				}
@@ -270,19 +232,16 @@ public class VEntrada extends JFrame implements ActionListener, FocusListener {
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		
-		if (e.getSource().equals(textFieldUser)) {
-			dni = textFieldUser.getText();
-			if (this.isVisible()) {
-				ExceptionDni errorDni = new ExceptionDni(dni);
-				Pattern pat = Pattern.compile("[0-9]{8}[A-Z]");
-				Matcher mat = pat.matcher(dni);
-				if (!mat.matches()) {
+		dni = textFieldUser.getText();
+		ExceptionDni errorDni = new ExceptionDni(dni);
+		Pattern pat = Pattern.compile("[0-9]{8}[A-Z]");
+		Matcher mat = pat.matcher(dni);
+		if (this.isVisible()) {
+			if (e.getSource().equals(textFieldUser) && !mat.matches()) {
 					JOptionPane.showMessageDialog(this,
 							errorDni.mostrarMensajeIncorrecto() + " 8 números + letra Mayúscula", "Error",
 							JOptionPane.ERROR_MESSAGE);
 					textFieldUser.requestFocus();
-				}
 			}
 		}
 	}
@@ -290,6 +249,12 @@ public class VEntrada extends JFrame implements ActionListener, FocusListener {
 	@Override
 	public void focusGained(FocusEvent e) {
 		textFieldUser.setBackground(Color.CYAN);
+		dni = textFieldUser.getText();
+		Pattern pat = Pattern.compile("[0-9]{8}[A-Z]");
+		Matcher mat = pat.matcher(dni);
+		if(mat.matches()) {
+			textFieldUser.setBackground(Color.WHITE);
+		}
 	}
 
 }
