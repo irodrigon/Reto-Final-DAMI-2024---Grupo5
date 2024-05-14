@@ -5,18 +5,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLType;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
-
 import com.mysql.cj.jdbc.CallableStatement;
-
 import model.Administrador;
 import model.Arsenal;
-
 import model.Criminal;
 import model.Elige;
 import model.News;
-
 import model.Policia;
 
 public class Controller implements InterfaceController {
@@ -60,6 +57,7 @@ public class Controller implements InterfaceController {
 	private final String UPDATE_NEW = "UPDATE NOTICIA SET fotografia_noticia = ?, titulo = ?, descripcion = ?  WHERE titulo = ?";
 	private final String UPDATE_ARSENAL = "UPDATE ARSENAL SET fotografia_arsenal =?, nombre = ?, tipo = ?, descripcion = ? WHERE id_arsenal = ?";
 	private final String UPDATE_CRIMINAL = "UPDATE CRIMINAL SET DESCRIPCION = ? WHERE DNI = ?";
+	private final String SELECTING_NEWS = "{CALL SelectNoticia(?)}";
 
 	public Policia policeLogIn(String password, String dni) {
 
@@ -403,7 +401,7 @@ public class Controller implements InterfaceController {
 		con = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			//Llamamos a un procedimiento almacenado en la base de datos.
+			// Llamamos a un procedimiento almacenado en la base de datos.
 			CallableStatement cs = (CallableStatement) this.con.prepareCall("{CALL BorrarArsenal(?)}");
 
 			cs.setInt(1, id_weapon);
@@ -427,7 +425,7 @@ public class Controller implements InterfaceController {
 		con = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			//Llamamos a un procedimiento.
+			// Llamamos a un procedimiento.
 			CallableStatement cs = (CallableStatement) this.con.prepareCall("{CALL AnadirArsenal(?, ?, ?, ?, ?)}");
 
 			cs.setInt(1, id);
@@ -1004,7 +1002,7 @@ public class Controller implements InterfaceController {
 	}
 
 	@Override
-	public boolean updateNew(Blob fotografia_noticia, String titulo, String descripcion) {
+	public boolean updateNew(Blob fotografia_noticia, String titulo, String descripcion, String tituloAntiguo) {
 		boolean cambios = false;
 
 		con = DatabaseConnectionAdmin.getConnection();
@@ -1015,6 +1013,7 @@ public class Controller implements InterfaceController {
 			stmt.setBlob(1, fotografia_noticia);
 			stmt.setString(2, titulo);
 			stmt.setString(3, descripcion);
+			stmt.setString(4, tituloAntiguo);
 
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
@@ -1029,7 +1028,8 @@ public class Controller implements InterfaceController {
 	}
 
 	@Override
-	public boolean updateArsenal(Blob fotografia_arsenal, String nombre, String tipo, String descripcion, int id_arsenal) {
+	public boolean updateArsenal(Blob fotografia_arsenal, String nombre, String tipo, String descripcion,
+			int id_arsenal) {
 		boolean cambios = false;
 
 		con = DatabaseConnectionPolice.getConnection();
@@ -1041,7 +1041,7 @@ public class Controller implements InterfaceController {
 			stmt.setString(2, nombre);
 			stmt.setString(3, tipo);
 			stmt.setString(4, descripcion);
-			stmt.setInt(5,id_arsenal);
+			stmt.setInt(5, id_arsenal);
 
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
@@ -1065,7 +1065,6 @@ public class Controller implements InterfaceController {
 
 			stmt.setString(1, descripcion);
 			stmt.setString(2, dni);
-			
 
 			if (stmt.executeUpdate() == 1)
 				cambios = true;
@@ -1076,6 +1075,39 @@ public class Controller implements InterfaceController {
 		}
 
 		return cambios;
+	}
+
+	@Override
+	public News selectingNoticia(int id) {
+
+		con = DatabaseConnectionAdmin.getConnection();
+		
+		ResultSet resultSet = null;
+		
+		News noticia = new News();
+
+		try {
+			// Llamamos a un procedimiento con cursores.
+			CallableStatement llamadaProcedimiento = (CallableStatement) this.con.prepareCall(SELECTING_NEWS);
+			
+			llamadaProcedimiento.setInt(1, id);
+			
+			resultSet = llamadaProcedimiento.executeQuery();
+			
+			if(resultSet.next()) {
+				noticia.setId_noticia(resultSet.getInt("id"));
+				noticia.setFoto_noticia(resultSet.getBlob("foto"));
+				noticia.setTitulo(resultSet.getString("title"));
+				noticia.setDescripcion(resultSet.getString("descripc"));
+				noticia.setDni_administrador(resultSet.getString("dniadmin"));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		}
+
+		return noticia;
 	}
 
 }

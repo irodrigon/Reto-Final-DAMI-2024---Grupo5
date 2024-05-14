@@ -9,6 +9,20 @@ public class News {
 	private String titulo;
 	private String descripcion;
 	private String dni_administrador;
+	
+	
+	public News() {
+		
+	}
+	
+	public News(int id_noticia, Blob foto_noticia, String titulo, String descripcion, String dni_administrador) {
+		super();
+		this.id_noticia = id_noticia;
+		this.foto_noticia = foto_noticia;
+		this.titulo = titulo;
+		this.descripcion = descripcion;
+		this.dni_administrador = dni_administrador;
+	}
 	public int getId_noticia() {
 		return id_noticia;
 	}

@@ -31,23 +31,23 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller c;
+	private Controller controlador;
 	private JLabel lblFoto;
 	private JButton btnAtras;
 	private Blob aBlob;
-	private News n;
+	private News noticia;
 	private JLabel lblTitulo;
 	private JLabel lblDescripcion;
 	private JLabel lblBienvenida;
 	private String dni;
-	private String title;
+	private int id;
 
-	public VVerNoticiaAdmin(Controller c, String title) {
+	public VVerNoticiaAdmin(Controller c, int id) {
 		setResizable(false);
-		this.title = title;
+		this.id = id;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
-		n = c.returnNews(title);
-		this.c = c;
+		noticia = c.selectingNoticia(this.id);
+		this.controlador = controlador;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setBounds(530, 50, 1280, 720);
@@ -88,7 +88,7 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 
 		contentPane.add(btnAtras);
 
-		aBlob = this.n.getFoto_noticia();
+		aBlob = this.noticia.getFoto_noticia();
 
 		try {
 			InputStream is;
@@ -103,8 +103,8 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		lblTitulo.setText(this.n.getTitulo());
-		lblDescripcion.setText(this.n.getDescripcion());
+		lblTitulo.setText(this.noticia.getTitulo());
+		lblDescripcion.setText(this.noticia.getDescripcion());
 
 		JLabel lblNewLabel = new JLabel("");
 
@@ -121,7 +121,7 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 Object o = e.getSource();
 		
 		if(o == btnAtras) {
-			VManagement vm = new VManagement(c, dni);
+			VManagement vm = new VManagement(controlador, dni);
 			vm.setVisible(true);
 			this.dispose();
 		}

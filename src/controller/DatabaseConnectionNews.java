@@ -19,7 +19,12 @@ public class DatabaseConnectionNews{
 			e.printStackTrace();
 		}
 	}
-
+	
+	/*
+	* 	El método devuelve una conexión a la base de datos como usuario de las noticias.
+	* 	@return objeto Connection con
+	*/
+	
 	public static Connection getConnection() {
 		return con;
 	}

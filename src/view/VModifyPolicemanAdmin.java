@@ -33,7 +33,7 @@ import controller.Controller;
 import model.Policia;
 import javax.swing.JComboBox;
 
-public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
+public class VModifyPolicemanAdmin extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -53,16 +53,16 @@ public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
 	private Policia p;
 	private JComboBox<String> comboBoxRango;
 
-	//Ventana para modificar perfil
-	
-	public VModifyPolicemanAdmin(Controller c,String dni) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VModificarPerfilPolicia.class.getResource("/fotos/pixelart2.png")));
+	// Ventana para modificar perfil
+
+	public VModifyPolicemanAdmin(Controller c, String dni) {
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(VModificarPerfilPolicia.class.getResource("/fotos/pixelart2.png")));
 		this.c = c;
 		this.dni = dni;
 		this.p = p;
-		//Ventana para modificar perfil
+		// Ventana para modificar perfil
 
-	
 		setResizable(false);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +91,6 @@ public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
 		lblNewLabel_1_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(lblNewLabel_1_1);
 
-
 		btnNewButton = new JButton("Subir Foto");
 		btnNewButton.setBounds(552, 484, 161, 52);
 		btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
@@ -101,8 +100,7 @@ public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
 		btnCrear.setBounds(340, 484, 161, 52);
 		btnCrear.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(btnCrear);
-		
-	
+
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(762, 484, 161, 52);
 		btnCancelar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
@@ -130,29 +128,29 @@ public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
 		txtjh.setColumns(10);
 		txtjh.setBounds(563, 242, 136, 31);
 		contentPane.add(txtjh);
-		
+
 		lblFiles = new JLabel();
 		lblFiles.setForeground(new Color(255, 255, 255));
 		lblFiles.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		lblFiles.setBounds(552, 588, 136, 31);
 		contentPane.add(lblFiles);
-		
+
 		tglbtnSee = new JToggleButton("Ver");
 		tglbtnSee.setBounds(710, 341, 121, 23);
 		contentPane.add(tglbtnSee);
-		
+
 		JLabel lblNewLabel_1_3 = new JLabel("DNI: " + this.dni);
 		lblNewLabel_1_3.setForeground(Color.WHITE);
 		lblNewLabel_1_3.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		lblNewLabel_1_3.setBounds(469, 88, 464, 52);
 		contentPane.add(lblNewLabel_1_3);
-		
-		String[] arrayStrings = {"-","CABO","TENIENTE","SARGENTO","CAPITAN","COMANDANTE"};
+
+		String[] arrayStrings = { "-", "CABO", "TENIENTE", "SARGENTO", "CAPITAN", "COMANDANTE" };
 		comboBoxRango = new JComboBox<String>(arrayStrings);
 		comboBoxRango.setForeground(Color.BLACK);
 		comboBoxRango.setBounds(550, 392, 165, 28);
 		contentPane.add(comboBoxRango);
-		
+
 		JLabel lblRango = new JLabel("Rango:");
 		lblRango.setForeground(Color.WHITE);
 		lblRango.setFont(new Font("Tahoma", Font.BOLD, 24));
@@ -165,13 +163,12 @@ public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
 		lblNewLabel_2.setIcon(new ImageIcon(VModificarPerfilPolicia.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
 		lblNewLabel_2.setBounds(-14, -45, 1290, 893);
 		contentPane.add(lblNewLabel_2);
-		
+
 		JLabel label = new JLabel("New label");
 		label.setBounds(590, 592, 46, 14);
 		contentPane.add(label);
-		
-	
-		
+		char cPass = passwordField.getEchoChar();
+
 		tglbtnSee.addMouseListener(new MouseListener() {
 
 			@Override
@@ -204,12 +201,11 @@ public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
 				if (tglbtnSee.isSelected()) {
 					passwordField.setEchoChar((char) 0);
 				} else {
-					passwordField.setEchoChar('*');
+					passwordField.setEchoChar(cPass);
 				}
 			}
 		});
 
-		
 		btnCancelar.addActionListener(this);
 		btnNewButton.addActionListener(this);
 		btnCrear.addActionListener(this);
@@ -220,11 +216,12 @@ public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
-		if(e.getSource().equals(btnCancelar)) {
-			VManagement vm = new VManagement(c,dni);
+		if (e.getSource().equals(btnCancelar)) {
+			VManagement vm = new VManagement(c, dni);
 			vm.setVisible(true);
 			this.dispose();
-		}if (e.getSource().equals(btnNewButton)) {
+		}
+		if (e.getSource().equals(btnNewButton)) {
 			fileChooser = new JFileChooser();
 			fileChooser.setAcceptAllFileFilterUsed(false);
 			filtro = new FileNameExtensionFilter("Imágenes jpg", "jpg");
@@ -242,17 +239,18 @@ public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
 				// si ha producido un Error
 				lblFiles.setText("Se ha producido un Error.");
 			}
-		}else if (e.getSource().equals(btnCrear)&& lblFiles.getText().equals("")) {
+		} else if (e.getSource().equals(btnCrear) && lblFiles.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Por favor, selecciona un fotografía.", "Error",
 					JOptionPane.ERROR_MESSAGE);
-		}else if(e.getSource().equals(btnCrear) && txtDhrhdt.getText().equals("") && txtjh.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "Introduce el nombre y el apellido.", "Error", JOptionPane.ERROR_MESSAGE);
-		}else if(e.getSource().equals(btnCrear) && new String(passwordField.getPassword()).equals("")) {
+		} else if (e.getSource().equals(btnCrear) && txtDhrhdt.getText().equals("") && txtjh.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Introduce el nombre y el apellido.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		} else if (e.getSource().equals(btnCrear) && new String(passwordField.getPassword()).equals("")) {
 			JOptionPane.showMessageDialog(this, "Introduce la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
-		}else if(e.getSource().equals(btnCrear) && comboBoxRango.getSelectedItem().equals("-")) {
-				JOptionPane.showMessageDialog(this, "Selecciona un rango disponible.", "Error", JOptionPane.ERROR_MESSAGE);
-		}else if(e.getSource().equals(btnCrear)) {
-			
+		} else if (e.getSource().equals(btnCrear) && comboBoxRango.getSelectedItem().equals("-")) {
+			JOptionPane.showMessageDialog(this, "Selecciona un rango disponible.", "Error", JOptionPane.ERROR_MESSAGE);
+		} else if (e.getSource().equals(btnCrear)) {
+
 			FileInputStream is = null;
 			try {
 				is = new FileInputStream(file);
@@ -267,14 +265,14 @@ public class VModifyPolicemanAdmin extends JFrame implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			int option = JOptionPane.showConfirmDialog(this,
-					"¿Está seguro de que desea modificar el policía?");
+			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea modificar el policía?");
 			if (option == JOptionPane.YES_OPTION) {
-			c.updatePeople(txtDhrhdt.getText(), txtjh.getText(), new String(passwordField.getPassword()), blob, dni);
-			JOptionPane.showMessageDialog(this, "Policía modificado correctamente", "Mensaje para el aministrador", JOptionPane.INFORMATION_MESSAGE);
+				c.updatePeople(txtDhrhdt.getText(), txtjh.getText(), new String(passwordField.getPassword()), blob,
+						dni);
+				JOptionPane.showMessageDialog(this, "Policía modificado correctamente", "Mensaje para el aministrador",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
-		
 
-}
+	}
 }

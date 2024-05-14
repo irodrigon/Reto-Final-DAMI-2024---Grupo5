@@ -1,43 +1,31 @@
 package view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
+
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.SecureRandom;
-import java.util.concurrent.ThreadLocalRandom;
-
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.mysql.cj.jdbc.Blob;
-
 import controller.Controller;
-import model.Criminal;
-import model.RandomString;
 
 public class VCrearCriminal extends JFrame implements ActionListener {
 
@@ -51,19 +39,19 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 	private File file;
 	private JButton btnCancelar;
 	private JLabel lblDNI;
-	private Controller c;
+	private Controller controlador;
 	private JButton btnCrear;
 	private JLabel lblFiles;
 	private String dni;
-	private JTextArea textArea;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextArea textDescripcion;
+	private JTextField textFieldApellido;
+	private JTextField textFieldDNIPolicia;
 
-	public VCrearCriminal(Controller c, String dni) {
+	public VCrearCriminal(Controller controlador, String dni) {
 		setResizable(false);
 		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
-		this.c = c;
+		this.controlador = controlador;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 1280, 720);
 		contentPane = new JPanel();
@@ -97,28 +85,28 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 		lblDescripcion.setBounds(210, 235, 165, 47);
 		contentPane.add(lblDescripcion);
 
-		JLabel lblNewLabel_1 = new JLabel("Apellido:");
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_1.setBounds(256, 191, 119, 33);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setForeground(new Color(255, 255, 255));
+		lblApellido.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblApellido.setBounds(256, 191, 119, 33);
+		contentPane.add(lblApellido);
 
-		JLabel lblNewLabel_2 = new JLabel("Nombre:");
-		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_2.setBounds(256, 139, 125, 35);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setForeground(new Color(255, 255, 255));
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblNombre.setBounds(256, 139, 125, 35);
+		contentPane.add(lblNombre);
 
-		JLabel lblNewLabel = new JLabel("DATOS DE CRIMINAL");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(384, 27, 276, 35);
-		contentPane.add(lblNewLabel);
+		JLabel lblDatos = new JLabel("DATOS DE CRIMINAL");
+		lblDatos.setForeground(new Color(255, 255, 255));
+		lblDatos.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblDatos.setBounds(384, 27, 276, 35);
+		contentPane.add(lblDatos);
 
-		textArea = new JTextArea();
-		textArea.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 13));
-		textArea.setBounds(396, 233, 264, 99);
-		contentPane.add(textArea);
+		textDescripcion = new JTextArea();
+		textDescripcion.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 13));
+		textDescripcion.setBounds(396, 233, 264, 99);
+		contentPane.add(textDescripcion);
 
 		btnSubirFoto = new JButton("Subir foto");
 		btnSubirFoto.setBackground(new Color(192, 192, 192));
@@ -154,19 +142,19 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 		lblFiles.setBounds(150, 483, 558, 33);
 		contentPane.add(lblFiles);
 
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
-		textField_1.setColumns(10);
-		textField_1.setBorder(new LineBorder(Color.BLUE, 3));
-		textField_1.setBounds(409, 185, 165, 28);
-		contentPane.add(textField_1);
+		textFieldApellido = new JTextField();
+		textFieldApellido.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
+		textFieldApellido.setColumns(10);
+		textFieldApellido.setBorder(new LineBorder(Color.BLUE, 3));
+		textFieldApellido.setBounds(409, 185, 165, 28);
+		contentPane.add(textFieldApellido);
 
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
-		textField_2.setColumns(10);
-		textField_2.setBorder(new LineBorder(Color.BLUE, 3));
-		textField_2.setBounds(396, 357, 165, 28);
-		contentPane.add(textField_2);
+		textFieldDNIPolicia = new JTextField();
+		textFieldDNIPolicia.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
+		textFieldDNIPolicia.setColumns(10);
+		textFieldDNIPolicia.setBorder(new LineBorder(Color.BLUE, 3));
+		textFieldDNIPolicia.setBounds(396, 357, 165, 28);
+		contentPane.add(textFieldDNIPolicia);
 
 		JLabel lblDniPoli = new JLabel("DNI del policía:");
 		lblDniPoli.setForeground(Color.WHITE);
@@ -209,7 +197,7 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 				lblFiles.setText("Se ha producido un Error.");
 			}
 		} else if (e.getSource().equals(btnCancelar)) {
-			VManagement vm = new VManagement(c, dni);
+			VManagement vm = new VManagement(controlador, dni);
 			vm.setVisible(true);
 			this.dispose();
 		} else if (e.getSource().equals(btnCrear) && lblFiles.getText().equals("")) {
@@ -236,9 +224,9 @@ public class VCrearCriminal extends JFrame implements ActionListener {
 			}
 			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea crear un nuevo perfil?");
 			if (option == JOptionPane.YES_OPTION) {
-				c.insertPeople(textFieldDni.getText(), textFieldNombre.getText(), textField_1.getText(),
+				controlador.insertPeople(textFieldDni.getText(), textFieldNombre.getText(), textFieldApellido.getText(),
 						Integer.toString((int) (Math.random() * 10000)), blob);
-				c.insertCriminal(textFieldDni.getText(), textArea.getText(), textField_2.getText());
+				controlador.insertCriminal(textFieldDni.getText(), textDescripcion.getText(), textFieldDNIPolicia.getText());
 				JOptionPane.showMessageDialog(this, "Perfil creado correctamente", "Mensaje para el administrador",
 						JOptionPane.INFORMATION_MESSAGE);
 

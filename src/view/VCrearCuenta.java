@@ -52,9 +52,9 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private FileFilter filtro;
 	private File file;
 	private JButton btnCancelar;
-	private JLabel lblNewLabel_4;
+	private JLabel lblPassword;
 	private JPasswordField passwordField2;
-	private Controller c;
+	private Controller controlador;
 	private JButton btnCrear;
 	private JLabel lblFiles;
 	private String dni;
@@ -62,12 +62,12 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 	private JToggleButton tglbtnSee2;
 	private JComboBox<String> comboBoxRango;
 	
-	public VCrearCuenta(Controller c,String dni) {
+	public VCrearCuenta(Controller controlador,String dni) {
 
 		setResizable(false);
 		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
-		this.c = c;
+		this.controlador = controlador;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 1280, 720);
 		contentPane = new JPanel();
@@ -108,29 +108,29 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		lblContrasena.setBounds(60, 225, 320, 47);
 		contentPane.add(lblContrasena);
 
-		JLabel lblNewLabel_1 = new JLabel("Apellido:");
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_1.setBounds(60, 141, 352, 33);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setForeground(new Color(255, 255, 255));
+		lblApellido.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblApellido.setBounds(60, 141, 352, 33);
+		contentPane.add(lblApellido);
 
-		JLabel lblNewLabel_2 = new JLabel("Nombre:");
-		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_2.setBounds(60, 103, 264, 35);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setForeground(new Color(255, 255, 255));
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblNombre.setBounds(60, 103, 264, 35);
+		contentPane.add(lblNombre);
 
-		JLabel lblNewLabel = new JLabel("REGISTRO DE USUARIO");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(299, 30, 276, 35);
-		contentPane.add(lblNewLabel);
+		JLabel lblRegistro = new JLabel("REGISTRO DE USUARIO");
+		lblRegistro.setForeground(new Color(255, 255, 255));
+		lblRegistro.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblRegistro.setBounds(299, 30, 276, 35);
+		contentPane.add(lblRegistro);
 
-		JLabel lblNewLabel_3 = new JLabel("Usuario: " + this.dni);
-		lblNewLabel_3.setForeground(new Color(255, 255, 255));
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_3.setBounds(60, 196, 276, 19);
-		contentPane.add(lblNewLabel_3);
+		JLabel lblUser = new JLabel("Usuario: " + this.dni);
+		lblUser.setForeground(new Color(255, 255, 255));
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblUser.setBounds(60, 196, 276, 19);
+		contentPane.add(lblUser);
 		
 		JLabel lblRango = new JLabel("Rango:");
 		lblRango.setForeground(Color.WHITE);
@@ -169,11 +169,11 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(this);
 
-		lblNewLabel_4 = new JLabel("Vuelve a introducir la contraseña:");
-		lblNewLabel_4.setForeground(new Color(255, 255, 255));
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_4.setBounds(60, 282, 406, 19);
-		contentPane.add(lblNewLabel_4);
+		lblPassword = new JLabel("Vuelve a introducir la contraseña:");
+		lblPassword.setForeground(new Color(255, 255, 255));
+		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblPassword.setBounds(60, 282, 406, 19);
+		contentPane.add(lblPassword);
 
 		passwordField2 = new JPasswordField();
 		passwordField2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
@@ -258,7 +258,6 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -315,7 +314,7 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 				lblFiles.setText("Se ha producido un Error.");
 			}
 		} else if ((e.getSource().equals(btnCancelar))) {
-			VEntrada vE = new VEntrada(c);
+			VEntrada vE = new VEntrada(controlador);
 			vE.setVisible(true);
 			this.dispose();
 		}else if (e.getSource().equals(btnCrear)&& lblFiles.getText().equals("")) {
@@ -335,24 +334,22 @@ public class VCrearCuenta extends JFrame implements ActionListener {
 			try {
 				is = new FileInputStream(file);
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			Blob blob = null;
 			try {
 				blob = new Blob(is.readAllBytes(), null);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			int option = JOptionPane.showConfirmDialog(this,
 					"¿Está seguro de que desea crear un nuevo usuario?");
 			if (option == JOptionPane.YES_OPTION) {
-			c.insertPeople(dni, textFieldNombre.getText(), textFieldApellido.getText(),new String(passwordField2.getPassword()) , blob);
-			c.insertPoliceman(dni, (String)comboBoxRango.getSelectedItem());
-			crim = c.selectRandomCriminal();
-			c.updateDefaultCriminal(dni,crim.getDni());
-			c.insertAssociation(dni, 7);
+			controlador.insertPeople(dni, textFieldNombre.getText(), textFieldApellido.getText(),new String(passwordField2.getPassword()) , blob);
+			controlador.insertPoliceman(dni, (String)comboBoxRango.getSelectedItem());
+			crim = controlador.selectRandomCriminal();
+			controlador.updateDefaultCriminal(dni,crim.getDni());
+			controlador.insertAssociation(dni, 7);
 			JOptionPane.showMessageDialog(this, "Usuario creado correctamente", "Mensaje para el usuario", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
