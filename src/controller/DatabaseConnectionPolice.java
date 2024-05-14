@@ -19,7 +19,12 @@ public class DatabaseConnectionPolice{
 			e.printStackTrace();
 		}
 	}
-
+	
+	/*
+	* 	El método devuelve una conexión a la base de datos como un usuario policia.
+	* 	@return objeto Connection con
+	*/
+	
 	public static Connection getConnection() {
 		return con;
 	}

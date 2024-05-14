@@ -4,12 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.mysql.cj.jdbc.Blob;
-
 import controller.Controller;
-import model.Arsenal;
-
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,14 +29,14 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_2;
-	private Controller c;
+	private JTextField textFieldApellido;
+	private Controller controlador;
 	private JButton btnUpload;
 	private JButton btnSave;
 	private JButton btnBack;
 	private JButton btnCancelar;
-	private JTextArea textArea;
-	private JLabel lblNewLabel_1_1;
+	private JTextArea textDescripcion;
+	private JLabel lblFondo;
 	private JLabel lblID_Arsenal;
 	private JLabel lblTipo;
 	private JComboBox<String> comboTipo;
@@ -51,11 +47,11 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 	private JLabel lblFiles;
 	private JLabel lblSaveChanges;
 	
-	public VCrearArsenal(Controller c, String dni) {
+	public VCrearArsenal(Controller controlador, String dni) {
 		setResizable(false);
 		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearArsenal.class.getResource("/fotos/pixelart2.png")));
-		this.c = c;
+		this.controlador = controlador;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 20, 1280, 720);
 		contentPane = new JPanel();
@@ -113,16 +109,16 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 		btnCancelar.setBounds(835, 551, 132, 23);
 		contentPane.add(btnCancelar);
 
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
-		textField_2.setColumns(10);
-		textField_2.setBounds(521, 218, 316, 28);
-		contentPane.add(textField_2);
+		textFieldApellido = new JTextField();
+		textFieldApellido.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
+		textFieldApellido.setColumns(10);
+		textFieldApellido.setBounds(521, 218, 316, 28);
+		contentPane.add(textFieldApellido);
 
-		textArea = new JTextArea();
-		textArea.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 13));
-		textArea.setBounds(521, 276, 316, 123);
-		contentPane.add(textArea);
+		textDescripcion = new JTextArea();
+		textDescripcion.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 13));
+		textDescripcion.setBounds(521, 276, 316, 123);
+		contentPane.add(textDescripcion);
 
 		lblID_Arsenal = new JLabel("");
 
@@ -130,7 +126,7 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 		lblID_Arsenal.setBounds(465, 21, 522, 36);
 		contentPane.add(lblID_Arsenal);
 		//Sacamos el artículo de arsenal con el ID más alto.
-		lblID_Arsenal.setText("El último id de arsenal es: "+ c.returnMaxWeapon().getId_arsenal());
+		lblID_Arsenal.setText("El último id de arsenal es: "+ controlador.returnMaxWeapon().getId_arsenal());
 
 		lblTipo = new JLabel("Tipo:");
 		lblTipo.setForeground(Color.BLACK);
@@ -155,11 +151,11 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 		lblSaveChanges.setBounds(306, 522, 316, 36);
 		contentPane.add(lblSaveChanges);
 
-		lblNewLabel_1_1 = new JLabel("");
-		lblNewLabel_1_1.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoArsenal.jpg")));
-		lblNewLabel_1_1.setBounds(-27, -179, 1283, 1135);
-		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
-		contentPane.add(lblNewLabel_1_1);
+		lblFondo = new JLabel("");
+		lblFondo.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoArsenal.jpg")));
+		lblFondo.setBounds(-27, -179, 1283, 1135);
+		lblFondo.setBorder(new RoundedBorder(20));
+		contentPane.add(lblFondo);
 
 		btnBack.addActionListener(this);
 		btnCancelar.addActionListener(this);
@@ -171,17 +167,16 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
-		Arsenal a = new Arsenal();
 
 		if (o == btnCancelar) {
 			
-			VManagement vM = new VManagement(c,dni);
+			VManagement vM = new VManagement(controlador, dni);
 			vM.setVisible(true);
 			this.dispose();
-		} else if (o == btnSave && textField_2.getText().equals("")) {
+		} else if (o == btnSave && textFieldApellido.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Introduce al menos los datos del nombre.", "Error",
 					JOptionPane.ERROR_MESSAGE);
-		} else if (o == btnSave && textArea.getText().equals("")) {
+		} else if (o == btnSave && textDescripcion.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Introduce una descripción.", "Error", JOptionPane.ERROR_MESSAGE);
 		} else if (o == btnSave && comboTipo.getSelectedItem().equals("-")) {
 			JOptionPane.showMessageDialog(this, "Elige un tipo disponible.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -224,8 +219,8 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 					e1.printStackTrace();
 				}
 				//Añadimos 1 al ID más alto del arsenal para que nos añada una línea nueva.
-				c.insertWeapon(c.returnMaxWeapon().getId_arsenal()+1, blob, textField_2.getText(),
-						(String) comboTipo.getSelectedItem(),textArea.getText());
+				controlador.insertWeapon(controlador.returnMaxWeapon().getId_arsenal() + 1, blob, textFieldApellido.getText(),
+						(String) comboTipo.getSelectedItem(),textDescripcion.getText());
 				lblSaveChanges.setText("Cambios guardados.");
 				btnBack.setEnabled(true);
 				btnCancelar.setEnabled(false);
@@ -238,7 +233,7 @@ public class VCrearArsenal extends JFrame implements ActionListener {
 
 			}
 		}else if (o == btnBack) {
-			VManagement vM = new VManagement(c,dni);
+			VManagement vM = new VManagement(controlador,dni);
 			vM.setVisible(true);
 			this.dispose();
 		}

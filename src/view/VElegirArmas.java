@@ -45,7 +45,7 @@ public class VElegirArmas extends JFrame implements ActionListener {
 	private ArrayList<Arsenal> weaponsAvailable;
 	private JLabel lblCambios;
 	private int guarda;
-	private JLabel lblNewLabel_1_1;
+	private JLabel lblFondo;
 	private String dni;
 	private String pass;
 
@@ -59,7 +59,7 @@ public class VElegirArmas extends JFrame implements ActionListener {
 		weapons = c.showArsenal();
 		busquedas = c.weaponsAssigned(pol.getDni());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 20, 1000, 1000);
+		setBounds(530, 50, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -88,15 +88,15 @@ public class VElegirArmas extends JFrame implements ActionListener {
 		}
 
 		table = new JTable(model);
-		table.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		table.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		table.setBackground(new Color(116, 116, 116));
 		table.setForeground(new Color(0, 0, 0));
 		table.setBounds(10, 169, 964, 557);
-		table.getTableHeader().setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		table.getTableHeader().setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		table.getTableHeader().setBackground(new Color(116, 116, 116));
 		table.getTableHeader().setForeground(new Color(0, 0, 0));
 		scroll = new JScrollPane(table);
-		scroll.setBounds(10, 169, 964, 557);
+		scroll.setBounds(10, 33, 964, 557);
 		contentPane.add(scroll);
 		chb = new JCheckBox();
 		chb.addActionListener(this);
@@ -122,7 +122,7 @@ public class VElegirArmas extends JFrame implements ActionListener {
 		btnConfirmar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnConfirmar.setForeground(new Color(0, 0, 0));
 		btnConfirmar.setBackground(new Color(116, 116, 116));
-		btnConfirmar.setBounds(130, 777, 104, 23);
+		btnConfirmar.setBounds(117, 620, 142, 23);
 		contentPane.add(btnConfirmar);
 
 		btnBack = new JButton("Volver");
@@ -130,25 +130,25 @@ public class VElegirArmas extends JFrame implements ActionListener {
 		btnBack.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnBack.setBackground(new Color(0, 0, 0));
 		btnBack.setEnabled(false);
-		btnBack.setBounds(452, 777, 89, 23);
+		btnBack.setBounds(432, 620, 89, 23);
 		contentPane.add(btnBack);
 
 		btnCancel = new JButton("Cancelar");
 		btnCancel.setForeground(new Color(0, 0, 0));
 		btnCancel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		btnCancel.setBackground(new Color(116, 116, 116));
-		btnCancel.setBounds(781, 777, 89, 23);
+		btnCancel.setBounds(797, 620, 142, 23);
 		contentPane.add(btnCancel);
 
 		lblCambios = new JLabel("");
-		lblCambios.setFont(new Font("Teko SemiBold", Font.PLAIN, 17));
+		lblCambios.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
 		lblCambios.setBounds(372, 840, 226, 32);
 		contentPane.add(lblCambios);
-		lblNewLabel_1_1 = new JLabel("");
-		lblNewLabel_1_1.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/FondoPoliciaFinal.jpg")));
-		lblNewLabel_1_1.setBounds(-296, -145, 1296, 1135);
-		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
-		contentPane.add(lblNewLabel_1_1);
+		
+		lblFondo = new JLabel("");
+		lblFondo.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/FondoPoliciaFinal.jpg")));
+		lblFondo.setBounds(0, 0, 1280, 720);
+		contentPane.add(lblFondo);
 
 		btnConfirmar.addActionListener(this);
 		btnBack.addActionListener(this);

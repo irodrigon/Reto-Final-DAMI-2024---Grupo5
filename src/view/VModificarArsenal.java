@@ -2,17 +2,13 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,18 +17,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.mysql.cj.jdbc.Blob;
-
 import controller.Controller;
 import model.Arsenal;
-import model.Policia;
+
+//Ventana para modificar arsenal
 
 public class VModificarArsenal extends JFrame implements ActionListener {
 
@@ -43,53 +35,50 @@ public class VModificarArsenal extends JFrame implements ActionListener {
 	private JButton btnNewButton;
 	private JButton btnCrear;
 	private JButton btnCancelar;
-	private Controller c;
+	private Controller controlador;
 	private String dni;
 	private JFileChooser fileChooser;
 	private FileFilter filtro;
 	private File file;
 	private JLabel lblFiles;
-	private Policia p;
 	private JComboBox<String> comboBoxTipo;
 	private String nombre;
-	private Arsenal a;
+	private Arsenal arsenal;
 	private JLabel lblDescripcion;
 	private JLabel lblNombre;
-
-	// Ventana para modificar arsenal
-
-	public VModificarArsenal(Controller c, String dni, String nombre) {
+	
+	public VModificarArsenal(Controller controlador, String dni, String nombre) {
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(VModificarPerfilPolicia.class.getResource("/fotos/pixelart2.png")));
-		this.c = c;
+		this.controlador = controlador;
 		this.dni = dni;
 		this.nombre = nombre;
-		a = this.c.returnWeaponByName(this.nombre);
-		// Ventana para modificar arsenal
+		arsenal = this.controlador.returnWeaponByName(this.nombre);
+		
 
 		setResizable(false);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new RoundedBorder(20));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Modificar arsenal");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(469, 32, 262, 81);
-		lblNewLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
-		contentPane.add(lblNewLabel);
+		JLabel lblTituloVentana = new JLabel("Modificar arsenal");
+		lblTituloVentana.setForeground(new Color(255, 255, 255));
+		lblTituloVentana.setBounds(469, 32, 262, 81);
+		lblTituloVentana.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
+		contentPane.add(lblTituloVentana);
 
-		JLabel lblNombreAntiguo = new JLabel("Nombre antiguo: " + a.getNombre());
+		JLabel lblNombreAntiguo = new JLabel("Nombre antiguo: " + arsenal.getNombre());
 		lblNombreAntiguo.setForeground(new Color(255, 255, 255));
 		lblNombreAntiguo.setBounds(310, 104, 491, 52);
 		lblNombreAntiguo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(lblNombreAntiguo);
 
-		JLabel lblDescAntigua = new JLabel("Descripción antigua: " + a.getDescripcion());
+		JLabel lblDescAntigua = new JLabel("Descripción antigua: " + arsenal.getDescripcion());
 		lblDescAntigua.setForeground(new Color(255, 255, 255));
 		lblDescAntigua.setBounds(315, 190, 780, 52);
 		lblDescAntigua.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
@@ -116,7 +105,7 @@ public class VModificarArsenal extends JFrame implements ActionListener {
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 
-		JLabel lblTipoAntiguo = new JLabel("Tipo antiguo: " + a.getTipo());
+		JLabel lblTipoAntiguo = new JLabel("Tipo antiguo: " + arsenal.getTipo());
 		lblTipoAntiguo.setForeground(new Color(255, 255, 255));
 		lblTipoAntiguo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		lblTipoAntiguo.setBounds(310, 275, 213, 52);
@@ -158,16 +147,12 @@ public class VModificarArsenal extends JFrame implements ActionListener {
 		lblNombre.setBounds(310, 166, 213, 28);
 		contentPane.add(lblNombre);
 
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
-		lblNewLabel_2.setForeground(new Color(0, 0, 0));
-		lblNewLabel_2.setIcon(new ImageIcon(VModificarArsenal.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
-		lblNewLabel_2.setBounds(-14, -45, 1290, 893);
-		contentPane.add(lblNewLabel_2);
-
-		JLabel label = new JLabel("New label");
-		label.setBounds(590, 592, 46, 14);
-		contentPane.add(label);
+		JLabel lblFondo = new JLabel("");
+		lblFondo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
+		lblFondo.setForeground(new Color(0, 0, 0));
+		lblFondo.setIcon(new ImageIcon(VModificarArsenal.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
+		lblFondo.setBounds(-14, -45, 1290, 893);
+		contentPane.add(lblFondo);
 
 		btnCancelar.addActionListener(this);
 		btnNewButton.addActionListener(this);
@@ -177,10 +162,9 @@ public class VModificarArsenal extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 
 		if (e.getSource().equals(btnCancelar)) {
-			VManagement vm = new VManagement(c, dni);
+			VManagement vm = new VManagement(controlador, dni);
 			vm.setVisible(true);
 			this.dispose();
 		}
@@ -217,19 +201,17 @@ public class VModificarArsenal extends JFrame implements ActionListener {
 			try {
 				is = new FileInputStream(file);
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			Blob blob = null;
 			try {
 				blob = new Blob(is.readAllBytes(), null);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea modificar el artículo?");
 			if (option == JOptionPane.YES_OPTION) {
-				c.updateArsenal(blob, txtNombre.getText(),(String)comboBoxTipo.getSelectedItem(), txtDescripcion.getText(),a.getId_arsenal());
+				controlador.updateArsenal(blob, txtNombre.getText(),(String)comboBoxTipo.getSelectedItem(), txtDescripcion.getText(),arsenal.getId_arsenal());
 				JOptionPane.showMessageDialog(this, "Artículo modificado correctamente", "Mensaje para el aministrador",
 						JOptionPane.INFORMATION_MESSAGE);
 			}

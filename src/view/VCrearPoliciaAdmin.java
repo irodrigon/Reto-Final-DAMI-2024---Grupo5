@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -12,7 +11,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,9 +27,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.mysql.cj.jdbc.Blob;
-
 import controller.Controller;
 import model.Criminal;
 //Esta ventana sólo se lanza si se ha entrado a la aplicación como Administrador.
@@ -48,25 +44,22 @@ public class VCrearPoliciaAdmin extends JFrame implements ActionListener {
 	private FileFilter filtro;
 	private File file;
 	private JButton btnCancelar;
-	private JLabel lblNewLabel_4;
+	private JLabel lblCheckPassword;
 	private JPasswordField passwordField2;
-	private Controller c;
+	private Controller controlador;
 	private JButton btnCrear;
 	private JLabel lblFiles;
 	private String dni;
 	private JToggleButton tglbtnSee;
 	private JToggleButton tglbtnSee2;
 	private JComboBox<String> comboBoxRango;
-	private JTextField textDNI;
 	private JTextField textFieldApellido;
-	private JPanel panel1;
 
-	public VCrearPoliciaAdmin(Controller c, String dni,JPanel panel1) {
-		this.panel1 = panel1;
+	public VCrearPoliciaAdmin(Controller controlador, String dni) {
 		setResizable(false);
 		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearCuenta.class.getResource("/fotos/pixelart2.png")));
-		this.c = c;
+		this.controlador = controlador;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 250, 1280, 720);
 		contentPane = new JPanel();
@@ -114,29 +107,29 @@ public class VCrearPoliciaAdmin extends JFrame implements ActionListener {
 		lblContrasena.setBounds(60, 225, 320, 47);
 		contentPane.add(lblContrasena);
 
-		JLabel lblNewLabel_1 = new JLabel("Apellido:");
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_1.setBounds(61, 182, 352, 33);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setForeground(new Color(255, 255, 255));
+		lblApellido.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblApellido.setBounds(61, 182, 352, 33);
+		contentPane.add(lblApellido);
 
-		JLabel lblNewLabel_2 = new JLabel("Nombre:");
-		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_2.setBounds(60, 140, 264, 35);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setForeground(new Color(255, 255, 255));
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblNombre.setBounds(60, 140, 264, 35);
+		contentPane.add(lblNombre);
 
-		JLabel lblNewLabel = new JLabel("CREACIÓN DE POLICÍA");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(523, 10, 231, 35);
-		contentPane.add(lblNewLabel);
+		JLabel lblCreacion = new JLabel("CREACIÓN DE POLICÍA");
+		lblCreacion.setForeground(new Color(255, 255, 255));
+		lblCreacion.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblCreacion.setBounds(523, 10, 231, 35);
+		contentPane.add(lblCreacion);
 
-		JLabel lblNewLabel_3 = new JLabel("DNI: ");
-		lblNewLabel_3.setForeground(new Color(255, 255, 255));
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_3.setBounds(60, 106, 276, 19);
-		contentPane.add(lblNewLabel_3);
+		JLabel lblDni = new JLabel("DNI: ");
+		lblDni.setForeground(new Color(255, 255, 255));
+		lblDni.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblDni.setBounds(60, 106, 276, 19);
+		contentPane.add(lblDni);
 
 		JLabel lblRango = new JLabel("Rango:");
 		lblRango.setForeground(Color.WHITE);
@@ -172,11 +165,11 @@ public class VCrearPoliciaAdmin extends JFrame implements ActionListener {
 
 		contentPane.add(btnCancelar);
 
-		lblNewLabel_4 = new JLabel("Vuelve a introducir la contraseña:");
-		lblNewLabel_4.setForeground(new Color(255, 255, 255));
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_4.setBounds(60, 282, 406, 19);
-		contentPane.add(lblNewLabel_4);
+		lblCheckPassword = new JLabel("Vuelve a introducir la contraseña:");
+		lblCheckPassword.setForeground(new Color(255, 255, 255));
+		lblCheckPassword.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblCheckPassword.setBounds(60, 282, 406, 19);
+		contentPane.add(lblCheckPassword);
 
 		passwordField2 = new JPasswordField();
 		passwordField2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
@@ -316,7 +309,7 @@ public class VCrearPoliciaAdmin extends JFrame implements ActionListener {
 				lblFiles.setText("Se ha producido un Error.");
 			}
 		} else if ((e.getSource().equals(btnCancelar))) {
-			VManagement vM = new VManagement(c, dni);
+			VManagement vM = new VManagement(controlador, dni);
 			vM.setVisible(true);
 			this.dispose();
 		} else if (e.getSource().equals(btnCrear) && lblFiles.getText().equals("")) {
@@ -352,12 +345,12 @@ public class VCrearPoliciaAdmin extends JFrame implements ActionListener {
 			}
 			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea crear un nuevo policía?");
 			if (option == JOptionPane.YES_OPTION) {
-				c.insertPeople(textFieldDNI.getText(), textFieldNombre.getText(), textFieldApellido.getText(),
+				controlador.insertPeople(textFieldDNI.getText(), textFieldNombre.getText(), textFieldApellido.getText(),
 						new String(passwordField2.getPassword()), blob);
-				c.insertPoliceman(textFieldDNI.getText(), (String) comboBoxRango.getSelectedItem());
-				crim = c.selectRandomCriminal();
-				c.updateDefaultCriminal(textFieldDNI.getText(), crim.getDni());
-				c.insertAssociation(textFieldDNI.getText(), 7);
+				controlador.insertPoliceman(textFieldDNI.getText(), (String) comboBoxRango.getSelectedItem());
+				crim = controlador.selectRandomCriminal();
+				controlador.updateDefaultCriminal(textFieldDNI.getText(), crim.getDni());
+				controlador.insertAssociation(textFieldDNI.getText(), 7);
 				JOptionPane.showMessageDialog(this, "Policía creado correctamente", "Mensaje para el usuario",
 						JOptionPane.INFORMATION_MESSAGE);
 			}

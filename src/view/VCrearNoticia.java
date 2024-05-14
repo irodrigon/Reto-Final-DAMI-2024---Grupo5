@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -10,10 +9,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,26 +22,21 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.mysql.cj.jdbc.Blob;
-
 import controller.Controller;
-import model.Arsenal;
-import model.News;
-import model.Policia;
 
 public class VCrearNoticia extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_2;
-	private Controller c;
+	private JTextField textFieldTitulo;
+	private Controller controlador;
 	private JButton btnUpload;
 	private JButton btnSave;
 	private JButton btnBack;
 	private JButton btnCancelar;
-	private JTextArea textArea;
-	private JLabel lblNewLabel_1_1;
+	private JTextArea textDescripcion;
+	private JLabel lblFondo;
 	private JLabel lblID_Arsenal;
 	private String dni;
 	private JFileChooser fileChooser;
@@ -53,7 +45,7 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 	private JLabel lblFiles;
 	private JLabel lblSaveChanges;
 	
-	public VCrearNoticia(Controller c, String dni) {
+	public VCrearNoticia(Controller controlador, String dni) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -65,7 +57,7 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 		setResizable(false);
 		this.dni = dni;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VCrearArsenal.class.getResource("/fotos/pixelart2.png")));
-		this.c = c;
+		this.controlador = controlador;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 20, 1280, 720);
 		contentPane = new JPanel();
@@ -123,16 +115,16 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 		btnCancelar.setBounds(835, 551, 132, 23);
 		contentPane.add(btnCancelar);
 
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
-		textField_2.setColumns(10);
-		textField_2.setBounds(521, 218, 316, 28);
-		contentPane.add(textField_2);
+		textFieldTitulo = new JTextField();
+		textFieldTitulo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
+		textFieldTitulo.setColumns(10);
+		textFieldTitulo.setBounds(521, 218, 316, 28);
+		contentPane.add(textFieldTitulo);
 
-		textArea = new JTextArea();
-		textArea.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 13));
-		textArea.setBounds(521, 276, 316, 123);
-		contentPane.add(textArea);
+		textDescripcion = new JTextArea();
+		textDescripcion.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 13));
+		textDescripcion.setBounds(521, 276, 316, 123);
+		contentPane.add(textDescripcion);
 
 		lblID_Arsenal = new JLabel("");
 
@@ -140,7 +132,7 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 		lblID_Arsenal.setBounds(465, 21, 522, 36);
 		contentPane.add(lblID_Arsenal);
 
-		lblID_Arsenal.setText("El último id de noticia es: "+ c.returnMaxNews().getId_noticia());
+		lblID_Arsenal.setText("El último id de noticia es: "+ controlador.returnMaxNews().getId_noticia());
 		
 		lblFiles = new JLabel("");
 		lblFiles.setForeground(Color.BLACK);
@@ -153,11 +145,11 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 		lblSaveChanges.setBounds(306, 522, 316, 36);
 		contentPane.add(lblSaveChanges);
 
-		lblNewLabel_1_1 = new JLabel("");
-		lblNewLabel_1_1.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoNoticiasFinal.png")));
-		lblNewLabel_1_1.setBounds(-17, -179, 1283, 1135);
-		lblNewLabel_1_1.setBorder(new RoundedBorder(20));
-		contentPane.add(lblNewLabel_1_1);
+		lblFondo = new JLabel("");
+		lblFondo.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/fondoNoticiasFinal.png")));
+		lblFondo.setBounds(-17, -179, 1283, 1135);
+		lblFondo.setBorder(new RoundedBorder(20));
+		contentPane.add(lblFondo);
 
 		btnBack.addActionListener(this);
 		btnCancelar.addActionListener(this);
@@ -168,20 +160,19 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		Object o = e.getSource();
-		News n = new News();
+		Object object = e.getSource();
 
-		if (o == btnCancelar) {
+		if (object == btnCancelar) {
 			
-			VManagement vM = new VManagement(c,dni);
+			VManagement vM = new VManagement(controlador,dni);
 			vM.setVisible(true);
 			this.dispose();
-		} else if (o == btnSave && textField_2.getText().equals("")) {
+		} else if (object == btnSave && textFieldTitulo.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Introduce al menos los datos del título.", "Error",
 					JOptionPane.ERROR_MESSAGE);
-		} else if (o == btnSave && textArea.getText().equals("")) {
+		} else if (object == btnSave && textDescripcion.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Introduce una descripción.", "Error", JOptionPane.ERROR_MESSAGE);
-		} else if (o == btnUpload) {
+		} else if (object == btnUpload) {
 
 			fileChooser = new JFileChooser();
 			fileChooser.setAcceptAllFileFilterUsed(false);
@@ -199,10 +190,10 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 				// si ha producido un Error
 				lblFiles.setText("Se ha producido un Error.");
 			}
-		} else if (o == btnSave && lblFiles.getText().equals("")) {
+		} else if (object == btnSave && lblFiles.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Por favor, selecciona un fotografía.", "Error",
 					JOptionPane.ERROR_MESSAGE);
-		} else if (o == btnSave) {
+		} else if (object == btnSave) {
 			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea crear este artículo?");
 			if (option == JOptionPane.YES_OPTION) {
 				FileInputStream is = null;
@@ -220,7 +211,7 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 					e1.printStackTrace();
 				}
 
-				c.insertNew(c.returnMaxNews().getId_noticia() + 1, blob, textField_2.getText(),textArea.getText() , dni);
+				controlador.insertNew(controlador.returnMaxNews().getId_noticia() + 1, blob, textFieldTitulo.getText(),textDescripcion.getText() , dni);
 				lblSaveChanges.setText("Cambios guardados.");
 				btnBack.setEnabled(true);
 				btnCancelar.setEnabled(false);
@@ -232,8 +223,8 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 			} else if (option == JOptionPane.CLOSED_OPTION) {
 
 			}
-		}else if (o == btnBack) {
-			VManagement vM = new VManagement(c,dni);
+		}else if (object == btnBack) {
+			VManagement vM = new VManagement(controlador,dni);
 			vM.setVisible(true);
 			this.dispose();
 		}

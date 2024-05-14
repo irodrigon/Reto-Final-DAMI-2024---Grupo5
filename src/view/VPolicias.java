@@ -48,7 +48,6 @@ public class VPolicias extends JFrame implements ActionListener {
 	private JLabel lblApellidoC;
 	private JLabel lblFoto2;
 	private Criminal crim;
-	private ListIterator<Criminal> it;
 	private JButton btnVerArsenal;
 	private JButton btnElegirArsenal;
 	private JButton btnModificar;
@@ -268,7 +267,7 @@ public class VPolicias extends JFrame implements ActionListener {
 	}
 
 	private void siguiente() {
-		// TODO Auto-generated method stub
+		
 		btnAnterior.setEnabled(true);
 		if (index >= 0 && index <= crims.size()) {
 			index++;
