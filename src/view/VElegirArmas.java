@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,9 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import controller.Controller;
 import model.Arsenal;
 import model.Elige;
@@ -31,8 +28,8 @@ public class VElegirArmas extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
-	private Controller c;
-	private Policia pol;
+	private Controller controlador;
+	private Policia policia;
 	private ArrayList<Arsenal> weapons;
 	private JScrollPane scroll;
 	private int count;
@@ -40,31 +37,32 @@ public class VElegirArmas extends JFrame implements ActionListener {
 	private JButton btnConfirmar;
 	private JButton btnBack;
 	private JButton btnCancel;
-	private JCheckBox chb;
+	private JCheckBox checkbox;
 	private ArrayList<Elige> busquedas;
-	private ArrayList<Arsenal> weaponsAvailable;
 	private JLabel lblCambios;
 	private int guarda;
 	private JLabel lblFondo;
 	private String dni;
 	private String pass;
 
-	public VElegirArmas(Controller c, String dni, String pass) {
+	public VElegirArmas(Controller controlador, String dni, String pass) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VElegirArmas.class.getResource("/fotos/pixelart2.png")));
 		setResizable(false);
-		this.c = c;
+		this.controlador = controlador;
 		this.dni = dni;
 		this.pass = pass;
-		pol = c.returnPolicemanById(dni);
-		weapons = c.showArsenal();
-		busquedas = c.weaponsAssigned(pol.getDni());
+		policia = controlador.returnPolicemanById(dni);
+		weapons = controlador.showArsenal();
+		busquedas = controlador.weaponsAssigned(policia.getDni());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(530, 50, 1280, 720);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new RoundedBorder(20));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		//El código que sigue hace que los checkbox aparezcan en la tabla sin marcar al cargar la ventana.
 		String[] columnNames = { "Nombre:", "Descripcion:", "Elegir" };
 		model = new DefaultTableModel(null, columnNames) {
 
@@ -98,10 +96,13 @@ public class VElegirArmas extends JFrame implements ActionListener {
 		scroll = new JScrollPane(table);
 		scroll.setBounds(10, 33, 964, 557);
 		contentPane.add(scroll);
-		chb = new JCheckBox();
-		chb.addActionListener(this);
-
-		DefaultCellEditor editor = new DefaultCellEditor(chb) {
+		checkbox = new JCheckBox();
+		checkbox.addActionListener(this);
+		
+		
+		//Con el editor de celdas conseguimos el valor de cada checkbox por separado.
+		
+		DefaultCellEditor editor = new DefaultCellEditor(checkbox) {
 			/**
 			 * 
 			 */
@@ -146,7 +147,7 @@ public class VElegirArmas extends JFrame implements ActionListener {
 		contentPane.add(lblCambios);
 		
 		lblFondo = new JLabel("");
-		lblFondo.setIcon(new ImageIcon(VEntrada.class.getResource("/fotos/FondoPoliciaFinal.jpg")));
+		lblFondo.setIcon(new ImageIcon(VElegirArmas.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
 		lblFondo.setBounds(0, 0, 1280, 720);
 		contentPane.add(lblFondo);
 
@@ -158,37 +159,37 @@ public class VElegirArmas extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
-		if (o == chb && chb.isSelected()) {
+		if (o == checkbox && checkbox.isSelected()) {
 			count++;
-		} else if (o == chb && !chb.isSelected()) {
+		} else if (o == checkbox && !checkbox.isSelected()) {
 			count--;
 		}
 		if (count > 1) {
 			JOptionPane.showMessageDialog(this, "El agente no puede seleccionar más de un artículo por vez.", "Error",
 					JOptionPane.ERROR_MESSAGE);
 			for (int i = 0; i < table.getRowCount(); i++) {
-				chb.setSelected(false);
+				checkbox.setSelected(false);
 				table.setValueAt(false, i, 2);
 				count = guarda;
 			}
 		}
 		if (o == btnCancel) {
-			VPolicias vP = new VPolicias(c, dni, pass);
+			VPolicias vP = new VPolicias(controlador, dni, pass);
 			vP.setVisible(true);
 			this.dispose();
 		} else if (o == btnBack) {
-			VPolicias vP = new VPolicias(c, dni, pass);
+			VPolicias vP = new VPolicias(controlador, dni, pass);
 			vP.setVisible(true);
 			this.dispose();
 		} else if (o == btnConfirmar) {
-			Arsenal ar = new Arsenal();
+			Arsenal arsenal = new Arsenal();
 			boolean found = false;
-			if (!chb.isSelected()) {
+			if (!checkbox.isSelected()) {
 				JOptionPane.showMessageDialog(this, "Seleccione algún artículo.", "Error", JOptionPane.ERROR_MESSAGE);
 			} else {
 				for (int i = 0; i < table.getRowCount(); i++) {
 					if (table.getValueAt(i, 2).equals(true)) {
-						busquedas = c.showAssociations();
+						busquedas = controlador.showAssociations();
 						for (Arsenal a : weapons) {
 							if (table.getValueAt(i, 0).equals(a.getNombre())) {
 								for(Elige el : busquedas) {
@@ -203,10 +204,10 @@ public class VElegirArmas extends JFrame implements ActionListener {
 						if(!found) {
 							for (int j = 0; j < table.getRowCount(); j++) {
 								if (table.getValueAt(j, 2).equals(true)) {
-									ar = c.returnWeaponByName((String)table.getValueAt(j, 0));
+									arsenal = controlador.returnWeaponByName((String)table.getValueAt(j, 0));
 								}
 							}
-							c.insertAssociation(dni, ar.getId_arsenal());
+							controlador.insertAssociation(dni, arsenal.getId_arsenal());
 						}
 						lblCambios.setText("Cambios guardados correctamente.");
 						btnConfirmar.setEnabled(false);

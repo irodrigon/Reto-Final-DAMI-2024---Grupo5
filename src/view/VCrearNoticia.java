@@ -142,7 +142,7 @@ public class VCrearNoticia extends JFrame implements ActionListener{
 
 		lblSaveChanges = new JLabel("");
 		lblSaveChanges.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 32));
-		lblSaveChanges.setBounds(306, 522, 316, 36);
+		lblSaveChanges.setBounds(306, 620, 316, 36);
 		contentPane.add(lblSaveChanges);
 
 		lblFondo = new JLabel("");

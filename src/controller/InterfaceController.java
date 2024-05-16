@@ -84,6 +84,6 @@ public interface InterfaceController {
 	
 	public boolean updateCriminal(String descripcion, String dni);//Actualiza criminales.
 	
-	public News selectingNoticia(int id);
+	public News selectingNoticia(int id);//Método que utiliza cursores para devolver una noticia por su ID.
 
 }

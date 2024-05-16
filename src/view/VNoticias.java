@@ -8,15 +8,11 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.ListIterator;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import controller.Controller;
 import model.News;
-
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -25,21 +21,20 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Color;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 
 public class VNoticias extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller c;
+	private Controller controlador;
 	private JLabel lblFoto;
 	private JButton btnAnterior;
 	private JButton btnSiguiente;
 	private JButton btnAtras;
 	private ArrayList<News> news;
 	private Blob aBlob;
-	private News n;
+	private News noticia;
 	private JLabel lblTitulo;
 	private JLabel lblDescripcion;
 	private JLabel lblBienvenida;
@@ -59,7 +54,7 @@ public class VNoticias extends JFrame implements ActionListener {
 	*/
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
 
-		this.c = c;
+		this.controlador = c;
 
 		setBounds(530, 50, 1280, 720);
 
@@ -205,10 +200,10 @@ public class VNoticias extends JFrame implements ActionListener {
 
 		if(index >= 0 && index <= news.size()) {
 			index++;
-			n = news.get(index);
-			lblTitulo.setText(n.getTitulo());
-			lblDescripcion.setText(n.getDescripcion());
-			aBlob = n.getFoto_noticia();
+			noticia = news.get(index);
+			lblTitulo.setText(noticia.getTitulo());
+			lblDescripcion.setText(noticia.getDescripcion());
+			aBlob = noticia.getFoto_noticia();
 			try {
 				InputStream is;
 				is = aBlob.getBinaryStream(1, aBlob.length());
@@ -233,7 +228,7 @@ public class VNoticias extends JFrame implements ActionListener {
 	}
 
 	private void volver() {
-		VEntrada ve = new VEntrada(c);
+		VEntrada ve = new VEntrada(controlador);
 		ve.setVisible(true);
 		this.dispose();
 	}
@@ -243,10 +238,10 @@ public class VNoticias extends JFrame implements ActionListener {
 		
 			if(index >= 0 && index > -1) {
 				index--;
-			n= news.get(index);
-			lblTitulo.setText(n.getTitulo());
-			lblDescripcion.setText(n.getDescripcion());
-			aBlob = n.getFoto_noticia();
+			noticia = news.get(index);
+			lblTitulo.setText(noticia.getTitulo());
+			lblDescripcion.setText(noticia.getDescripcion());
+			aBlob = noticia.getFoto_noticia();
 			btnSiguiente.setEnabled(true);
 			try {
 				InputStream is;
@@ -256,7 +251,6 @@ public class VNoticias extends JFrame implements ActionListener {
 				lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),
 						lblFoto.getHeight(), Image.SCALE_DEFAULT)));
 			} catch (IOException e3) {
-				// TODO Auto-generated catch block
 				e3.printStackTrace();
 			} catch (SQLException e3) {
 				e3.printStackTrace();

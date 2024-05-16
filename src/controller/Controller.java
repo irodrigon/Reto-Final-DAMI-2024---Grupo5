@@ -5,9 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLType;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
 import com.mysql.cj.jdbc.CallableStatement;
 import model.Administrador;
 import model.Arsenal;
@@ -19,10 +17,10 @@ import model.Policia;
 public class Controller implements InterfaceController {
 
 	// La conexión a la base de datos.
-	private Connection con;
+	private Connection conexion;
 
 	// Sirve para gestionar las sentencias SQL.
-	private PreparedStatement stmt;
+	private PreparedStatement sentenciaSQL;
 
 	// Sentencias SQL utilizadas en el programa.
 
@@ -58,87 +56,107 @@ public class Controller implements InterfaceController {
 	private final String UPDATE_ARSENAL = "UPDATE ARSENAL SET fotografia_arsenal =?, nombre = ?, tipo = ?, descripcion = ? WHERE id_arsenal = ?";
 	private final String UPDATE_CRIMINAL = "UPDATE CRIMINAL SET DESCRIPCION = ? WHERE DNI = ?";
 	private final String SELECTING_NEWS = "{CALL SelectNoticia(?)}";
-
+	
+	/*
+	 * Este método inicia una conexión con la base de datos como Policía lanza una sentencia SELECT, 
+	 * crea un set de resultados y devuelve un objeto Policia usando el set de resultados
+	 * para rellenar los datos. Sirve para comprobar que el usuario no existe en la ventana de entrada.
+	 * 
+	 * @param1 String password
+	 * @param2 String dni
+	 * 
+	 * @return Policia policia
+	 */
+	
+	@Override
 	public Policia policeLogIn(String password, String dni) {
 
-		con = DatabaseConnectionPolice.getConnection();
+		conexion = DatabaseConnectionPolice.getConnection();
 
 		// El set de resultados recoge la consulta de la base de datos.
-		ResultSet rs = null;
-		Policia p = null;
+		ResultSet resultSet = null;
+		Policia policia = null;
 
 		try {
 
 			// prepara la conexión con la base datos.
 
-			stmt = con.prepareStatement(RETURN_POLICEMAN);
+			sentenciaSQL = conexion.prepareStatement(RETURN_POLICEMAN);
 			// Mira el primer parámetro que le introduce el usuario en la base de datos.
-			stmt.setString(1, password);
+			sentenciaSQL.setString(1, password);
 			// El número dos indica que se trata del segundo parámetro.
-			stmt.setString(2, dni);
+			sentenciaSQL.setString(2, dni);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			if (rs.next()) {
-				p = new Policia(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
-						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("rango"));
+			if (resultSet.next()) {
+				policia = new Policia(resultSet.getString("dni"), resultSet.getString("nombre"), resultSet.getString("apellido"),
+						resultSet.getString("contrasena"), resultSet.getBlob("fotografia_persona"), resultSet.getString("rango"));
 			}
 
 		} catch (SQLException e) {
 			System.out.println("Error en la BD.");
 		} finally {
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException e) {
 					System.out.println("Error de cierre del ResultSet");
 				}
 			}
 		}
 
-		return p;
+		return policia;
 	}
-
+	
+	/*
+	 *Este método devuelve un ArrayList como Usuario news sacando los datos a un resultSet
+	 *con la sentencia SELECT * de la tabla NOTICIA y pasando los datos a un ArrayList de objetos Noticia.
+	 *Sirve para llenar la tabla de noticias de la ventana de gestión del usuario administrador.
+	 *
+	 * @return ArrayList<News> noticias
+	 */
+	
 	@Override
 	public ArrayList<News> showNews() {
 
 		// Cada método lleva asociada una conexión distinta a un usuario diferente de la
 		// base de datos.
 
-		con = DatabaseConnectionNews.getConnection();
-		ResultSet rs = null;
-		News n = null;
+		conexion = DatabaseConnectionNews.getConnection();
+		ResultSet resultSet= null;
+		News noticia = null;
 		ArrayList<News> news = new ArrayList<News>();
 
 		try {
-			stmt = con.prepareStatement(SHOW_NEWS);
+			sentenciaSQL = conexion.prepareStatement(SHOW_NEWS);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			while (rs.next()) {
+			while (resultSet.next()) {
 
-				n = new News();
+				noticia = new News();
 
 				// Crea un objeto News para recoger el set de resultados en sus atributos.
-				n = new News();
+				noticia = new News();
 				// Recoge el primer atributo según el atributo correspondiente en la base de
 				// datos.
 
-				n.setId_noticia(rs.getInt("id_noticia"));
-				n.setFoto_noticia(rs.getBlob("fotografia_noticia"));
-				n.setTitulo(rs.getString("titulo"));
-				n.setDescripcion(rs.getString("descripcion"));
-				n.setDni_administrador(rs.getString("dni"));
-				news.add(n);
+				noticia.setId_noticia(resultSet.getInt("id_noticia"));
+				noticia.setFoto_noticia(resultSet.getBlob("fotografia_noticia"));
+				noticia.setTitulo(resultSet.getString("titulo"));
+				noticia.setDescripcion(resultSet.getString("descripcion"));
+				noticia.setDni_administrador(resultSet.getString("dni"));
+				news.add(noticia);
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
@@ -148,35 +166,44 @@ public class Controller implements InterfaceController {
 		return news;
 
 	}
-
+	
+	
+	/*
+	 * Este método crea un ArrayList de objetos Policia y lo rellena con un set de resultados
+	 * y un bucle while. Sirve para llenar la tabla de datos de policias de la ventana de gestión
+	 * del usuario administrador.
+	 * 
+	 * @return ArrayList<Policia> policias
+	 */
+	
 	@Override
 	public ArrayList<Policia> showPolicemen() {
 
 		// En este caso, usa el usuario policia.
 
-		con = DatabaseConnectionPolice.getConnection();
-		ResultSet rs = null;
-		Policia p = null;
+		conexion = DatabaseConnectionPolice.getConnection();
+		ResultSet resultSet = null;
+		Policia policia = null;
 		ArrayList<Policia> policemen = new ArrayList<Policia>();
 
 		try {
-			stmt = con.prepareStatement(SHOW_POLICEMEN);
+			sentenciaSQL = conexion.prepareStatement(SHOW_POLICEMEN);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			while (rs.next()) {
-				p = new Policia(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
-						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("rango"));
-				policemen.add(p);
+			while (resultSet.next()) {
+				policia = new Policia(resultSet.getString("dni"), resultSet.getString("nombre"), resultSet.getString("apellido"),
+						resultSet.getString("contrasena"), resultSet.getBlob("fotografia_persona"), resultSet.getString("rango"));
+				policemen.add(policia);
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
@@ -186,35 +213,45 @@ public class Controller implements InterfaceController {
 		return policemen;
 
 	}
-
+	
+	
+	/*
+	 * Este método muestra los criminales asociados a un policía. Sirve
+	 * para mostrar los criminales en la ventana del usuario policía.
+	 * 
+	 * @param1 String dni_policia
+	 * 
+	 * @return ArrayList<Criminal> criminales
+	 */
+	
 	@Override
 	public ArrayList<Criminal> showCriminalByPoliceman(String dni_policia) {
-		con = DatabaseConnectionPolice.getConnection();
-		ResultSet rs = null;
-		Criminal c = null;
+		conexion = DatabaseConnectionPolice.getConnection();
+		ResultSet resultSet = null;
+		Criminal criminal = null;
 		ArrayList<Criminal> criminals = new ArrayList<Criminal>();
 
 		try {
 
-			stmt = con.prepareStatement(SHOW_CRIMINAL_BY_POLICEMAN);
-			stmt.setString(1, dni_policia);
+			sentenciaSQL = conexion.prepareStatement(SHOW_CRIMINAL_BY_POLICEMAN);
+			sentenciaSQL.setString(1, dni_policia);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			while (rs.next()) {
-				c = new Criminal(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
-						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("descripcion"),
-						rs.getString("dni_policia"));
-				criminals.add(c);
+			while (resultSet.next()) {
+				criminal = new Criminal(resultSet.getString("dni"), resultSet.getString("nombre"), resultSet.getString("apellido"),
+						resultSet.getString("contrasena"), resultSet.getBlob("fotografia_persona"), resultSet.getString("descripcion"),
+						resultSet.getString("dni_policia"));
+				criminals.add(criminal);
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
@@ -222,37 +259,46 @@ public class Controller implements InterfaceController {
 		}
 		return criminals;
 	}
-
+	
+	
+	/*
+	 * Este método devuelve un Arraylist de objetos Arsenal. Sirve para rellenar los datos de la tabla
+	 * de arsenal en la ventana de gestión del administrador. Usa resultSet.
+	 * 
+	 * @return ArrayList<Arsenal> weapons 
+	 * 
+	 */
+	
 	@Override
 	public ArrayList<Arsenal> showArsenal() {
 
-		con = DatabaseConnectionPolice.getConnection();
-		ResultSet rs = null;
-		Arsenal a = null;
+		conexion = DatabaseConnectionPolice.getConnection();
+		ResultSet resultSet = null;
+		Arsenal arsenal = null;
 		ArrayList<Arsenal> weapons = new ArrayList<Arsenal>();
 
 		try {
-			stmt = con.prepareStatement(SHOW_ARSENAL);
+			sentenciaSQL = conexion.prepareStatement(SHOW_ARSENAL);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			while (rs.next()) {
-				a = new Arsenal();
-				a.setId_arsenal(rs.getInt("id_arsenal"));
-				a.setFoto_arsenal(rs.getBlob("fotografia_arsenal"));
-				a.setNombre(rs.getString("nombre"));
-				a.setTipo(rs.getString("tipo"));
-				a.setDescripcion(rs.getString("descripcion"));
-				weapons.add(a);
+			while (resultSet.next()) {
+				arsenal = new Arsenal();
+				arsenal.setId_arsenal(resultSet.getInt("id_arsenal"));
+				arsenal.setFoto_arsenal(resultSet.getBlob("fotografia_arsenal"));
+				arsenal.setNombre(resultSet.getString("nombre"));
+				arsenal.setTipo(resultSet.getString("tipo"));
+				arsenal.setDescripcion(resultSet.getString("descripcion"));
+				weapons.add(arsenal);
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
@@ -261,35 +307,45 @@ public class Controller implements InterfaceController {
 
 		return weapons;
 	}
-
+	
+	/*
+	 * Este método devuelve una lista de los datos de la tabla ELIGE de la base de datos
+	 * con respecto a una de sus columnas, DNI del policía, en un objeto de tipo Elige.
+	 * SQL. Sirve para añadir las armas en el perfil de los policías y mostrarlas en su ventana.
+	 * 
+	 * @param1 String dni_policia
+	 * 
+	 * @return ArrayList<Elige> elegir
+	 */
+	
 	@Override
 	public ArrayList<Elige> weaponsAssigned(String dni_policia) {
-		con = DatabaseConnectionPolice.getConnection();
-		ResultSet rs = null;
-		Elige e = null;
+		conexion = DatabaseConnectionPolice.getConnection();
+		ResultSet resultSet = null;
+		Elige elegir = null;
 		ArrayList<Elige> search = new ArrayList<Elige>();
 
 		try {
 
-			stmt = con.prepareStatement(RETURN_CHOICE);
-			stmt.setString(1, dni_policia);
+			sentenciaSQL = conexion.prepareStatement(RETURN_CHOICE);
+			sentenciaSQL.setString(1, dni_policia);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			while (rs.next()) {
-				e = new Elige();
-				e.setDni_policia(rs.getString("dni_policia"));
-				e.setId_arsenal(rs.getInt("id_arsenal"));
-				search.add(e);
+			while (resultSet.next()) {
+				elegir = new Elige();
+				elegir.setDni_policia(resultSet.getString("dni_policia"));
+				elegir.setId_arsenal(resultSet.getInt("id_arsenal"));
+				search.add(elegir);
 			}
-		} catch (SQLException e2) {
+		} catch (SQLException e) {
 			System.out.println("Error de SQL");
-			e2.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
@@ -298,19 +354,28 @@ public class Controller implements InterfaceController {
 		return search;
 	}
 
+	/*
+	 * Este método borra una entrada de la Tabla Policías con DELETE.
+	 * Sirve para eliminar el perfil de policía en la aplicación.
+	 * 
+	 * @param1 String dni
+	 * 
+	 * @return boolean cambios
+	 */
+	
 	@Override
 	public boolean deletePoliceman(String dni) {
 
 		boolean cambios = false;
 
-		con = DatabaseConnectionPolice.getConnection();
+		conexion = DatabaseConnectionPolice.getConnection();
 
 		try {
-			stmt = con.prepareStatement(DELETE_PEOPLE);
+			sentenciaSQL = conexion.prepareStatement(DELETE_PEOPLE);
 
-			stmt.setString(1, dni);
+			sentenciaSQL.setString(1, dni);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -320,36 +385,48 @@ public class Controller implements InterfaceController {
 
 		return cambios;
 	}
-
+	
+	/*
+	 * Este método se emplea para identificar si el usuario es el administrador.
+	 * Lo comprueba con un SELECT en la tabla PERSONA de SQL.
+	 * Sirve para que el administrador pueda entrar en la aplicación dentro de la ventana de entrada.
+	 * 
+	 * @param1 String password
+	 * @param2 String dni
+	 * 
+	 * @return Administrador admin
+	 * 
+	 */
+	
 	@Override
 	public Administrador adminLogIn(String password, String dni) {
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
-		ResultSet rs = null;
+		ResultSet resultSet = null;
 		Administrador admin = null;
 
 		try {
 
-			stmt = con.prepareStatement(RETURN_ADMIN);
-			stmt.setString(1, password);
-			stmt.setString(2, dni);
+			sentenciaSQL = conexion.prepareStatement(RETURN_ADMIN);
+			sentenciaSQL.setString(1, password);
+			sentenciaSQL.setString(2, dni);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			if (rs.next()) {
+			if (resultSet.next()) {
 
-				admin = new Administrador(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
-						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getDate("fecha_primerLog"),
-						rs.getDate("fecha_ultimoLog"));
+				admin = new Administrador(resultSet.getString("dni"), resultSet.getString("nombre"), resultSet.getString("apellido"),
+						resultSet.getString("contrasena"), resultSet.getBlob("fotografia_persona"), resultSet.getDate("fecha_primerLog"),
+						resultSet.getDate("fecha_ultimoLog"));
 
 			}
 
 		} catch (SQLException e) {
 			System.out.println("Error en la BD.");
 		} finally {
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException e) {
 					System.out.println("Error de cierre del ResultSet");
 				}
@@ -358,33 +435,41 @@ public class Controller implements InterfaceController {
 
 		return admin;
 	}
-
+	
+	/*
+	 * Este método retorna una lista con los datos de los criminales en objetos 
+	 * de tipo Criminal. Sirve para llenar la tabla de Criminales 
+	 * al cargar la ventana de gestión del administrador.
+	 * 
+	 * @return ArrayList<Criminal> criminals
+	 */
+	
 	@Override
 	public ArrayList<Criminal> showCriminals() {
-		con = DatabaseConnectionAdmin.getConnection();
-		ResultSet rs = null;
-		Criminal c = null;
+		conexion = DatabaseConnectionAdmin.getConnection();
+		ResultSet resultSet = null;
+		Criminal criminal = null;
 		ArrayList<Criminal> criminals = new ArrayList<Criminal>();
 
 		try {
-			stmt = con.prepareStatement(SHOW_CRIMINAL);
+			sentenciaSQL = conexion.prepareStatement(SHOW_CRIMINAL);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			while (rs.next()) {
-				c = new Criminal(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
-						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("descripcion"),
-						rs.getString("dni_policia"));
-				criminals.add(c);
+			while (resultSet.next()) {
+				criminal = new Criminal(resultSet.getString("dni"), resultSet.getString("nombre"), resultSet.getString("apellido"),
+						resultSet.getString("contrasena"), resultSet.getBlob("fotografia_persona"), resultSet.getString("descripcion"),
+						resultSet.getString("dni_policia"));
+				criminals.add(criminal);
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
@@ -393,20 +478,30 @@ public class Controller implements InterfaceController {
 
 		return criminals;
 	}
-
+	
+	/*
+	 * Este método devuelve un valor verdadero o falso si la sentencia SQL de borrar a la
+	 * que va asociado se ejecuta correctamente. Sólo borra una entrada en la tabla de la base
+	 * de datos SQL. Sirve para eliminar arsenal en la ventana de gestión del administrador.
+	 * 
+	 * @param1 int id_weapon
+	 * 
+	 * @return boolean cambios
+	 */
+	
 	@Override
 	public boolean deleteWeapon(int id_weapon) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
 			// Llamamos a un procedimiento almacenado en la base de datos.
-			CallableStatement cs = (CallableStatement) this.con.prepareCall("{CALL BorrarArsenal(?)}");
+			CallableStatement llamadaProcedimiento = (CallableStatement) this.conexion.prepareCall("{CALL BorrarArsenal(?)}");
 
-			cs.setInt(1, id_weapon);
+			llamadaProcedimiento.setInt(1, id_weapon);
 
-			if (cs.executeUpdate() == 1)
+			if (llamadaProcedimiento.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -416,25 +511,40 @@ public class Controller implements InterfaceController {
 
 		return cambios;
 	}
-
+	
+	
+	/*
+	 * Este método crea una entrada en la tabla ARSENAL de la base de datos y
+	 * devuelve un valor booleano si la ejecuta correctamente. Sirve para añadir
+	 * arsenal en la ventana de gestión del administrador.
+	 * 
+	 * @param1 int id
+	 * @param2 Blob foto
+	 * @param3 String nombre
+	 * @param4 String tipo
+	 * @param5 String descripcion
+	 * 
+	 * @return boolean cambios
+	 */
+	
 	@Override
 	public boolean insertWeapon(int id, Blob foto, String nombre, String tipo, String descripcion) {
 
 		boolean cambios = false;
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
 			// Llamamos a un procedimiento.
-			CallableStatement cs = (CallableStatement) this.con.prepareCall("{CALL AnadirArsenal(?, ?, ?, ?, ?)}");
+			CallableStatement llamadaProcedimiento = (CallableStatement) this.conexion.prepareCall("{CALL AnadirArsenal(?, ?, ?, ?, ?)}");
 
-			cs.setInt(1, id);
-			cs.setBlob(2, foto);
-			cs.setString(3, nombre);
-			cs.setString(4, tipo);
-			cs.setString(5, descripcion);
+			llamadaProcedimiento.setInt(1, id);
+			llamadaProcedimiento.setBlob(2, foto);
+			llamadaProcedimiento.setString(3, nombre);
+			llamadaProcedimiento.setString(4, tipo);
+			llamadaProcedimiento.setString(5, descripcion);
 
-			if (cs.executeUpdate() == 1)
+			if (llamadaProcedimiento.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -444,92 +554,124 @@ public class Controller implements InterfaceController {
 
 		return cambios;
 	}
-
+	
+	/*
+	 * Este método retorna un objeto de tipo Arsenal con todos los datos de la tabla
+	 * Arsenal de SQL. Sirve para mostrar los perfiles de arsenal 
+	 * en la ventana de gestión del administrador, al pulsar el botón de "ver arsenal". 
+	 * 
+	 * @param1 String nombre_arsenal
+	 * 
+	 * @return Arsenal arsenal
+	 * 
+	 */
+	
 	@Override
 	public Arsenal returnWeaponByName(String nombre_arsenal) {
 
-		ResultSet rs = null;
-		Arsenal a = null;
+		ResultSet resultSet = null;
+		Arsenal arsenal = null;
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(RETURN_WEAPON_BY_NAME);
+			sentenciaSQL = conexion.prepareStatement(RETURN_WEAPON_BY_NAME);
 
 			// Cargamos los parámetros
-			stmt.setString(1, nombre_arsenal);
+			sentenciaSQL.setString(1, nombre_arsenal);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			if (rs.next()) {
-				a = new Arsenal();
-				a.setId_arsenal(rs.getInt("id_arsenal"));
-				a.setFoto_arsenal(rs.getBlob("fotografia_arsenal"));
-				a.setNombre(rs.getString("nombre"));
-				a.setDescripcion(rs.getString("descripcion"));
-				a.setTipo(rs.getString("tipo"));
+			if (resultSet.next()) {
+				arsenal = new Arsenal();
+				arsenal.setId_arsenal(resultSet.getInt("id_arsenal"));
+				arsenal.setFoto_arsenal(resultSet.getBlob("fotografia_arsenal"));
+				arsenal.setNombre(resultSet.getString("nombre"));
+				arsenal.setDescripcion(resultSet.getString("descripcion"));
+				arsenal.setTipo(resultSet.getString("tipo"));
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
 			}
 		}
-		return a;
+		return arsenal;
 
 	}
-
+	
+	/*
+	 * Este método retorna un objeto de tipo Policia con los datos de 
+	 * las tablas POLICIA Y PERSONA. Sirve para ver los datos de los policías
+	 * en la ventana de gestión del administrador, al pulsar el
+	 * botón "ver perfil de policía"
+	 * 
+	 * @param1 String dni
+	 * 
+	 * @return Policia policia
+	 */
 	@Override
 	public Policia returnPolicemanById(String dni) {
 		// El set de resultados recoge la consulta de la base de datos.
-		ResultSet rs = null;
-		Policia p = null;
-		con = DatabaseConnectionAdmin.getConnection();
+		ResultSet resultSet = null;
+		Policia policia = null;
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
 
 			// prepara la conexión con la base datos.
 
-			stmt = con.prepareStatement(RETURN_POLICEMAN_BY_ID);
+			sentenciaSQL = conexion.prepareStatement(RETURN_POLICEMAN_BY_ID);
 			// Mira el primer parámetro que le introduce el usuario en la base de datos.
-			stmt.setString(1, dni);
+			sentenciaSQL.setString(1, dni);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			if (rs.next()) {
-				p = new Policia(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
-						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("rango"));
+			if (resultSet.next()) {
+				policia = new Policia(resultSet.getString("dni"), resultSet.getString("nombre"), resultSet.getString("apellido"),
+						resultSet.getString("contrasena"), resultSet.getBlob("fotografia_persona"), resultSet.getString("rango"));
 			}
 
 		} catch (SQLException e) {
 			System.out.println("Error en la BD.");
 
 		}
-		return p;
+		return policia;
 	}
-
+	
+	/*
+	 * Este método crea una entrada en la tabla ELIGE de la base de datos SQL.
+	 * Retorna verdadero si la sentencia se ejecuta bien.
+	 * Sirve para crear las asociaciones en el perfil de policías,
+	 * al pulsar el botón "Ver arsenal".
+	 * 
+	 * @param1 String dni
+	 * @param2 int id
+	 * 
+	 * @return boolean cambios
+	 */
+	
 	@Override
-
 	public boolean insertAssociation(String dni, int id) {
 
 		boolean cambios = false;
 
-		con = DatabaseConnectionPolice.getConnection();
+		conexion = DatabaseConnectionPolice.getConnection();
 
 		try {
-			stmt = con.prepareStatement(INSERT_ASSOCIATION);
+			sentenciaSQL = conexion.prepareStatement(INSERT_ASSOCIATION);
 
-			stmt.setString(1, dni);
-			stmt.setInt(2, id);
+			sentenciaSQL.setString(1, dni);
+			sentenciaSQL.setInt(2, id);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -539,38 +681,47 @@ public class Controller implements InterfaceController {
 
 		return cambios;
 	}
-
+	
+	
+	/*
+	 * Este método devuelve una lista de los datos de la tabla ELIGE de SQl, los datos de ´
+	 * las asociaciones entre policias y artículos de arsenal. Sirve para enlazar un policía
+	 * con el arsenal que posee, en la ventana de perfil de policías, al pulsar el botón
+	 * "ver arsenal".
+	 * 
+	 *  @return ArrayList<Elige> busquedas
+	 */
 	@Override
 	public ArrayList<Elige> showAssociations() {
 
 		// Cada método lleva asociada una conexión distinta a un usuario diferente de la
 		// base de datos.
 
-		con = DatabaseConnectionPolice.getConnection();
-		ResultSet rs = null;
-		Elige el = null;
+		conexion = DatabaseConnectionPolice.getConnection();
+		ResultSet resultSet = null;
+		Elige elegir = null;
 		ArrayList<Elige> busquedas = new ArrayList<Elige>();
 
 		try {
-			stmt = con.prepareStatement(SHOW_ASSOCIATION);
+			sentenciaSQL = conexion.prepareStatement(SHOW_ASSOCIATION);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			while (rs.next()) {
+			while (resultSet.next()) {
 
-				el = new Elige();
-				el.setDni_policia(rs.getString("dni_policia"));
-				el.setId_arsenal(rs.getInt("id_arsenal"));
-				busquedas.add(el);
+				elegir = new Elige();
+				elegir.setDni_policia(resultSet.getString("dni_policia"));
+				elegir.setId_arsenal(resultSet.getInt("id_arsenal"));
+				busquedas.add(elegir);
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
@@ -580,23 +731,32 @@ public class Controller implements InterfaceController {
 		return busquedas;
 
 	}
-
+	
+	/*
+	 * Este método devuelve un objeto Criminal con los datos de las tablas PERSONA
+	 * y CRIMINAL. Sirve para mostrar los criminales en la ventana de perfil de
+	 * los usuarios policías..
+	 * 
+	 * @param1 dni_policia
+	 * 
+	 * @return Criminal criminal
+	 */
 	public Criminal showCriminalByPolicemanAdmin(String dni_policia) {
-		con = DatabaseConnectionPolice.getConnection();
-		ResultSet rs = null;
-		Criminal cr = null;
+		conexion = DatabaseConnectionPolice.getConnection();
+		ResultSet resultSet = null;
+		Criminal criminal = null;
 
 		try {
 
-			stmt = con.prepareStatement(RETURN_CRIMINAL_BY_ID);
-			stmt.setString(1, dni_policia);
+			sentenciaSQL = conexion.prepareStatement(RETURN_CRIMINAL_BY_ID);
+			sentenciaSQL.setString(1, dni_policia);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			if (rs.next()) {
-				cr = new Criminal(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
-						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("descripcion"),
-						rs.getString("dni_policia"));
+			if (resultSet.next()) {
+				criminal = new Criminal(resultSet.getString("dni"), resultSet.getString("nombre"), resultSet.getString("apellido"),
+						resultSet.getString("contrasena"), resultSet.getBlob("fotografia_persona"), resultSet.getString("descripcion"),
+						resultSet.getString("dni_policia"));
 
 			}
 		} catch (SQLException e) {
@@ -604,15 +764,15 @@ public class Controller implements InterfaceController {
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
 			}
 		}
-		return cr;
+		return criminal;
 	}
 
 	@Override
@@ -620,18 +780,18 @@ public class Controller implements InterfaceController {
 			Blob fotografia_persona) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionPolice.getConnection();
+		conexion = DatabaseConnectionPolice.getConnection();
 
 		try {
-			stmt = con.prepareStatement(INSERT_PEOPLE);
+			sentenciaSQL = conexion.prepareStatement(INSERT_PEOPLE);
 
-			stmt.setString(1, dni);
-			stmt.setString(2, nombre);
-			stmt.setString(3, apellido);
-			stmt.setString(4, contrasena);
-			stmt.setBlob(5, fotografia_persona);
+			sentenciaSQL.setString(1, dni);
+			sentenciaSQL.setString(2, nombre);
+			sentenciaSQL.setString(3, apellido);
+			sentenciaSQL.setString(4, contrasena);
+			sentenciaSQL.setBlob(5, fotografia_persona);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -646,15 +806,15 @@ public class Controller implements InterfaceController {
 	public boolean insertPoliceman(String dni, String rango) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionPolice.getConnection();
+		conexion = DatabaseConnectionPolice.getConnection();
 
 		try {
-			stmt = con.prepareStatement(INSERT_POLICEMAN);
+			sentenciaSQL = conexion.prepareStatement(INSERT_POLICEMAN);
 
-			stmt.setString(1, dni);
-			stmt.setString(2, rango);
+			sentenciaSQL.setString(1, dni);
+			sentenciaSQL.setString(2, rango);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -669,15 +829,15 @@ public class Controller implements InterfaceController {
 	public boolean updateDefaultCriminal(String dni_policia, String dni) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionPolice.getConnection();
+		conexion = DatabaseConnectionPolice.getConnection();
 
 		try {
-			stmt = con.prepareStatement(UPDATE_DEFAULT_CRIMINAL);
+			sentenciaSQL = conexion.prepareStatement(UPDATE_DEFAULT_CRIMINAL);
 
-			stmt.setString(1, dni_policia);
-			stmt.setString(2, dni);
+			sentenciaSQL.setString(1, dni_policia);
+			sentenciaSQL.setString(2, dni);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -690,19 +850,19 @@ public class Controller implements InterfaceController {
 
 	@Override
 	public Criminal selectRandomCriminal() {
-		con = DatabaseConnectionAdmin.getConnection();
-		ResultSet rs = null;
-		Criminal c = null;
+		conexion = DatabaseConnectionAdmin.getConnection();
+		ResultSet resultSet = null;
+		Criminal criminal = null;
 
 		try {
-			stmt = con.prepareStatement(SELECT_RANDOM_CRIMINAL);
+			sentenciaSQL = conexion.prepareStatement(SELECT_RANDOM_CRIMINAL);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			if (rs.next()) {
-				c = new Criminal(rs.getString("dni"), rs.getString("nombre"), rs.getString("apellido"),
-						rs.getString("contrasena"), rs.getBlob("fotografia_persona"), rs.getString("descripcion"),
-						rs.getString("dni_policia"));
+			if (resultSet.next()) {
+				criminal = new Criminal(resultSet.getString("dni"), resultSet.getString("nombre"), resultSet.getString("apellido"),
+						resultSet.getString("contrasena"), resultSet.getBlob("fotografia_persona"), resultSet.getString("descripcion"),
+						resultSet.getString("dni_policia"));
 
 			}
 		} catch (SQLException e) {
@@ -710,16 +870,16 @@ public class Controller implements InterfaceController {
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
 			}
 		}
 
-		return c;
+		return criminal;
 	}
 
 	@Override
@@ -727,18 +887,18 @@ public class Controller implements InterfaceController {
 			String dni) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionPolice.getConnection();
+		conexion = DatabaseConnectionPolice.getConnection();
 
 		try {
-			stmt = con.prepareStatement(UPDATE_PEOPLE);
+			sentenciaSQL = conexion.prepareStatement(UPDATE_PEOPLE);
 
-			stmt.setString(1, nombre);
-			stmt.setString(2, apellido);
-			stmt.setString(3, contrasena);
-			stmt.setBlob(4, fotografia_persona);
-			stmt.setString(5, dni);
+			sentenciaSQL.setString(1, nombre);
+			sentenciaSQL.setString(2, apellido);
+			sentenciaSQL.setString(3, contrasena);
+			sentenciaSQL.setBlob(4, fotografia_persona);
+			sentenciaSQL.setString(5, dni);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -753,15 +913,15 @@ public class Controller implements InterfaceController {
 	public boolean updatePoliceman(String rango, String dni) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionPolice.getConnection();
+		conexion = DatabaseConnectionPolice.getConnection();
 
 		try {
-			stmt = con.prepareStatement(UPDATE_POLICEMAN);
+			sentenciaSQL = conexion.prepareStatement(UPDATE_POLICEMAN);
 
-			stmt.setString(1, rango);
-			stmt.setString(2, dni);
+			sentenciaSQL.setString(1, rango);
+			sentenciaSQL.setString(2, dni);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -774,41 +934,41 @@ public class Controller implements InterfaceController {
 
 	@Override
 	public News returnNews(String titulo) {
-		ResultSet rs = null;
-		News n = null;
+		ResultSet resultSet = null;
+		News noticia = null;
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(RETURN_NEWS);
+			sentenciaSQL = conexion.prepareStatement(RETURN_NEWS);
 
 			// Cargamos los parámetros
-			stmt.setString(1, titulo);
+			sentenciaSQL.setString(1, titulo);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			if (rs.next()) {
-				n = new News();
-				n.setId_noticia(rs.getInt("id_noticia"));
-				n.setFoto_noticia(rs.getBlob("fotografia_noticia"));
-				n.setTitulo(rs.getString("Titulo"));
-				n.setDescripcion(rs.getString("descripcion"));
-				n.setDni_administrador(rs.getString("dni"));
+			if (resultSet.next()) {
+				noticia = new News();
+				noticia.setId_noticia(resultSet.getInt("id_noticia"));
+				noticia.setFoto_noticia(resultSet.getBlob("fotografia_noticia"));
+				noticia.setTitulo(resultSet.getString("Titulo"));
+				noticia.setDescripcion(resultSet.getString("descripcion"));
+				noticia.setDni_administrador(resultSet.getString("dni"));
 			}
 		} catch (SQLException e) {
 			System.out.println("Error de SQL");
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
 			}
 		}
-		return n;
+		return noticia;
 
 	}
 
@@ -816,14 +976,14 @@ public class Controller implements InterfaceController {
 	public boolean deletePoliceman2(String dni) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(DELETE_POLICEMAN2);
+			sentenciaSQL = conexion.prepareStatement(DELETE_POLICEMAN2);
 
-			stmt.setString(1, dni);
+			sentenciaSQL.setString(1, dni);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -838,14 +998,14 @@ public class Controller implements InterfaceController {
 	public boolean deleteCriminal(String dni) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(DELETE_CRIMINAL);
+			sentenciaSQL = conexion.prepareStatement(DELETE_CRIMINAL);
 
-			stmt.setString(1, dni);
+			sentenciaSQL.setString(1, dni);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -860,14 +1020,14 @@ public class Controller implements InterfaceController {
 	public boolean deleteNew(int id) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(DELETE_NEW);
+			sentenciaSQL = conexion.prepareStatement(DELETE_NEW);
 
-			stmt.setInt(1, id);
+			sentenciaSQL.setInt(1, id);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -880,24 +1040,24 @@ public class Controller implements InterfaceController {
 
 	@Override
 	public Arsenal returnMaxWeapon() {
-		ResultSet rs = null;
-		Arsenal a = null;
+		ResultSet resultSet = null;
+		Arsenal arsenal = null;
 
 		// Abrimos la conexión
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(RETURN_MAX_WEAPON);
+			sentenciaSQL = conexion.prepareStatement(RETURN_MAX_WEAPON);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			if (rs.next()) {
-				a = new Arsenal();
-				a.setId_arsenal(rs.getInt("id_arsenal"));
-				a.setFoto_arsenal(rs.getBlob("fotografia_arsenal"));
-				a.setNombre(rs.getString("nombre"));
-				a.setTipo(rs.getString("tipo"));
-				a.setDescripcion(rs.getString("descripcion"));
+			if (resultSet.next()) {
+				arsenal = new Arsenal();
+				arsenal.setId_arsenal(resultSet.getInt("id_arsenal"));
+				arsenal.setFoto_arsenal(resultSet.getBlob("fotografia_arsenal"));
+				arsenal.setNombre(resultSet.getString("nombre"));
+				arsenal.setTipo(resultSet.getString("tipo"));
+				arsenal.setDescripcion(resultSet.getString("descripcion"));
 
 			}
 		} catch (SQLException e) {
@@ -905,30 +1065,30 @@ public class Controller implements InterfaceController {
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
 			}
 		}
-		return a;
+		return arsenal;
 	}
 
 	@Override
 	public boolean insertCriminal(String dni, String descripcion, String dni_policia) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(INSERT_CRIMINAL);
-			stmt.setString(1, dni);
-			stmt.setString(2, descripcion);
-			stmt.setString(3, dni_policia);
+			sentenciaSQL = conexion.prepareStatement(INSERT_CRIMINAL);
+			sentenciaSQL.setString(1, dni);
+			sentenciaSQL.setString(2, descripcion);
+			sentenciaSQL.setString(3, dni_policia);
 
-			if (stmt.executeUpdate() == 1) {
+			if (sentenciaSQL.executeUpdate() == 1) {
 				cambios = true;
 			}
 		} catch (Exception e) {
@@ -942,17 +1102,17 @@ public class Controller implements InterfaceController {
 	public boolean insertNew(int id_noticia, Blob fotografia_noticia, String titulo, String descripcion, String dni) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(INSERT_NEW);
-			stmt.setInt(1, id_noticia);
-			stmt.setBlob(2, fotografia_noticia);
-			stmt.setString(3, titulo);
-			stmt.setString(4, descripcion);
-			stmt.setString(5, dni);
+			sentenciaSQL = conexion.prepareStatement(INSERT_NEW);
+			sentenciaSQL.setInt(1, id_noticia);
+			sentenciaSQL.setBlob(2, fotografia_noticia);
+			sentenciaSQL.setString(3, titulo);
+			sentenciaSQL.setString(4, descripcion);
+			sentenciaSQL.setString(5, dni);
 
-			if (stmt.executeUpdate() == 1) {
+			if (sentenciaSQL.executeUpdate() == 1) {
 				cambios = true;
 			}
 		} catch (Exception e) {
@@ -964,25 +1124,24 @@ public class Controller implements InterfaceController {
 
 	@Override
 	public News returnMaxNews() {
-		ResultSet rs = null;
-		News n = null;
+		ResultSet resultSet = null;
+		News noticia = null;
 
 		// Abrimos la conexión
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(RETURN_MAX_NEW);
+			sentenciaSQL = conexion.prepareStatement(RETURN_MAX_NEW);
 
-			rs = stmt.executeQuery();
+			resultSet = sentenciaSQL.executeQuery();
 
-			if (rs.next()) {
-				n = new News();
-				n.setId_noticia(rs.getInt("id_noticia"));
-				;
-				n.setFoto_noticia(rs.getBlob("fotografia_noticia"));
-				n.setTitulo(rs.getString("titulo"));
-				n.setDescripcion(rs.getString("descripcion"));
-				n.setDni_administrador(rs.getString("dni"));
+			if (resultSet.next()) {
+				noticia = new News();
+				noticia.setId_noticia(resultSet.getInt("id_noticia"));
+				noticia.setFoto_noticia(resultSet.getBlob("fotografia_noticia"));
+				noticia.setTitulo(resultSet.getString("titulo"));
+				noticia.setDescripcion(resultSet.getString("descripcion"));
+				noticia.setDni_administrador(resultSet.getString("dni"));
 
 			}
 		} catch (SQLException e) {
@@ -990,32 +1149,32 @@ public class Controller implements InterfaceController {
 			e.printStackTrace();
 		} finally {
 			// Cerramos ResultSet
-			if (rs != null) {
+			if (resultSet != null) {
 				try {
-					rs.close();
+					resultSet.close();
 				} catch (SQLException ex) {
 					System.out.println("Error en cierre del ResultSet");
 				}
 			}
 		}
-		return n;
+		return noticia;
 	}
 
 	@Override
 	public boolean updateNew(Blob fotografia_noticia, String titulo, String descripcion, String tituloAntiguo) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 
 		try {
-			stmt = con.prepareStatement(UPDATE_NEW);
+			sentenciaSQL = conexion.prepareStatement(UPDATE_NEW);
 
-			stmt.setBlob(1, fotografia_noticia);
-			stmt.setString(2, titulo);
-			stmt.setString(3, descripcion);
-			stmt.setString(4, tituloAntiguo);
+			sentenciaSQL.setBlob(1, fotografia_noticia);
+			sentenciaSQL.setString(2, titulo);
+			sentenciaSQL.setString(3, descripcion);
+			sentenciaSQL.setString(4, tituloAntiguo);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -1032,18 +1191,18 @@ public class Controller implements InterfaceController {
 			int id_arsenal) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionPolice.getConnection();
+		conexion = DatabaseConnectionPolice.getConnection();
 
 		try {
-			stmt = con.prepareStatement(UPDATE_ARSENAL);
+			sentenciaSQL = conexion.prepareStatement(UPDATE_ARSENAL);
 
-			stmt.setBlob(1, fotografia_arsenal);
-			stmt.setString(2, nombre);
-			stmt.setString(3, tipo);
-			stmt.setString(4, descripcion);
-			stmt.setInt(5, id_arsenal);
+			sentenciaSQL.setBlob(1, fotografia_arsenal);
+			sentenciaSQL.setString(2, nombre);
+			sentenciaSQL.setString(3, tipo);
+			sentenciaSQL.setString(4, descripcion);
+			sentenciaSQL.setInt(5, id_arsenal);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -1058,15 +1217,15 @@ public class Controller implements InterfaceController {
 	public boolean updateCriminal(String descripcion, String dni) {
 		boolean cambios = false;
 
-		con = DatabaseConnectionPolice.getConnection();
+		conexion = DatabaseConnectionPolice.getConnection();
 
 		try {
-			stmt = con.prepareStatement(UPDATE_CRIMINAL);
+			sentenciaSQL = conexion.prepareStatement(UPDATE_CRIMINAL);
 
-			stmt.setString(1, descripcion);
-			stmt.setString(2, dni);
+			sentenciaSQL.setString(1, descripcion);
+			sentenciaSQL.setString(2, dni);
 
-			if (stmt.executeUpdate() == 1)
+			if (sentenciaSQL.executeUpdate() == 1)
 				cambios = true;
 
 		} catch (SQLException e1) {
@@ -1080,7 +1239,7 @@ public class Controller implements InterfaceController {
 	@Override
 	public News selectingNoticia(int id) {
 
-		con = DatabaseConnectionAdmin.getConnection();
+		conexion = DatabaseConnectionAdmin.getConnection();
 		
 		ResultSet resultSet = null;
 		
@@ -1088,7 +1247,7 @@ public class Controller implements InterfaceController {
 
 		try {
 			// Llamamos a un procedimiento con cursores.
-			CallableStatement llamadaProcedimiento = (CallableStatement) this.con.prepareCall(SELECTING_NEWS);
+			CallableStatement llamadaProcedimiento = (CallableStatement) this.conexion.prepareCall(SELECTING_NEWS);
 			
 			llamadaProcedimiento.setInt(1, id);
 			

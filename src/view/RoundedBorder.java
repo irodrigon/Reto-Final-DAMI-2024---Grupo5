@@ -24,7 +24,7 @@ public class RoundedBorder implements Border{
 	  }
 
 	  @Override
-	  public Insets getBorderInsets(Component c) {
+	  public Insets getBorderInsets(Component component) {
 	    return new Insets(this.radius,this.radius,this.radius,this.radius);
 	  }
 
@@ -34,8 +34,8 @@ public class RoundedBorder implements Border{
 	  }
 
 	  @Override
-	  public void paintBorder(Component c,Graphics g,int x,int y,int width,int height) {
-	    Graphics2D graphics2=(Graphics2D)g;
+	  public void paintBorder(Component component,Graphics graphics,int x,int y,int width,int height) {
+	    Graphics2D graphics2=(Graphics2D)graphics;
 	    graphics2.setColor(favColor);
 	    graphics2.setStroke(new BasicStroke(3.0f));
 	    graphics2.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON));

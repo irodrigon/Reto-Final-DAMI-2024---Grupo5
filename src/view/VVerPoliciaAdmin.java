@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,20 +31,19 @@ public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JLabel lblFoto;
 	private Blob aBlob;
-	private Controller c;
-	private Policia p;
+	private Controller controlador;
+	private Policia policia;
 	private String dni;
 	private String dni2;
 	private JButton btnAtras;
 
-	public VVerPoliciaAdmin(Controller c, String dni, String dni2) {
+	public VVerPoliciaAdmin(Controller controlador, String dni, String dni2) {
 		setResizable(false);
-		this.c = c;
+		this.controlador = controlador;
 		this.dni = dni;
 		this.dni2 = dni2;
-		this.p = c.returnPolicemanById(dni2);
+		this.policia = controlador.returnPolicemanById(this.dni2);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VVerPoliciaAdmin.class.getResource("/fotos/pixelart2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
@@ -59,31 +58,31 @@ public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblDNI = new JLabel("DNI: "+ p.getDni());
+		JLabel lblDNI = new JLabel("DNI: "+ policia.getDni());
 		lblDNI.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
 		lblDNI.setForeground(new Color(255, 255, 255));
 		lblDNI.setBounds(48, 50, 529, 49);
 		contentPane.add(lblDNI);
 
-		JLabel lblNombre = new JLabel("Nombre: "+p.getNombre());
+		JLabel lblNombre = new JLabel("Nombre: "+ policia.getNombre());
 		lblNombre.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
 		lblNombre.setForeground(new Color(255, 255, 255));
 		lblNombre.setBounds(48, 93, 484, 43);
 		contentPane.add(lblNombre);
 
-		JLabel lblApellido = new JLabel("Apellido: "+p.getApellido());
+		JLabel lblApellido = new JLabel("Apellido: "+ policia.getApellido());
 		lblApellido.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
 		lblApellido.setForeground(new Color(255, 255, 255));
 		lblApellido.setBounds(48, 136, 529, 43);
 		contentPane.add(lblApellido);
 
-		JLabel lblContrasena = new JLabel("Contraseña: "+p.getPassword());
+		JLabel lblContrasena = new JLabel("Contraseña: "+ policia.getPassword());
 		lblContrasena.setForeground(new Color(255, 255, 255));
 		lblContrasena.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
 		lblContrasena.setBounds(48, 174, 529, 43);
 		contentPane.add(lblContrasena);
 
-		JLabel lblRango = new JLabel("Rango: "+p.getRango());
+		JLabel lblRango = new JLabel("Rango: "+ policia.getRango());
 		lblRango.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
 		lblRango.setForeground(new Color(255, 255, 255));
 		lblRango.setBounds(48, 224, 376, 40);
@@ -93,7 +92,7 @@ public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 		lblFoto.setBounds(922, 50, 253, 312);
 		contentPane.add(lblFoto);
 //
-		aBlob = p.getFotografia();
+		aBlob = policia.getFotografia();
 
 		try {
 			InputStream is;
@@ -110,10 +109,10 @@ public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VVerPoliciaAdmin.class.getResource("/fotos/fondoPoliciaFinal2.jpg")));
-		lblNewLabel.setBounds(0, 0, 1266, 696);
-		contentPane.add(lblNewLabel);
+		JLabel lblFondo = new JLabel("");
+		lblFondo.setIcon(new ImageIcon(VVerPoliciaAdmin.class.getResource("/fotos/fondoPoliciaFinal2.jpg")));
+		lblFondo.setBounds(0, 0, 1266, 696);
+		contentPane.add(lblFondo);
 		
 		btnAtras.addActionListener(this);
 
@@ -125,7 +124,7 @@ public class VVerPoliciaAdmin extends JFrame implements ActionListener {
 		Object o = e.getSource();
 		
 		if(o == btnAtras) {
-			VManagement vm = new VManagement(c, dni);
+			VManagement vm = new VManagement(controlador, dni);
 			vm.setVisible(true);
 			this.dispose();
 		}

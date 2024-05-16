@@ -10,29 +10,23 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.ListIterator;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
 import controller.Controller;
 import model.Arsenal;
 import model.Elige;
-import model.News;
-import model.Policia;
 import java.awt.Color;
 
 public class VVerArsenal extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Controller c;
+	private Controller controlador;
 	private String dni;
 	private ArrayList<Arsenal> weapons;
 	private ArrayList<Elige> elige;
@@ -45,19 +39,18 @@ public class VVerArsenal extends JFrame implements ActionListener{
 	private JButton btnAnterior;
 	private JButton btnSiguiente;
 	private JButton btnAtras;
-	private ListIterator<Arsenal> it;
 	private Blob aBlob;
 	private String pass;
-	private JLabel lblNewLabel;
+	private JLabel lblFondo;
 	private int index;
 
-	public VVerArsenal(Controller c, String dni,String pass) {
+	public VVerArsenal(Controller controlador, String dni,String pass) {
 		setResizable(false);
-		this.c = c;
+		this.controlador = controlador;
 		this.dni = dni;
 		this.pass = pass;
-		this.weapons = c.showArsenal();
-		this.elige = c.weaponsAssigned(dni);
+		this.weapons = controlador.showArsenal();
+		this.elige = controlador.weaponsAssigned(dni);
 		weaponsAssigned = new ArrayList<Arsenal>();
 		for(Arsenal w : weapons) {
 			for(Elige el : elige) {
@@ -126,12 +119,11 @@ public class VVerArsenal extends JFrame implements ActionListener{
 			imag = ImageIO.read(is);
 			lblFoto.setIcon(new ImageIcon(new ImageIcon(imag).getImage().getScaledInstance(lblFoto.getWidth(),lblFoto.getHeight(), Image.SCALE_DEFAULT)));
 			
-			lblNewLabel = new JLabel("\r\n");
-			lblNewLabel.setIcon(new ImageIcon(VVerArsenal.class.getResource("/fotos/fondoArsenal.jpg")));
-			lblNewLabel.setBounds(0, -22, 1280, 720);
-			contentPane.add(lblNewLabel);
+			lblFondo = new JLabel("\r\n");
+			lblFondo.setIcon(new ImageIcon(VVerArsenal.class.getResource("/fotos/fondoArsenal.jpg")));
+			lblFondo.setBounds(0, -22, 1280, 720);
+			contentPane.add(lblFondo);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -153,6 +145,7 @@ public class VVerArsenal extends JFrame implements ActionListener{
 			Arsenal a = new Arsenal();
 			Object o = e.getSource();
 			/*
+			 * Antiguo código intentando usar el iterador de lista que no funcionó.
 			if(it.nextIndex() >= weaponsAssigned.size() && !it.hasNext()){
 				btnSiguiente.setEnabled(false);
 			}else {
@@ -273,7 +266,7 @@ public class VVerArsenal extends JFrame implements ActionListener{
 					btnAnterior.setEnabled(false);
 				}
 			}else if(o == btnAtras){
-				VPolicias vP = new VPolicias(c,dni,pass);
+				VPolicias vP = new VPolicias(controlador,dni,pass);
 				vP.setVisible(true);
 				this.dispose();
 			}

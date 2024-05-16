@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -12,9 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.ListIterator;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,8 +18,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-
 import controller.Controller;
 import model.News;
 
@@ -42,18 +36,18 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 	private String dni;
 	private int id;
 
-	public VVerNoticiaAdmin(Controller c, int id) {
+	public VVerNoticiaAdmin(Controller controlador, int id) {
 		setResizable(false);
 		this.id = id;
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
-		noticia = c.selectingNoticia(this.id);
 		this.controlador = controlador;
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VNoticias.class.getResource("/fotos/pixelart2.png")));
+		noticia = controlador.selectingNoticia(this.id);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setBounds(530, 50, 1280, 720);
 
 		contentPane = new JPanel();
-		contentPane.setBorder(new RoundedBorder(5));
+		contentPane.setBorder(new RoundedBorder(20));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -106,19 +100,20 @@ public class VVerNoticiaAdmin extends JFrame implements ActionListener {
 		lblTitulo.setText(this.noticia.getTitulo());
 		lblDescripcion.setText(this.noticia.getDescripcion());
 
-		JLabel lblNewLabel = new JLabel("");
+		JLabel lblFondo = new JLabel("");
 
-		lblNewLabel.setIcon(new ImageIcon(new ImageIcon(VNoticias.class.getResource("/fotos/fondoNoticiasFinal.png"))
+		lblFondo.setIcon(new ImageIcon(new ImageIcon(VNoticias.class.getResource("/fotos/fondoNoticiasFinal.png"))
 				.getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT)));
-		lblNewLabel.setBounds(0, -70, 1369, 853);
+		lblFondo.setBounds(0, -70, 1369, 853);
 
-		contentPane.add(lblNewLabel);
+		contentPane.add(lblFondo);
 		btnAtras.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-Object o = e.getSource();
+		
+		Object o = e.getSource();
 		
 		if(o == btnAtras) {
 			VManagement vm = new VManagement(controlador, dni);

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 //Usaremos esta clase para conectarnos al usuario noticias que ya hemos creado en la base de datos MysQL.
 public class DatabaseConnectionNews{
 
-	private static Connection con = null;
+	private static Connection connection = null;
 
 	static {
 		String url = "jdbc:mysql://localhost:3306/policiasycriminales?serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true&useSSL=false";
@@ -14,7 +14,7 @@ public class DatabaseConnectionNews{
 		String pass = "news";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(url, user, pass);
+			connection = DriverManager.getConnection(url, user, pass);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -22,10 +22,10 @@ public class DatabaseConnectionNews{
 	
 	/*
 	* 	El método devuelve una conexión a la base de datos como usuario de las noticias.
-	* 	@return objeto Connection con
+	* 	@return Connection connection
 	*/
 	
 	public static Connection getConnection() {
-		return con;
+		return connection;
 	}
 }

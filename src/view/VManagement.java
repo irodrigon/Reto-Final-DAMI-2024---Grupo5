@@ -59,8 +59,8 @@ public class VManagement extends JFrame implements ActionListener {
 	private JButton btnMdifySuspects;
 	private JButton btnEliminarCriminal;
 	private JButton btnBackCriminales;
-	private JLabel lblNewLabel3;
-	private JLabel lblChanges_3;
+	private JLabel lblTituloCriminales;
+	private JLabel lblChangesCriminales;
 	private DefaultTableModel modelCriminales;
 	private JTable tableCriminales;
 	private JScrollPane scrollCriminales;
@@ -71,12 +71,12 @@ public class VManagement extends JFrame implements ActionListener {
 	private JButton btnEliminarNew;
 	private JButton btnBackNoticias;
 	private JButton btnCreateNew;
-	private JLabel lblChanges_4;
+	private JLabel lblChangesNoticias;
 	private JButton btnSeeProfileNoticia;
 	private DefaultTableModel modelNoticias;
 	private JTable tableNoticias;
 	private JScrollPane scrollNoticias;
-	private JLabel lblNewLabel4;
+	private JLabel lblTituloNoticias;
 	private JButton btnSeeProfileArsenal;
 	private JLabel lblTituloArsenal;
 	private JLabel lblFondoArsenal;
@@ -330,17 +330,17 @@ public class VManagement extends JFrame implements ActionListener {
 		btnBackCriminales.setBounds(397, 716, 216, 23);
 		panelCriminales.add(btnBackCriminales);
 
-		lblNewLabel3 = new JLabel("Seleccione un perfil:", SwingConstants.CENTER);
-		lblNewLabel3.setForeground(new Color(0, 0, 0));
-		lblNewLabel3.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
-		lblNewLabel3.setBounds(155, 0, 625, 25);
-		panelCriminales.add(lblNewLabel3);
+		lblTituloCriminales = new JLabel("Seleccione un perfil:", SwingConstants.CENTER);
+		lblTituloCriminales.setForeground(new Color(0, 0, 0));
+		lblTituloCriminales.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblTituloCriminales.setBounds(155, 0, 625, 25);
+		panelCriminales.add(lblTituloCriminales);
 
-		lblChanges_3 = new JLabel("");
-		lblChanges_3.setForeground(Color.BLACK);
-		lblChanges_3.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
-		lblChanges_3.setBounds(269, 896, 464, 37);
-		panelCriminales.add(lblChanges_3);
+		lblChangesCriminales = new JLabel("");
+		lblChangesCriminales.setForeground(Color.BLACK);
+		lblChangesCriminales.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		lblChangesCriminales.setBounds(269, 896, 464, 37);
+		panelCriminales.add(lblChangesCriminales);
 
 		lblFondoCriminales = new JLabel("");
 		lblFondoCriminales.setIcon(new ImageIcon(VManagement.class.getResource("/fotos/fondoNoticiasFinal.png")));
@@ -413,17 +413,17 @@ public class VManagement extends JFrame implements ActionListener {
 		btnBackNoticias.setBounds(397, 716, 216, 23);
 		panelNoticias.add(btnBackNoticias);
 
-		lblNewLabel4 = new JLabel("Seleccione una noticia:", SwingConstants.CENTER);
-		lblNewLabel4.setForeground(new Color(0, 0, 0));
-		lblNewLabel4.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
-		lblNewLabel4.setBounds(155, 0, 625, 25);
-		panelNoticias.add(lblNewLabel4);
+		lblTituloNoticias= new JLabel("Seleccione una noticia:", SwingConstants.CENTER);
+		lblTituloNoticias.setForeground(new Color(0, 0, 0));
+		lblTituloNoticias.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+		lblTituloNoticias.setBounds(155, 0, 625, 25);
+		panelNoticias.add(lblTituloNoticias);
 
-		lblChanges_4 = new JLabel("");
-		lblChanges_4.setForeground(Color.BLACK);
-		lblChanges_4.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
-		lblChanges_4.setBounds(269, 896, 464, 37);
-		panelNoticias.add(lblChanges_4);
+		lblChangesNoticias = new JLabel("");
+		lblChangesNoticias.setForeground(Color.BLACK);
+		lblChangesNoticias.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 17));
+		lblChangesNoticias.setBounds(269, 896, 464, 37);
+		panelNoticias.add(lblChangesNoticias);
 
 		lblFondoNoticias = new JLabel("");
 		lblFondoNoticias.setIcon(new ImageIcon(VManagement.class.getResource("/fotos/fondoNoticiasFinal.png")));
@@ -545,7 +545,7 @@ public class VManagement extends JFrame implements ActionListener {
 			} else {
 				Arsenal arsenal = new Arsenal();
 				arsenal = controlador.returnWeaponByName((String) tableArsenal.getValueAt(tableArsenal.getSelectedRow(), 0));
-				VVerArsenalAdmin vvaa = new VVerArsenalAdmin(controlador, arsenal.getNombre(), dni, panelArsenal);
+				VVerArsenalAdmin vvaa = new VVerArsenalAdmin(controlador, arsenal.getNombre(), dni);
 				vvaa.setVisible(true);
 				this.dispose();
 			}

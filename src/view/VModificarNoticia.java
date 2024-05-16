@@ -1,18 +1,14 @@
 package view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -20,18 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.mysql.cj.jdbc.Blob;
-
 import controller.Controller;
-import model.News;
-import model.Policia;
 import javax.swing.JTextArea;
 
 public class VModificarNoticia extends JFrame implements ActionListener {
@@ -39,28 +28,26 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtTitulo;
-	private JButton btnNewButton;
+	private JButton btnUpload;
 	private JButton btnCrear;
 	private JButton btnCancelar;
-	private Controller c;
+	private Controller controlador;
 	private String dni;
 	private JFileChooser fileChooser;
 	private FileFilter filtro;
 	private File file;
 	private JLabel lblFiles;
-	private News n;
 	private JTextArea textDescripcion;
 	private String titulo;
 
 	// Ventana para modificar perfil
 
-	public VModificarNoticia(Controller c, String dni, String titulo) {
+	public VModificarNoticia(Controller controlador, String dni, String titulo) {
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(VModificarPerfilPolicia.class.getResource("/fotos/pixelart2.png")));
-		this.c = c;
+		this.controlador = controlador;
 		this.dni = dni;
 		this.titulo = titulo;
-		this.n = c.returnNews(titulo);
 		// Ventana para modificar perfil
 
 		setResizable(false);
@@ -68,28 +55,28 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new RoundedBorder(20));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Modificar noticia:");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(469, 32, 262, 81);
-		lblNewLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
-		contentPane.add(lblNewLabel);
+		JLabel lblTitulo = new JLabel("Modificar noticia:");
+		lblTitulo.setForeground(new Color(255, 255, 255));
+		lblTitulo.setBounds(469, 32, 262, 81);
+		lblTitulo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
+		contentPane.add(lblTitulo);
 
-		JLabel lblNewLabel_1 = new JLabel("Título:");
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setBounds(469, 136, 84, 52);
-		lblNewLabel_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		contentPane.add(lblNewLabel_1);
+		JLabel lblTitle = new JLabel("Título:");
+		lblTitle.setForeground(new Color(255, 255, 255));
+		lblTitle.setBounds(469, 136, 84, 52);
+		lblTitle.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		contentPane.add(lblTitle);
 
 
-		btnNewButton = new JButton("Subir Foto");
-		btnNewButton.setBounds(552, 484, 161, 52);
-		btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		contentPane.add(btnNewButton);
+		btnUpload = new JButton("Subir Foto");
+		btnUpload.setBounds(552, 484, 161, 52);
+		btnUpload.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		contentPane.add(btnUpload);
 
 		btnCrear = new JButton("Modificar");
 		btnCrear.setBounds(340, 484, 161, 52);
@@ -108,11 +95,11 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		txtTitulo.setColumns(10);
 
 
-		JLabel lblNewLabel_1_2 = new JLabel("Descripción:");
-		lblNewLabel_1_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblNewLabel_1_2.setBounds(469, 231, 109, 52);
-		contentPane.add(lblNewLabel_1_2);
+		JLabel lblDescripcion = new JLabel("Descripción:");
+		lblDescripcion.setForeground(new Color(255, 255, 255));
+		lblDescripcion.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblDescripcion.setBounds(469, 231, 109, 52);
+		contentPane.add(lblDescripcion);
 
 
 		lblFiles = new JLabel();
@@ -127,19 +114,19 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		contentPane.add(textDescripcion);
 
 
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
-		lblNewLabel_2.setForeground(new Color(0, 0, 0));
-		lblNewLabel_2.setIcon(new ImageIcon(VModificarPerfilPolicia.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
-		lblNewLabel_2.setBounds(-14, -45, 1290, 893);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblFondo = new JLabel("");
+		lblFondo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
+		lblFondo.setForeground(new Color(0, 0, 0));
+		lblFondo.setIcon(new ImageIcon(VModificarPerfilPolicia.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
+		lblFondo.setBounds(-14, -45, 1290, 893);
+		contentPane.add(lblFondo);
 
 		JLabel label = new JLabel("New label");
 		label.setBounds(590, 592, 46, 14);
 		contentPane.add(label);
 
 		btnCancelar.addActionListener(this);
-		btnNewButton.addActionListener(this);
+		btnUpload.addActionListener(this);
 		btnCrear.addActionListener(this);
 
 	};
@@ -149,11 +136,11 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 
 		if (e.getSource().equals(btnCancelar)) {
-			VManagement vP = new VManagement(c, dni);
+			VManagement vP = new VManagement(controlador, dni);
 			vP.setVisible(true);
 			this.dispose();
 		}
-		if (e.getSource().equals(btnNewButton)) {
+		if (e.getSource().equals(btnUpload)) {
 			fileChooser = new JFileChooser();
 			fileChooser.setAcceptAllFileFilterUsed(false);
 			filtro = new FileNameExtensionFilter("Imágenes jpg", "jpg");
@@ -194,7 +181,7 @@ public class VModificarNoticia extends JFrame implements ActionListener {
 			}
 			int option = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea modificar la noticia?");
 			if (option == JOptionPane.YES_OPTION) {
-				c.updateNew(blob, txtTitulo.getText(), textDescripcion.getText(),titulo);
+				controlador.updateNew(blob, txtTitulo.getText(), textDescripcion.getText(),titulo);
 				JOptionPane.showMessageDialog(this, "Noticia modificada correctamente", "Mensaje para el administrador",
 						JOptionPane.INFORMATION_MESSAGE);
 			}

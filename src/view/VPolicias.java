@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
 import model.Policia;
@@ -20,7 +19,6 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -28,8 +26,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import model.Criminal;
-import model.News;
-import model.Persona;
+
 
 public class VPolicias extends JFrame implements ActionListener {
 
@@ -257,7 +254,7 @@ public class VPolicias extends JFrame implements ActionListener {
 			VModificarPerfilPolicia vmpp = new VModificarPerfilPolicia(c, dni, pass);
 			vmpp.setVisible(true);
 			this.dispose();
-		} else if (o == btnElegirArsenal) {
+		} else if (e.getSource().equals(btnElegirArsenal)) {
 			dni = p.getDni();
 			VElegirArmas vea = new VElegirArmas(c, dni, pass);
 			vea.setVisible(true);
@@ -275,7 +272,10 @@ public class VPolicias extends JFrame implements ActionListener {
 			lblDniC.setText(crim.getDni());
 			lblNombreC.setText(crim.getNombre());
 			lblApellidoC.setText(crim.getApellido());
+			//El Blob almacena los datos de la fotgrafia en bytes.
 			aBlob = crim.getFotografia();
+			
+			//Utilizamos el código que sigue para convertir los bytes en fotografía en formato .jpg .png, etc... 
 			try {
 				InputStream is;
 				is = aBlob.getBinaryStream(1, aBlob.length());

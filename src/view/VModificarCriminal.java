@@ -5,34 +5,26 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.mysql.cj.jdbc.Blob;
-
 import controller.Controller;
 import model.Criminal;
-import model.Policia;
+
 
 public class VModificarCriminal extends JFrame implements ActionListener {
 	public VModificarCriminal() {
@@ -40,9 +32,9 @@ public class VModificarCriminal extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtDhrhdt;
-	private JTextField txtjh;
-	private JButton btnNewButton;
+	private JTextField txtNombre;
+	private JTextField txtApellido;
+	private JButton btnUpload;
 	private JButton btnCrear;
 	private JButton btnCancelar;
 	private Controller c;
@@ -73,29 +65,29 @@ public class VModificarCriminal extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Modifica el perfil:");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(469, 32, 262, 81);
-		lblNewLabel.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
-		contentPane.add(lblNewLabel);
+		JLabel lblTitulo= new JLabel("Modifica el perfil:");
+		lblTitulo.setForeground(new Color(255, 255, 255));
+		lblTitulo.setBounds(469, 32, 262, 81);
+		lblTitulo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 33));
+		contentPane.add(lblTitulo);
 
-		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setBounds(469, 136, 84, 52);
-		lblNewLabel_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		contentPane.add(lblNewLabel_1);
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setForeground(new Color(255, 255, 255));
+		lblNombre.setBounds(469, 136, 84, 52);
+		lblNombre.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		contentPane.add(lblNombre);
 
-		JLabel lblNewLabel_1_1 = new JLabel("Descripción:");
-		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_1.setBounds(350, 323, 120, 52);
-		lblNewLabel_1_1.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		contentPane.add(lblNewLabel_1_1);
+		JLabel lblDescripcion = new JLabel("Descripción:");
+		lblDescripcion.setForeground(new Color(255, 255, 255));
+		lblDescripcion.setBounds(350, 323, 120, 52);
+		lblDescripcion.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		contentPane.add(lblDescripcion);
 
 
-		btnNewButton = new JButton("Subir Foto");
-		btnNewButton.setBounds(552, 484, 161, 52);
-		btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		contentPane.add(btnNewButton);
+		btnUpload = new JButton("Subir Foto");
+		btnUpload.setBounds(552, 484, 161, 52);
+		btnUpload.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		contentPane.add(btnUpload);
 
 		btnCrear = new JButton("Modificar");
 		btnCrear.setBounds(340, 484, 161, 52);
@@ -108,23 +100,23 @@ public class VModificarCriminal extends JFrame implements ActionListener {
 		btnCancelar.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
 		contentPane.add(btnCancelar);
 
-		txtDhrhdt = new JTextField();
-		txtDhrhdt.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		txtDhrhdt.setBounds(563, 147, 136, 31);
-		contentPane.add(txtDhrhdt);
-		txtDhrhdt.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		txtNombre.setBounds(563, 147, 136, 31);
+		contentPane.add(txtNombre);
+		txtNombre.setColumns(10);
 
-		JLabel lblNewLabel_1_2 = new JLabel("Apellido:");
-		lblNewLabel_1_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblNewLabel_1_2.setBounds(469, 231, 84, 52);
-		contentPane.add(lblNewLabel_1_2);
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setForeground(new Color(255, 255, 255));
+		lblApellido.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblApellido.setBounds(469, 231, 84, 52);
+		contentPane.add(lblApellido);
 
-		txtjh = new JTextField();
-		txtjh.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		txtjh.setColumns(10);
-		txtjh.setBounds(563, 242, 136, 31);
-		contentPane.add(txtjh);
+		txtApellido = new JTextField();
+		txtApellido.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		txtApellido.setColumns(10);
+		txtApellido.setBounds(563, 242, 136, 31);
+		contentPane.add(txtApellido);
 		
 		lblFiles = new JLabel();
 		lblFiles.setForeground(new Color(255, 255, 255));
@@ -138,18 +130,18 @@ public class VModificarCriminal extends JFrame implements ActionListener {
 		contentPane.add(textArea);
 	
 		
-		JLabel lblNewLabel_1_3 = new JLabel("DNI: " + this.dni);
-		lblNewLabel_1_3.setForeground(Color.WHITE);
-		lblNewLabel_1_3.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
-		lblNewLabel_1_3.setBounds(469, 88, 464, 52);
-		contentPane.add(lblNewLabel_1_3);
+		JLabel lblDni = new JLabel("DNI: " + this.dni);
+		lblDni.setForeground(Color.WHITE);
+		lblDni.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 19));
+		lblDni.setBounds(469, 88, 464, 52);
+		contentPane.add(lblDni);
 
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
-		lblNewLabel_2.setForeground(new Color(0, 0, 0));
-		lblNewLabel_2.setIcon(new ImageIcon(VModificarPerfilPolicia.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
-		lblNewLabel_2.setBounds(-14, -45, 1290, 893);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblFondo = new JLabel("");
+		lblFondo.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 10));
+		lblFondo.setForeground(new Color(0, 0, 0));
+		lblFondo.setIcon(new ImageIcon(VModificarPerfilPolicia.class.getResource("/fotos/fondoPoliciaFinal.jpg")));
+		lblFondo.setBounds(-14, -45, 1290, 893);
+		contentPane.add(lblFondo);
 		
 		JLabel label = new JLabel("New label");
 		label.setBounds(590, 592, 46, 14);
@@ -157,7 +149,7 @@ public class VModificarCriminal extends JFrame implements ActionListener {
 
 		
 		btnCancelar.addActionListener(this);
-		btnNewButton.addActionListener(this);
+		btnUpload.addActionListener(this);
 		btnCrear.addActionListener(this);
 
 	}
@@ -170,7 +162,7 @@ public class VModificarCriminal extends JFrame implements ActionListener {
 			VManagement vm = new VManagement(c,dni);
 			vm.setVisible(true);
 			this.dispose();
-		}if (e.getSource().equals(btnNewButton)) {
+		}if (e.getSource().equals(btnUpload)) {
 			fileChooser = new JFileChooser();
 			fileChooser.setAcceptAllFileFilterUsed(false);
 			filtro = new FileNameExtensionFilter("Imágenes jpg", "jpg");
@@ -191,7 +183,7 @@ public class VModificarCriminal extends JFrame implements ActionListener {
 		}else if (e.getSource().equals(btnCrear)&& lblFiles.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Por favor, selecciona un fotografía.", "Error",
 					JOptionPane.ERROR_MESSAGE);
-		}else if(e.getSource().equals(btnCrear) && txtDhrhdt.getText().equals("") && txtjh.getText().equals("")) {
+		}else if(e.getSource().equals(btnCrear) && txtNombre.getText().equals("") && txtApellido.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Introduce el nombre y el apellido.", "Error", JOptionPane.ERROR_MESSAGE);
 		
 		}else if(e.getSource().equals(btnCrear)) {
@@ -213,7 +205,7 @@ public class VModificarCriminal extends JFrame implements ActionListener {
 			int option = JOptionPane.showConfirmDialog(this,
 					"¿Está seguro de que desea modificar el perfil?");
 			if (option == JOptionPane.YES_OPTION) {
-			c.updatePeople(txtDhrhdt.getText(), txtjh.getText(),Integer.toString((int) (Math.random() * 10000)), blob, dni);
+			c.updatePeople(txtNombre.getText(), txtApellido.getText(),Integer.toString((int) (Math.random() * 10000)), blob, dni);
 			c.updateCriminal(textArea.getText(),crim.getDni());
 			JOptionPane.showMessageDialog(this, "Perfil modificado correctamente", "Mensaje para el aministrador", JOptionPane.INFORMATION_MESSAGE);
 			}
