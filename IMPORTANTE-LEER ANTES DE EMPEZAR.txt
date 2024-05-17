@@ -1,0 +1,7 @@
+Buenas tardes,
+
+Las cuatro carpetas de fotografías que adjunto en el archivo .zip hay que copiarlas en esta ruta de Windows:
+"C:\ProgramData\MySQL\MySQL Server 8.0\Uploads", para ello hay que habilitar la vista de los archivos ocultos de Windows.
+Si no se hace esto, es posible que no funcione nada, ya que las fotografías están subidas a la base de datos en SQL.
+
+Muchas gracias,
